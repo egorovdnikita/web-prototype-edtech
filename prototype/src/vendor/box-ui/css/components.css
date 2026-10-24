@@ -1,0 +1,324 @@
+/* Box UI React primitives.
+ * Every declaration below resolves through a Figma variable — there are no
+ * literal colours, radii, sizes or font sizes in this file. Change a mode on
+ * the element (or on <html>) and everything re-resolves.
+ *
+ * Controls read three tokens from the Figma "State" collection, which already
+ * composes Appearance × State × Theme × Accent/Status. `controls.css` maps the
+ * State modes onto :hover / :active / :disabled, so a control needs no
+ * per-state rules of its own — only `data-box-control` on the element.
+ */
+
+
+/* --- Text ---------------------------------------------------------------- */
+
+.box-text {
+  margin: 0;
+  color: var(--surface-base-content-strong);
+  font-family: var(--font-family-body);
+  font-weight: var(--type-font-weight-medium);
+  font-size: var(--type-body-m-font-size);
+  line-height: var(--type-body-m-line-height);
+  letter-spacing: var(--type-body-m-letter-spacing);
+}
+
+.box-text--display-l,
+.box-text--display-m,
+.box-text--display-s,
+.box-text--h1,
+.box-text--h2,
+.box-text--h3,
+.box-text--h4,
+.box-text--h5 {
+  font-family: var(--font-family-heading);
+  font-weight: var(--type-font-weight-semibold);
+}
+
+.box-text--display-l {
+  font-size: var(--type-display-l-font-size);
+  line-height: var(--type-display-l-line-height);
+  letter-spacing: var(--type-display-l-letter-spacing);
+}
+.box-text--display-m {
+  font-size: var(--type-display-m-font-size);
+  line-height: var(--type-display-m-line-height);
+  letter-spacing: var(--type-display-m-letter-spacing);
+}
+.box-text--display-s {
+  font-size: var(--type-display-s-font-size);
+  line-height: var(--type-display-s-line-height);
+  letter-spacing: var(--type-display-s-letter-spacing);
+}
+.box-text--h1 {
+  font-size: var(--type-h1-font-size);
+  line-height: var(--type-h1-line-height);
+  letter-spacing: var(--type-h1-letter-spacing);
+}
+.box-text--h2 {
+  font-size: var(--type-h2-font-size);
+  line-height: var(--type-h2-line-height);
+  letter-spacing: var(--type-h2-letter-spacing);
+}
+.box-text--h3 {
+  font-size: var(--type-h3-font-size);
+  line-height: var(--type-h3-line-height);
+  letter-spacing: var(--type-h3-letter-spacing);
+}
+.box-text--h4 {
+  font-size: var(--type-h4-font-size);
+  line-height: var(--type-h4-line-height);
+  letter-spacing: var(--type-h4-letter-spacing);
+}
+.box-text--h5 {
+  font-size: var(--type-h5-font-size);
+  line-height: var(--type-h5-line-height);
+  letter-spacing: var(--type-h5-letter-spacing);
+}
+.box-text--body-l {
+  font-size: var(--type-body-l-font-size);
+  line-height: var(--type-body-l-line-height);
+  letter-spacing: var(--type-body-l-letter-spacing);
+}
+.box-text--body-m {
+  font-size: var(--type-body-m-font-size);
+  line-height: var(--type-body-m-line-height);
+  letter-spacing: var(--type-body-m-letter-spacing);
+}
+.box-text--caption-l {
+  font-size: var(--type-caption-l-font-size);
+  line-height: var(--type-caption-l-line-height);
+  letter-spacing: var(--type-caption-l-letter-spacing);
+}
+.box-text--caption-m {
+  font-size: var(--type-caption-m-font-size);
+  line-height: var(--type-caption-m-line-height);
+  letter-spacing: var(--type-caption-m-letter-spacing);
+}
+
+.box-text--secondary {
+  color: var(--surface-base-content-muted);
+}
+.box-text--tertiary {
+  color: var(--surface-base-content-subtle);
+}
+.box-text--disabled {
+  color: var(--interaction-disabled-content);
+}
+.box-text--accent {
+  color: var(--accent-content-on-soft-default);
+}
+/* The sentiment comes from [data-status] on the element itself. */
+.box-text--status {
+  color: var(--status-content-on-surface-default);
+}
+
+/* --- Stack --------------------------------------------------------------- */
+
+.box-stack {
+  display: flex;
+  min-width: 0;
+}
+
+.box-stack--row {
+  flex-direction: row;
+}
+.box-stack--column {
+  flex-direction: column;
+}
+
+/* --- Surface / Card ------------------------------------------------------ */
+
+.box-card {
+  box-sizing: border-box;
+  background: var(--surface-base-fill-raised);
+  border: 1px solid var(--surface-base-border-default);
+  border-radius: var(--rounding-l);
+  color: var(--surface-base-content-strong);
+  padding: var(--spacing-m);
+}
+
+.box-card--flat {
+  background: var(--surface-base-fill-layer-subtle);
+  border-color: transparent;
+}
+.box-card--outline {
+  background: transparent;
+}
+
+/* --- Controls ------------------------------------------------------------ */
+
+/* One family per Figma control family. Each binds the three State tokens to
+ * component-local names so the rest of the rules stay family-agnostic. */
+.box-control--accent {
+  --box-ctl-fill: var(--control-accent-fill);
+  --box-ctl-content: var(--control-accent-content);
+  --box-ctl-border: var(--control-accent-border);
+}
+.box-control--status {
+  --box-ctl-fill: var(--control-status-fill);
+  --box-ctl-content: var(--control-status-content);
+  --box-ctl-border: var(--control-status-border);
+}
+.box-control--static {
+  --box-ctl-fill: var(--control-static-fill);
+  --box-ctl-content: var(--control-static-content);
+  --box-ctl-border: var(--control-static-border);
+}
+.box-control--neutral {
+  --box-ctl-fill: var(--control-neutral-fill);
+  --box-ctl-content: var(--control-neutral-content);
+  --box-ctl-border: var(--control-neutral-border);
+}
+.box-control--ghost {
+  --box-ctl-fill: var(--control-ghost-fill);
+  --box-ctl-content: var(--control-ghost-content);
+  --box-ctl-border: var(--system-color-transparent);
+}
+
+/* --- Button -------------------------------------------------------------- */
+
+.box-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-3xs);
+  box-sizing: border-box;
+  background: var(--box-ctl-fill);
+  border: 1px solid var(--box-ctl-border);
+  border-radius: var(--rounding-s);
+  color: var(--box-ctl-content);
+  font-family: var(--font-family-body);
+  font-weight: var(--type-font-weight-semibold);
+  cursor: pointer;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    color 120ms ease;
+  white-space: nowrap;
+}
+
+/* Sizes are the Figma variant names: XS (32) … XL (48). */
+.box-button--xs {
+  height: var(--size-m);
+  padding-inline: var(--spacing-2xs);
+  font-size: var(--type-caption-l-font-size);
+  line-height: var(--type-caption-l-line-height);
+}
+.box-button--s {
+  height: var(--size-l);
+  padding-inline: var(--spacing-2xs);
+  font-size: var(--type-body-m-font-size);
+  line-height: var(--type-body-m-line-height);
+}
+.box-button--m {
+  height: var(--size-xl);
+  padding-inline: var(--spacing-xs);
+  font-size: var(--type-body-m-font-size);
+  line-height: var(--type-body-m-line-height);
+}
+.box-button--l {
+  height: var(--size-2xl);
+  padding-inline: var(--spacing-xs);
+  font-size: var(--type-body-l-font-size);
+  line-height: var(--type-body-l-line-height);
+}
+.box-button--xl {
+  height: var(--size-max);
+  padding-inline: var(--spacing-s);
+  font-size: var(--type-body-l-font-size);
+  line-height: var(--type-body-l-line-height);
+}
+
+.box-button:focus-visible {
+  outline: 2px solid var(--accent-border-default);
+  outline-offset: 2px;
+}
+
+.box-button:disabled {
+  cursor: not-allowed;
+}
+
+.box-button--icon-only {
+  padding-inline: 0;
+  aspect-ratio: 1;
+}
+
+/* --- Badge --------------------------------------------------------------- */
+
+.box-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-4xs);
+  box-sizing: border-box;
+  height: var(--size-2xs);
+  padding-inline: var(--spacing-4xs);
+  background: var(--box-ctl-fill);
+  border: 1px solid var(--box-ctl-border);
+  border-radius: var(--rounding-min);
+  color: var(--box-ctl-content);
+  font-family: var(--font-family-body);
+  font-size: var(--type-caption-l-font-size);
+  line-height: var(--type-caption-l-line-height);
+  font-weight: var(--type-font-weight-semibold);
+}
+
+/* --- Input --------------------------------------------------------------- */
+
+.box-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4xs);
+}
+
+.box-field__label {
+  color: var(--surface-base-content-muted);
+  font-family: var(--font-family-body);
+  font-size: var(--type-caption-l-font-size);
+  line-height: var(--type-caption-l-line-height);
+  font-weight: var(--type-font-weight-medium);
+}
+
+.box-input {
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--size-xl);
+  padding-inline: var(--spacing-2xs);
+  background: var(--surface-base-fill-raised);
+  border: 1px solid var(--surface-base-border-default);
+  border-radius: var(--rounding-s);
+  color: var(--surface-base-content-strong);
+  font-family: var(--font-family-body);
+  font-size: var(--type-body-m-font-size);
+  line-height: var(--type-body-m-line-height);
+}
+
+.box-input::placeholder {
+  color: var(--surface-base-content-subtle);
+}
+.box-input:hover:not(:disabled) {
+  border-color: var(--surface-base-border-strong);
+}
+.box-input:focus-visible {
+  outline: 2px solid var(--accent-border-default);
+  outline-offset: 1px;
+  border-color: var(--accent-fill-solid);
+}
+.box-input:disabled {
+  background: var(--interaction-disabled-fill);
+  color: var(--interaction-disabled-content);
+  cursor: not-allowed;
+}
+/* The field carries [data-status="negative"] when there is an error. */
+.box-input[aria-invalid='true'] {
+  border-color: var(--status-fill-solid);
+}
+
+.box-field__hint {
+  color: var(--surface-base-content-subtle);
+  font-family: var(--font-family-body);
+  font-size: var(--type-caption-l-font-size);
+  line-height: var(--type-caption-l-line-height);
+}
+.box-field__hint--error {
+  color: var(--status-content-on-surface-default);
+}

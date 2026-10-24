@@ -26,10 +26,13 @@
 
 ## Прототипы
 
-- Папка `prototype/`. Next.js App Router, TypeScript, Tailwind v3, shadcn/ui.
+- Папка `prototype/`. Next.js 14 App Router, TypeScript, Tailwind v3. Подробности — `prototype/README.md`.
+- Дизайн-система — Box UI (github.com/egorovdnikita/box-ui): токены, примитивы и иконки лежат снимком в `prototype/src/vendor/box-ui/`, обновляются `npm run sync:box-ui`. Руками vendor не правим.
+- Всё, что специфично для ЕНЛ, — в `prototype/src/styles/enl.css`: предмет как мода Brand · Color (`data-accent="soc" | "hist"`), тёплая тема, токены `--enl-*`. Новый предмет = новый блок `[data-accent]` с одним цветом.
+- Сначала компонент Box UI, своё — только если в Box UI нет аналога.
 - Это прототип «покликать», а не прод: без бекенда, данные — моки в `prototype/mocks/`.
-- Предмет — тема верхнего уровня: цвета только через токены (`surface` / `accent` / `ink`), никаких захардкоженных hex в компонентах.
-- Mobile-first: каждый экран проверяй на ширине 375px.
+- Цвета только через токены (Tailwind `surface-*` / `accent-*` / `ink-*` / `line-*`, радиусы `rounded-box-*`), никаких hex в компонентах.
+- Mobile-first: каждый экран проверяй на ширине 375px и на десктопе 1280+.
 
 ## Безопасность
 

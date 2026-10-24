@@ -1,0 +1,142 @@
+/* ЕГЭ налегке поверх Box UI.
+ *
+ * Box UI даёт граф токенов Primitives → Brand → System. ЕНЛ добавляет:
+ *   — две моды Brand · Color: [data-accent="soc"] и [data-accent="hist"] — предмет;
+ *   — моду Brand · Typography [data-font="enl"];
+ *   — тёплую светлую тему поверх System · Theme;
+ *   — свои токены --enl-* для того, чего в Box UI нет: предметные заливки,
+ *     маркер планера, клетка тетради.
+ *
+ * Контраст (scripts/contrast.mjs): белый на #B01513 — 7.09, на #7C2329 — 9.86,
+ * #1F1B16 на фоне — 16.55, #6B6358 на фоне — 5.72. Светлые предметные цвета —
+ * только заливки, текст на них всегда --enl-ink или акцент.
+ */
+
+/* --- Предметы: Brand · Color ------------------------------------------- */
+
+[data-accent="soc"] {
+  --enl-accent: #b01513; /* soc-red */
+  --enl-subject-fill: #fccbd1; /* soc-light-pink */
+  --enl-subject-fill-strong: #ffa8b9; /* soc-dark-pink */
+  --enl-subject-name: "обществознание";
+}
+
+[data-accent="hist"] {
+  --enl-accent: #7c2329; /* hist-burgundy */
+  --enl-subject-fill: #d9ebff; /* hist-light-blue */
+  --enl-subject-fill-strong: #c2d4e8; /* hist-dark-blue */
+  --enl-subject-name: "история";
+}
+
+/* Вся шкала бренда выводится из одного цвета предмета, как в Box UI
+ * прозрачные ступени выводятся из базовой через color-mix. */
+[data-accent="soc"],
+[data-accent="hist"] {
+  --brand-color-solid-450: color-mix(in srgb, var(--enl-accent) 88%, white);
+  --brand-color-solid-500: var(--enl-accent);
+  --brand-color-solid-550: color-mix(in srgb, var(--enl-accent) 88%, black);
+  --brand-color-solid-600: color-mix(in srgb, var(--enl-accent) 76%, black);
+  --brand-color-alpha-8: color-mix(in srgb, var(--enl-accent) 8%, transparent);
+  --brand-color-alpha-16: color-mix(in srgb, var(--enl-accent) 16%, transparent);
+  --brand-color-alpha-24: color-mix(in srgb, var(--enl-accent) 24%, transparent);
+  --brand-color-alpha-48: color-mix(in srgb, var(--enl-accent) 48%, transparent);
+  --brand-color-alpha-64: color-mix(in srgb, var(--enl-accent) 64%, transparent);
+  --brand-color-alpha-80: color-mix(in srgb, var(--enl-accent) 80%, transparent);
+  --brand-color-contrast: var(--system-color-white-base);
+  --brand-color-on-solid: var(--system-color-white-base);
+  --brand-color-on-solid-muted: var(--system-color-white-alpha-88);
+  --brand-color-inverse-solid-450: var(--brand-color-solid-450);
+  --brand-color-inverse-solid-500: var(--brand-color-solid-500);
+  --brand-color-inverse-solid-550: var(--brand-color-solid-550);
+  --brand-color-inverse-alpha-8: var(--brand-color-alpha-8);
+  --brand-color-inverse-alpha-16: var(--brand-color-alpha-16);
+  --brand-color-inverse-alpha-24: var(--brand-color-alpha-24);
+  --brand-color-inverse-alpha-48: var(--brand-color-alpha-48);
+  --brand-color-inverse-alpha-64: var(--brand-color-alpha-64);
+  --brand-color-inverse-alpha-80: var(--brand-color-alpha-80);
+  --brand-color-inverse-contrast: var(--brand-color-contrast);
+  --brand-color-inverse-on-solid: var(--brand-color-on-solid);
+  --brand-color-inverse-on-solid-muted: var(--brand-color-on-solid-muted);
+  --brand-color-on-solid-alpha-16: var(--system-color-white-alpha-16);
+  --brand-color-inverse-on-solid-alpha-16: var(--system-color-white-alpha-16);
+  --brand-color-on-solid-alpha-24: var(--system-color-white-alpha-24);
+  --brand-color-inverse-on-solid-alpha-24: var(--system-color-white-alpha-24);
+  --brand-color-on-solid-alpha-32: var(--system-color-white-alpha-32);
+  --brand-color-inverse-on-solid-alpha-32: var(--system-color-white-alpha-32);
+  --brand-color-on-solid-alpha-48: var(--system-color-white-alpha-48);
+  --brand-color-inverse-on-solid-alpha-48: var(--system-color-white-alpha-48);
+  --brand-color-on-solid-alpha-64: var(--system-color-white-alpha-64);
+  --brand-color-inverse-on-solid-alpha-64: var(--system-color-white-alpha-64);
+  --brand-color-on-solid-alpha-80: var(--system-color-white-alpha-80);
+  --brand-color-inverse-on-solid-alpha-80: var(--system-color-white-alpha-80);
+  --brand-color-static-content-default: var(--brand-color-solid-600);
+  --brand-color-inverse-static-content-default: var(--brand-color-solid-600);
+  --brand-color-static-fill-hover: var(--system-color-white-base);
+  --brand-color-static-fill-active: var(--system-color-white-base);
+  --brand-color-inverse-static-fill-hover: var(--system-color-white-base);
+  --brand-color-inverse-static-fill-active: var(--system-color-white-base);
+  --brand-color-static-content-hover: var(--brand-color-solid-550);
+  --brand-color-static-content-active: var(--brand-color-solid-500);
+  --brand-color-inverse-static-content-hover: var(--brand-color-solid-550);
+  --brand-color-inverse-static-content-active: var(--brand-color-solid-500);
+}
+
+/* --- Гарнитура: Brand · Typography ------------------------------------- */
+
+/* NauryzRedKeds — акцидентный шрифт школы. Лицензия на веб не проверена,
+ * поэтому заголовки пока на Raleway, а «рукописный» характер дают строчные
+ * и плотный трекинг (.enl-display). */
+[data-font="enl"] {
+  --brand-font-family-heading: var(--font-raleway), var(--font-fallback);
+  --brand-font-family-body: var(--font-raleway), var(--font-fallback);
+}
+
+/* --- Тёплая светлая тема поверх System · Theme ------------------------- */
+
+[data-theme="light"] {
+  --surface-base-fill-page: #fffbef; /* background */
+  --surface-base-fill-raised: #ffffff;
+  --surface-base-fill-layer-subtle: #fdf6e9; /* background-logo */
+  --surface-base-content-strong: #1f1b16; /* 16.55 на фоне */
+  --surface-base-content-muted: #6b6358; /* 5.72 на фоне */
+  --surface-base-content-subtle: #9a8f80; /* 3.07 — только UI и крупный текст */
+  --surface-base-border-default: rgb(31 27 22 / 0.12);
+  --surface-base-border-strong: rgb(31 27 22 / 0.24);
+  --surface-base-border-subtle: rgb(31 27 22 / 0.06);
+}
+
+/* --- Свои токены ЕНЛ ---------------------------------------------------- */
+
+:root {
+  --enl-marker: #fff7bd; /* yellow — маркер планера */
+  --enl-lime: #d9dc6a; /* light-green */
+  --enl-olive-ink: #5c5e1f; /* текст на лайме, 6.60 на фоне */
+  --enl-grid-line: rgb(31 27 22 / 0.06); /* клетка тетради */
+  --enl-shadow-raised: 0 1px 0 rgb(31 27 22 / 0.04), 0 8px 24px -12px rgb(31 27 22 / 0.18);
+}
+
+/* --- Утилиты ------------------------------------------------------------ */
+
+.enl-display {
+  font-family: var(--font-family-heading);
+  font-weight: 800;
+  text-transform: lowercase;
+  letter-spacing: -0.02em;
+}
+
+/* Маркерное выделение: нижняя половина строки, как в тетради. */
+.enl-marker {
+  background: linear-gradient(transparent 52%, var(--enl-marker) 52%, var(--enl-marker) 92%, transparent 92%);
+  padding-inline: 0.15em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Подложка «лист в клетку» для рабочей области. */
+.enl-grid-paper {
+  background-color: var(--surface-base-fill-raised);
+  background-image:
+    linear-gradient(var(--enl-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--enl-grid-line) 1px, transparent 1px);
+  background-size: 20px 20px;
+}

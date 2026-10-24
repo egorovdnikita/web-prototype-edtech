@@ -1,0 +1,53 @@
+import { Icon, type IconName } from "@/components/ui/icon";
+import type { Subject } from "@mocks/course";
+
+// Практика: свободная тренировка вне недели. Строится от действующего тренажёра
+// (рекомендация разбора), работа над ошибками — фильтр «мои ошибки».
+const TASKS = Array.from({ length: 25 }, (_, i) => i + 1);
+
+const BLOCKS: { title: string; text: string; icon: IconName; meta: string }[] = [
+  { title: "Работа над ошибками", text: "Задания, где вы ошиблись в тестах и ДЗ", icon: "danger-circle", meta: "12 заданий" },
+  { title: "Интерактивные тренировки", text: "Найди лишнее, данетки, собери цепочку", icon: "magic-stick-3", meta: "8 доступно" },
+  { title: "Карточки", text: "Даты, личности, термины — по темам курса", icon: "notebook-minimalistic", meta: "Quizlet" },
+];
+
+export default function PracticePage({ params }: { params: { subject: Subject } }) {
+  const total = params.subject === "soc" ? 25 : 21;
+  return (
+    <div className="mx-auto flex max-w-3xl flex-col gap-5">
+      <header>
+        <h1 className="enl-display text-[28px] leading-tight sm:text-[34px]">практика</h1>
+        <p className="text-sm text-ink-muted">Тренируйтесь сколько хотите — в план недели и зачётку это не входит.</p>
+      </header>
+
+      <section className="rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+        <h2 className="font-bold">Тренажёр по номерам ЕГЭ</h2>
+        <p className="text-[13px] text-ink-muted">Выберите номер задания — тренажёр подберёт задания из базы.</p>
+        <div className="mt-3 grid grid-cols-5 gap-2 sm:grid-cols-9">
+          {TASKS.slice(0, total).map((n) => (
+            <button
+              key={n}
+              type="button"
+              className="aspect-square rounded-box-m border border-line bg-surface-page text-sm font-bold transition-colors hover:border-accent hover:bg-accent-soft"
+            >
+              {n}
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <div className="grid gap-3 sm:grid-cols-3">
+        {BLOCKS.map((b) => (
+          <section key={b.title} className="flex flex-col gap-2 rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+            <span className="grid size-10 place-items-center rounded-box-m bg-surface-subject">
+              <Icon name={b.icon} size="2xs" />
+            </span>
+            <h2 className="font-bold leading-snug">{b.title}</h2>
+            <p className="text-[13px] text-ink-muted">{b.text}</p>
+            <p className="mt-auto text-[13px] font-semibold text-ink-accent">{b.meta}</p>
+          </section>
+        ))}
+      </div>
+    </div>
+  );
+}

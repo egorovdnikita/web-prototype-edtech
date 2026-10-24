@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "sync:box-ui": "node scripts/sync-box-ui.mjs"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
