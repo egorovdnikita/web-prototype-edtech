@@ -280,7 +280,7 @@ export const PAST: Record<string, { answers: Record<string, string>; date: strin
       },
     },
   },
-  "hist-13-t": { date: "18.10", answers: { q1: "1703", q2: "1709", q3: "1711", q4: "1721", q5: "1695" } },
+  "hist-13-t": { date: "18.10", answers: { q1: "1703", q2: "1709", q3: "1711", q4: "1712", q5: "1696" } },
   "hist-13-h": {
     date: "20.10",
     answers: {

@@ -181,7 +181,7 @@ const hist: Course = {
           status: "done",
           items: [
             { id: "hist-13-v", kind: "video", title: "Видеоурок «Первые Романовы»", required: true, status: "done", meta: "31 мин" },
-            { id: "hist-13-t", kind: "test", title: "Тест по датам", required: true, status: "done", meta: "5 из 5" },
+            { id: "hist-13-t", kind: "test", title: "Тест по датам", required: true, status: "done", meta: "3 из 5" },
             { id: "hist-13-h", kind: "homework", title: "ДЗ №1 «Первые Романовы»", required: true, status: "done", meta: "самопроверка · 3 из 4" },
           ],
         },

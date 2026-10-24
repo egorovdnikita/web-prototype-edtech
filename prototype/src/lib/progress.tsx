@@ -63,6 +63,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
     save({});
     try {
       window.localStorage.removeItem("enl-prototype-works");
+      window.localStorage.removeItem("enl-prototype-mistakes");
       window.location.reload();
     } catch {
       // нечего сбрасывать

@@ -196,7 +196,15 @@ function TaskCard({ task, number, value, onChange }: { task: Task; number: numbe
         Задание {number} · №{task.ege} ЕГЭ{task.type === "long" && " · развёрнутый ответ"}
       </p>
       <p className="mt-2 font-semibold leading-relaxed">{task.prompt}</p>
+      <AnswerField task={task} value={value} onChange={onChange} />
+    </section>
+  );
+}
 
+/** Поле ответа под тип задания. Общее для решения работы и работы над ошибками. */
+export function AnswerField({ task, value, onChange }: { task: Task; value: string; onChange: (v: string) => void }) {
+  return (
+    <>
       {task.type === "choice" && (
         <fieldset className="mt-4">
           <legend className="sr-only">Варианты ответа</legend>
@@ -275,6 +283,6 @@ function TaskCard({ task, number, value, onChange }: { task: Task; number: numbe
           </button>
         </div>
       )}
-    </section>
+    </>
   );
 }

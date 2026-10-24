@@ -1,3 +1,4 @@
+import { MistakesLink } from "@/components/practice/mistakes-link";
 import { Icon, type IconName } from "@/components/ui/icon";
 import type { Subject } from "@mocks/course";
 
@@ -6,7 +7,6 @@ import type { Subject } from "@mocks/course";
 const TASKS = Array.from({ length: 25 }, (_, i) => i + 1);
 
 const BLOCKS: { title: string; text: string; icon: IconName; meta: string }[] = [
-  { title: "Работа над ошибками", text: "Задания, где вы ошиблись в тестах и ДЗ", icon: "danger-circle", meta: "12 заданий" },
   { title: "Интерактивные тренировки", text: "Найди лишнее, данетки, собери цепочку", icon: "magic-stick-3", meta: "8 доступно" },
   { title: "Карточки", text: "Даты, личности, термины — по темам курса", icon: "notebook-minimalistic", meta: "Quizlet" },
 ];
@@ -19,6 +19,8 @@ export default function PracticePage({ params }: { params: { subject: Subject } 
         <h1 className="enl-display text-[28px] leading-tight sm:text-[34px]">практика</h1>
         <p className="text-sm text-ink-muted">Тренируйтесь сколько хотите — в план недели и зачётку это не входит.</p>
       </header>
+
+      <MistakesLink subject={params.subject} />
 
       <section className="rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
         <h2 className="font-bold">Тренажёр по номерам ЕГЭ</h2>
@@ -36,7 +38,7 @@ export default function PracticePage({ params }: { params: { subject: Subject } 
         </div>
       </section>
 
-      <div className="grid gap-3 sm:grid-cols-3">
+      <div className="grid gap-3 sm:grid-cols-2">
         {BLOCKS.map((b) => (
           <section key={b.title} className="flex flex-col gap-2 rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
             <span className="grid size-10 place-items-center rounded-box-m bg-surface-subject">

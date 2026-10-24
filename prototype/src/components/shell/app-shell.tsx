@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { Icon, type IconName } from "@/components/ui/icon";
+import { useMistakes } from "@/lib/mistakes";
 import { cn } from "@/lib/utils";
 import { MENTOR, SUBJECTS, type Subject } from "@mocks/course";
 
@@ -62,6 +63,20 @@ function SubjectSwitch({ subject, section, compact }: { subject: Subject; sectio
   );
 }
 
+/** Счётчик ошибок на вкладке «Практика» — чтобы работа над ошибками не терялась. */
+function NavBadge({ subject, href }: { subject: Subject; href: string }) {
+  const { mistakes } = useMistakes(subject);
+  if (href !== "/practice" || mistakes.length === 0) return null;
+  return (
+    <span
+      aria-label={`ошибок: ${mistakes.length}`}
+      className="grid min-w-5 place-items-center rounded-full bg-accent px-1 text-[11px] font-bold leading-5 text-accent-on"
+    >
+      {mistakes.length}
+    </span>
+  );
+}
+
 export function AppShell({ subject, children }: { subject: Subject; children: ReactNode }) {
   const pathname = usePathname();
   const section = sectionOf(pathname, subject);
@@ -87,6 +102,9 @@ export function AppShell({ subject, children }: { subject: Subject; children: Re
               >
                 <Icon name={item.icon} variant={active ? "bold" : "linear"} size="2xs" />
                 {item.label}
+                <span className="ml-auto">
+                  <NavBadge subject={subject} href={item.href} />
+                </span>
               </Link>
             );
           })}
@@ -131,7 +149,12 @@ export function AppShell({ subject, children }: { subject: Subject; children: Re
                 active ? "text-ink-accent" : "text-ink-muted",
               )}
             >
-              <Icon name={item.icon} variant={active ? "bold" : "linear"} size="2xs" />
+              <span className="relative">
+                <Icon name={item.icon} variant={active ? "bold" : "linear"} size="2xs" />
+                <span className="absolute -right-3 -top-1.5">
+                  <NavBadge subject={subject} href={item.href} />
+                </span>
+              </span>
               {item.label}
             </Link>
           );

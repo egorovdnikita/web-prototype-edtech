@@ -75,8 +75,16 @@ function TestResult({ subject, id, title, work, record }: { subject: Subject; id
         title={title}
         score={last.score}
         max={last.max}
-        label={wrong ? `Ошибок: ${wrong} — они уже в «Работе над ошибками»` : "Без ошибок — так держать"}
+        label={wrong ? `Ошибок: ${wrong} — они уже в работе над ошибками` : "Без ошибок — так держать"}
       />
+      {wrong > 0 && (
+        <Link
+          href={`/${subject}/practice/mistakes`}
+          className="flex items-center gap-2 self-start text-sm font-semibold text-ink-accent no-underline"
+        >
+          <Icon name="danger-circle" size="min" /> Перерешать ошибки
+        </Link>
+      )}
 
       <ol className="flex flex-col gap-3">
         {work.tasks.map((task, i) => {
