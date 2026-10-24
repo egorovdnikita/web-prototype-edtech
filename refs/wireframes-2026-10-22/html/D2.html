@@ -1,0 +1,103 @@
+<!-- shell:mentor active=D1 -->
+<p class="small muted" style="margin-bottom:6px"><a href="#D1">Мои ученики</a> / Пётр Лебедев</p>
+    <div class="row" style="align-items:flex-start;margin-bottom:12px">
+      <span class="avatar" style="width:48px;height:48px"></span>
+      <div class="grow">
+        <h1 style="margin:0 0 4px">Пётр Лебедев</h1>
+        <div class="row small">
+          <span class="tag">Обществознание · С сопровождением</span>
+          <span class="tag">Группа «Пятница 18:00»</span>
+          <span class="tag">UTC+5</span>
+          <a href="#">Telegram</a> <a href="#">ВК</a> <a href="#">почта</a>
+        </div>
+        <p class="small muted" style="margin:6px 0 0">Ещё учится: История — наставник Ольга Смирнова {08.25}</p>
+      </div>
+      <button>Написать</button>
+    </div>
+
+    <div class="tabbar">
+      <button class="on" data-tab="o">Обзор</button>
+      <button data-tab="a">Попытки</button>
+      <button data-tab="v">Посещаемость</button>
+      <button data-tab="n">Заметки</button>
+      <button data-tab="p">Родитель</button>
+    </div>
+
+    <div data-panel="o" class="on">
+      <div class="cols">
+        <div>
+          <div class="card">
+            <h3>Статистика обучения {06.06}</h3>
+            <div class="row small" style="margin-bottom:4px">Материалы: <progress value="64" max="100"></progress> 64%</div>
+            <p class="small">Неделя 3: <span class="st bad">отстаёт, 2 просрочки</span></p>
+            <table class="t small">
+              <tr><th>№ ЕГЭ</th><th>5</th><th>11</th><th>17</th><th>24</th><th>25</th></tr>
+              <tr><td>Решаемость</td><td>80%</td><td>65%</td><td>40%</td><td>55%</td><td class="st bad">20%</td></tr>
+            </table>
+          </div>
+          <div class="card">
+            <h3>Тренировки {06.11}</h3>
+            <div class="item small"><span class="grow">«Формы государства»</span><span class="st ok">пройдена</span></div>
+            <div class="item small"><span class="grow">«Партии и выборы»</span><span class="st warn">начата и брошена</span></div>
+          </div>
+          <div class="card">
+            <h3>Учебные меры за неделю {08.38}</h3>
+            <div class="row small">
+              <label><input type="checkbox" checked> Индивидуальный план</label>
+              <label><input type="checkbox"> Разговор</label>
+              <label><input type="checkbox"> Замена плана</label>
+            </div>
+            <textarea placeholder="Комментарий по неделе" style="margin-top:8px"></textarea>
+          </div>
+        </div>
+        <div>
+          <div class="card small">
+            <h3>Доступ {08.13} {08.24}</h3>
+            <p>Уроки 1–7 открыты, урок 8 — с 17.10</p>
+            <p class="muted">Мини-курсы: Финальный интенсив</p>
+          </div>
+          <div class="card small">
+            <h3>Ачивки {07.07}</h3>
+            <div class="row"><span class="avatar"></span><span class="avatar"></span><span class="muted">2 шт.</span></div>
+            <button class="sm" style="margin-top:8px">Выдать вручную</button> {07.04}
+          </div>
+          <div class="card small">
+            <h3>Анкета после пробника {03.32}</h3>
+            <p class="muted">«Не успеваю вторую часть, хочу больше разборов 25»</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div data-panel="a">
+      <table class="t">
+        <tr><th>Работа {04.08}</th><th>Сдана</th><th>Результат</th><th></th></tr>
+        <tr><td>Тест урока 7</td><td>16.10</td><td>18 / 22</td><td><button class="sm">Ответы</button></td></tr>
+        <tr><td>ДЗ урока 6</td><td class="st bad">не сдано, срок вышел</td><td>—</td><td><button class="sm">Открыть сдачу в виде исключения</button> {04.17}</td></tr>
+        <tr><td>Пробник №1</td><td>02.10</td><td>42 перв. / 61 втор.</td><td><button class="sm">Ответы</button></td></tr>
+      </table>
+    </div>
+
+    <div data-panel="v">
+      <table class="t">
+        <tr><th>Встреча {03.63} {19.03}</th><th>Дата</th><th>Был</th><th>Смотрел запись</th></tr>
+        <tr><td>Вебинар «Задание 25»</td><td>17.10</td><td>—</td><td>✓</td></tr>
+        <tr><td>Продлёнка</td><td>18.10</td><td>✓</td><td>—</td></tr>
+        <tr><td>Коворкинг</td><td>15.10</td><td>—</td><td>—</td></tr>
+      </table>
+    </div>
+
+    <div data-panel="n">
+      <textarea placeholder="Новая заметка об ученике"></textarea> {08.19}
+      <button class="sm" style="margin:6px 0 12px">Добавить</button>
+      <div class="item small"><span class="grow"><b>Наставник</b> · 12.10 — тяжело даётся вторая часть, договорились о плане</span></div>
+      <div class="item small"><span class="grow"><b>Проверяющий куратор</b> · 15.10 — в 25 путает признаки и примеры {08.21} {08.30}</span></div>
+      <details class="small" style="margin-top:8px"><summary>История и заметки от прежнего наставника {08.20}</summary><p class="muted">Сентябрь: группа «Среда 19:00», наставник Анна…</p></details>
+    </div>
+
+    <div data-panel="p">
+      <label><input type="checkbox" checked> Родительский контроль включён</label> {08.33}
+      <label class="f">Почта родителя</label>
+      <input type="email" value="parent@example.com" style="width:260px">
+      <button class="sm">Сохранить</button>
+    </div>
