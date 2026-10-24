@@ -12,7 +12,8 @@ export const SUBJECTS: Record<Subject, { title: string; short: string }> = {
 
 export type ItemKind = "video" | "snack" | "notes" | "test" | "homework" | "training" | "webinar" | "meeting";
 
-export type ItemStatus = "done" | "todo" | "overdue" | "locked";
+/** review — сдано и ждёт проверки куратора. */
+export type ItemStatus = "done" | "todo" | "overdue" | "locked" | "review";
 
 export interface PlanItem {
   id: string;
@@ -61,7 +62,8 @@ export interface Course {
 const soc: Course = {
   subject: "soc",
   product: "Годовой курс",
-  tariff: "Фристайл",
+  // ДЗ и пробники проверяет куратор — сценарий B6.
+  tariff: "С инструктором",
   period: "1 сентября — 31 мая",
   currentWeek: 8,
   weeks: [
@@ -79,8 +81,9 @@ const soc: Course = {
           items: [
             { id: "soc-13-v", kind: "video", title: "Видеоурок «Формы государства»", required: true, status: "done", meta: "24 мин" },
             { id: "soc-13-n", kind: "notes", title: "Конспект урока", required: true, status: "done", manual: true },
-            { id: "soc-13-t", kind: "test", title: "Тест по уроку", required: true, status: "done", meta: "18 из 20" },
-            { id: "soc-13-h", kind: "homework", title: "ДЗ «Задание 24»", required: true, status: "overdue", due: "до вт 20.10, 23:55 · можно сдать до 03.11" },
+            { id: "soc-13-t", kind: "test", title: "Тест по уроку", required: true, status: "done", meta: "4 из 5" },
+            { id: "soc-13-c", kind: "homework", title: "ДЗ №1 «Задание 25: государство»", required: true, status: "done", meta: "проверено · 5 из 6" },
+            { id: "soc-13-h", kind: "homework", title: "ДЗ №2 «Формы государства»", required: true, status: "overdue", due: "до пт 23.10, 23:55 · можно сдать до 06.11" },
           ],
         },
       ],
@@ -109,8 +112,8 @@ const soc: Course = {
           items: [
             { id: "soc-15-v", kind: "video", title: "Видеоурок «Политическая система»", required: true, status: "done", meta: "22 мин" },
             { id: "soc-15-n", kind: "notes", title: "Заполнить конспект", required: true, status: "todo", manual: true },
-            { id: "soc-15-t", kind: "test", title: "Тест по уроку", required: true, status: "todo", meta: "20 вопросов" },
-            { id: "soc-15-h", kind: "homework", title: "ДЗ №1 «Задание 25»", required: true, status: "todo", due: "до вт 27.10, 23:55", meta: "5 заданий" },
+            { id: "soc-15-t", kind: "test", title: "Тест по уроку", required: true, status: "todo", meta: "5 вопросов" },
+            { id: "soc-15-h", kind: "homework", title: "ДЗ №1 «Задание 25»", required: true, status: "todo", due: "до вт 27.10, 23:55", meta: "2 задания" },
             { id: "soc-15-s", kind: "snack", title: "Урок-снек «Типы политических систем»", required: false, status: "todo", meta: "7 мин" },
             { id: "soc-15-q", kind: "training", title: "Карточки «Политическая система»", required: false, status: "todo", meta: "Quizlet" },
           ],
@@ -160,6 +163,7 @@ const soc: Course = {
 const hist: Course = {
   subject: "hist",
   product: "Годовой курс",
+  // ДЗ ученик оценивает сам по критериям — сценарий B7.
   tariff: "Фристайл",
   period: "1 сентября — 31 мая",
   currentWeek: 8,
@@ -177,8 +181,8 @@ const hist: Course = {
           status: "done",
           items: [
             { id: "hist-13-v", kind: "video", title: "Видеоурок «Первые Романовы»", required: true, status: "done", meta: "31 мин" },
-            { id: "hist-13-t", kind: "test", title: "Тест по датам", required: true, status: "done", meta: "15 из 15" },
-            { id: "hist-13-h", kind: "homework", title: "ДЗ №1 «Первые Романовы»", required: true, status: "done" },
+            { id: "hist-13-t", kind: "test", title: "Тест по датам", required: true, status: "done", meta: "5 из 5" },
+            { id: "hist-13-h", kind: "homework", title: "ДЗ №1 «Первые Романовы»", required: true, status: "done", meta: "самопроверка · 3 из 4" },
           ],
         },
       ],
@@ -206,9 +210,9 @@ const hist: Course = {
             { id: "hist-15-v", kind: "video", title: "Видеоурок «Пётр I, часть 1»", required: true, status: "done", meta: "28 мин" },
             { id: "hist-15-v2", kind: "video", title: "Видеоурок «Пётр I, часть 2»", required: true, status: "todo", meta: "26 мин" },
             { id: "hist-15-n", kind: "notes", title: "Заполнить рабочую тетрадь", required: true, status: "todo", manual: true },
-            { id: "hist-15-t1", kind: "test", title: "Тест по датам", required: true, status: "todo", meta: "15 вопросов" },
-            { id: "hist-15-t2", kind: "test", title: "Тест по личностям", required: true, status: "todo", meta: "12 вопросов" },
-            { id: "hist-15-h", kind: "homework", title: "ДЗ №1 «Регентство Софьи и начало правления Петра I»", required: true, status: "todo", due: "до вт 27.10, 23:55" },
+            { id: "hist-15-t1", kind: "test", title: "Тест по датам", required: true, status: "todo", meta: "5 вопросов" },
+            { id: "hist-15-t2", kind: "test", title: "Тест по личностям", required: true, status: "todo", meta: "5 вопросов" },
+            { id: "hist-15-h", kind: "homework", title: "ДЗ №1 «Регентство Софьи и начало правления Петра I»", required: true, status: "todo", due: "до вт 27.10, 23:55", meta: "2 задания" },
             { id: "hist-15-s", kind: "snack", title: "Урок-снек «Северная война»", required: false, status: "todo", meta: "8 мин" },
             { id: "hist-15-q", kind: "training", title: "Данетка «Россия в XVII в.»", required: false, status: "todo" },
           ],
@@ -260,6 +264,16 @@ export const GRADEBOOK = { month: "октябрь", percent: 54, threshold: 60, 
 
 export function isSubject(value: string): value is Subject {
   return value === "soc" || value === "hist";
+}
+
+export function findItem(subject: Subject, id: string) {
+  for (const week of COURSES[subject].weeks) {
+    for (const lesson of week.lessons) {
+      const item = lesson.items.find((i) => i.id === id);
+      if (item) return { week, lesson, item };
+    }
+  }
+  return null;
 }
 
 export function findLesson(subject: Subject, id: string) {

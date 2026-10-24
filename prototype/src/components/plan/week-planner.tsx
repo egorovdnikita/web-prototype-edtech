@@ -7,6 +7,7 @@ import { ButtonLink } from "@/components/ui/box";
 import { useProgress, useWeekProgress } from "@/lib/progress";
 import { cn } from "@/lib/utils";
 import { COURSES, type Lesson, type PlanItem, type Subject } from "@mocks/course";
+import { WORKS } from "@mocks/works";
 
 type Filter = "all" | "required" | "extra";
 
@@ -113,7 +114,11 @@ export function WeekPlanner({ subject }: { subject: Subject }) {
             {now.item.due && ` · ${now.item.due}`}
           </p>
           {now.lesson && (
-            <ButtonLink href={lessonHref(now.lesson)!} size="l" className="mt-3 w-full sm:w-auto">
+            <ButtonLink
+              href={WORKS[now.item.id] ? `/${subject}/work/${now.item.id}` : lessonHref(now.lesson)!}
+              size="l"
+              className="mt-3 w-full sm:w-auto"
+            >
               {statusOf(now.item) === "overdue" ? "Сдать долг" : "Продолжить"}
               <Icon name="alt-arrow-right" size="min" />
             </ButtonLink>

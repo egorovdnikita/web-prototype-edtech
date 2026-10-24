@@ -1,10 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Icon, type IconName } from "@/components/ui/icon";
 import { useProgress } from "@/lib/progress";
+import { useWorks } from "@/lib/works";
 import { cn } from "@/lib/utils";
 import type { ItemKind, PlanItem } from "@mocks/course";
+import { WORKS } from "@mocks/works";
 
 export const KIND: Record<ItemKind, { label: string; icon: IconName; action: string }> = {
   video: { label: "видеоурок", icon: "play-circle", action: "Смотреть" },
@@ -22,13 +25,23 @@ export const KIND: Record<ItemKind, { label: string; icon: IconName; action: str
  * досмотрено; руками отмечаются только офлайн-пункты (конспект).
  * Допы «на 100» выглядят как возможность, а не долг: без красного и без срока.
  */
-export function PlanRow({ item, href, now }: { item: PlanItem; href?: string; now?: boolean }) {
+export function PlanRow({ item, href: lessonHref, now }: { item: PlanItem; href?: string; now?: boolean }) {
   const { statusOf, toggle } = useProgress();
+  const { get } = useWorks();
+  const subject = usePathname().split("/")[1];
   const status = statusOf(item);
   const kind = KIND[item.kind];
   const done = status === "done";
   const locked = status === "locked";
   const overdue = status === "overdue";
+  const review = status === "review";
+  // Тест и ДЗ ведут прямо в работу: несданное — решать, сданное — к результату.
+  const attempts = WORKS[item.id] ? get(item.id).attempts : [];
+  const last = attempts[attempts.length - 1];
+  const lastScore = done && last ? `${last.score} из ${last.max}` : undefined;
+  const href = WORKS[item.id]
+    ? `/${subject}/work/${item.id}${done || review ? "/result" : ""}`
+    : lessonHref;
 
   const mark = item.manual ? (
     <button
@@ -51,11 +64,12 @@ export function PlanRow({ item, href, now }: { item: PlanItem; href?: string; no
         locked && "text-ink-subtle",
         overdue && "text-ink-accent",
         status === "todo" && "text-ink-muted",
+        review && "text-ink-accent",
       )}
       title={done ? "Сделано — отмечено автоматически" : undefined}
     >
       <Icon
-        name={done ? "check-circle" : locked ? "lock-keyhole" : overdue ? "danger-circle" : kind.icon}
+        name={done ? "check-circle" : locked ? "lock-keyhole" : overdue ? "danger-circle" : review ? "hourglass" : kind.icon}
         variant={done ? "bold" : "linear"}
         size="2xs"
       />
@@ -76,8 +90,12 @@ export function PlanRow({ item, href, now }: { item: PlanItem; href?: string; no
       </span>
       <span className="mt-0.5 flex flex-wrap items-center gap-x-2 text-[13px] text-ink-muted">
         <span>{kind.label}</span>
-        {item.meta && <span>· {item.meta}</span>}
-        {item.due && <span className={cn(overdue && "font-semibold text-ink-accent")}>· {item.due}</span>}
+        {review ? (
+          <span className="font-semibold text-ink-accent">· на проверке у куратора</span>
+        ) : (
+          (lastScore ?? item.meta) && <span>· {lastScore ?? item.meta}</span>
+        )}
+        {item.due && !done && !review && <span className={cn(overdue && "font-semibold text-ink-accent")}>· {item.due}</span>}
         {item.manual && !done && <span>· отметьте сами</span>}
       </span>
     </span>
