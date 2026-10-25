@@ -258,9 +258,6 @@ export const COURSES: Record<Subject, Course> = { soc, hist };
 
 export const MENTOR = { name: "Аня К.", role: "наставник", reply: "отвечает в течение дня" };
 
-/** Счастливая зачётка: печать — больше 60% баллов обязательного плана за месяц. */
-export const GRADEBOOK = { month: "октябрь", percent: 54, threshold: 60, stamps: 1 };
-
 export function isSubject(value: string): value is Subject {
   return value === "soc" || value === "hist";
 }

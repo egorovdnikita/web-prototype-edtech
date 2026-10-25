@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { AchievementToast } from "@/components/progress/achievement-toast";
 import { Icon, type IconName } from "@/components/ui/icon";
 import { useMistakes } from "@/lib/mistakes";
 import { cn } from "@/lib/utils";
@@ -131,6 +132,7 @@ export function AppShell({ subject, children }: { subject: Subject; children: Re
       </header>
 
       <main className="min-w-0 px-4 pb-28 pt-5 sm:px-6 lg:px-10 lg:pb-12 lg:pt-8">{children}</main>
+      <AchievementToast key={subject} subject={subject} />
 
       {/* Телефон: вкладки снизу */}
       <nav

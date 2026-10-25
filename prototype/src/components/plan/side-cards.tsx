@@ -4,8 +4,11 @@ import Link from "next/link";
 import { Icon } from "@/components/ui/icon";
 import { KIND_ICON, useCalendarEvents } from "@/components/calendar/calendar-view";
 import { useBookings } from "@/lib/bookings";
-import { useWeekProgress } from "@/lib/progress";
-import { COURSES, GRADEBOOK, MENTOR, type Subject } from "@mocks/course";
+import { Stamp } from "@/components/progress/progress-ui";
+import { useStats } from "@/lib/stats";
+import { plural } from "@/lib/utils";
+import { COURSES, MENTOR, type Subject } from "@mocks/course";
+import { STAMP_THRESHOLD } from "@mocks/gradebook";
 import { CAL_WEEKS, dayLabel, isPast } from "@mocks/meetings";
 
 // Карточки правой колонки: «дополнительная область» из принципов Figma клиента.
@@ -65,24 +68,28 @@ export function MeetingsCard({ subject }: { subject: Subject }) {
 
 /** Счастливая зачётка: печать за месяц, если обязательный план выполнен больше чем на 60%. */
 export function GradebookCard({ subject }: { subject: Subject }) {
-  const { percent, threshold, stamps, month } = GRADEBOOK;
-  const week = useWeekProgress(subject, COURSES[subject].currentWeek);
+  const { gradebook: g } = useStats(subject);
+  const october = g.stamps[1];
   return (
     <SideCard title="счастливая зачётка">
-      <p className="text-sm text-ink-muted">
-        {month}: <span className="font-bold text-ink">{percent}%</span> обязательного плана. Печать — от {threshold}%.
-      </p>
+      <div className="flex items-center gap-3">
+        <Stamp subject={subject} state={october.stamp ? "earned" : "pending"} size={48} label="Печать за октябрь" />
+        <p className="text-sm text-ink-muted">
+          октябрь: <span className="font-bold text-ink">{g.percent}%</span> обязательного плана. Печать — больше {STAMP_THRESHOLD}%.
+        </p>
+      </div>
       <div className="relative mt-3 h-3 rounded-full bg-surface-subtle" aria-hidden>
-        <div className="h-full rounded-full bg-accent" style={{ width: `${percent}%` }} />
-        <div className="absolute inset-y-[-4px] w-0.5 rounded-full bg-ink" style={{ left: `${threshold}%` }} />
+        <div className="h-full rounded-full bg-accent" style={{ width: `${g.percent}%` }} />
+        <div className="absolute inset-y-[-4px] w-0.5 rounded-full bg-ink" style={{ left: `${STAMP_THRESHOLD}%` }} />
       </div>
       <p className="mt-3 text-sm">
-        Ещё {week.open - week.done} {week.open - week.done === 1 ? "пункт" : "пункта"} этой недели — и вы ближе к печати.
+        {october.stamp
+          ? "Печать за октябрь ваша — это билет в розыгрыш."
+          : `До печати — ${g.needTasks} ${plural(g.needTasks, ["задание", "задания", "заданий"])} обязательного плана.`}
       </p>
-      <p className="mt-2 flex items-center gap-2 text-[13px] text-ink-muted">
-        <Icon name="star" variant="bold" size="min" className="text-ink-accent" />
-        печатей за сезон: {stamps} · каждая — шанс в розыгрыше
-      </p>
+      <Link href={`/${subject}/progress/gradebook`} className="mt-2 inline-block text-sm font-semibold text-ink-accent">
+        Зачётка и розыгрыш
+      </Link>
     </SideCard>
   );
 }
