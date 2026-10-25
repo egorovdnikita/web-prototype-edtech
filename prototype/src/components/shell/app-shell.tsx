@@ -7,7 +7,8 @@ import { AchievementToast } from "@/components/progress/achievement-toast";
 import { Icon, type IconName } from "@/components/ui/icon";
 import { useMistakes } from "@/lib/mistakes";
 import { cn } from "@/lib/utils";
-import { MENTOR, SUBJECTS, type Subject } from "@mocks/course";
+import { SUBJECTS, type Subject } from "@mocks/course";
+import { MENTORS } from "@mocks/mentor";
 
 // Каркас кабинета ученика. Рабочая область отделена от боковых (принцип из Figma
 // клиента): на десктопе — меню слева, на телефоне — 5 вкладок снизу.
@@ -23,7 +24,16 @@ const NAV: { href: string; label: string; icon: IconName }[] = [
 function sectionOf(pathname: string, subject: Subject) {
   const rest = pathname.slice(`/${subject}`.length);
   if (rest.startsWith("/lesson")) return "";
+  // Наставник, зачёт и календарь открываются из «Ещё».
+  if (/^\/(mentor|exam|calendar)/.test(rest)) return "/more";
   return NAV.find((n) => n.href && rest.startsWith(n.href))?.href ?? "";
+}
+
+/** Куда вести при смене предмета: тот же экран, если он есть у обоих предметов.
+ *  Уроки и работы у предметов свои — с них ведём на раздел. */
+function switchTarget(pathname: string, subject: Subject, section: string) {
+  const rest = pathname.slice(`/${subject}`.length);
+  return /^\/(lesson|work)\//.test(rest) ? section : rest;
 }
 
 function Logo() {
@@ -81,13 +91,14 @@ function NavBadge({ subject, href }: { subject: Subject; href: string }) {
 export function AppShell({ subject, children }: { subject: Subject; children: ReactNode }) {
   const pathname = usePathname();
   const section = sectionOf(pathname, subject);
+  const target = switchTarget(pathname, subject, section);
 
   return (
     <div className="lg:grid lg:min-h-dvh lg:grid-cols-[248px_minmax(0,1fr)]">
       {/* Десктоп: меню слева */}
       <aside className="sticky top-0 hidden h-dvh flex-col gap-6 border-r border-line bg-surface-subtle px-5 py-6 lg:flex">
         <Logo />
-        <SubjectSwitch subject={subject} section={section} compact />
+        <SubjectSwitch subject={subject} section={target} compact />
         <nav aria-label="Разделы" className="flex flex-col gap-1">
           {NAV.map((item) => {
             const active = section === item.href;
@@ -111,13 +122,13 @@ export function AppShell({ subject, children }: { subject: Subject; children: Re
           })}
         </nav>
         <Link
-          href={`/${subject}/more`}
+          href={`/${subject}/mentor`}
           className="mt-auto flex items-center gap-3 rounded-box-l border border-line bg-surface-raised p-3 no-underline"
         >
-          <span className="grid size-10 place-items-center rounded-full bg-surface-subject font-bold text-ink">А</span>
+          <span className="grid size-10 place-items-center rounded-full bg-surface-subject font-bold text-ink">{MENTORS[subject].initial}</span>
           <span className="min-w-0">
-            <span className="block text-sm font-semibold text-ink">{MENTOR.name}</span>
-            <span className="block text-xs text-ink-muted">ваш {MENTOR.role}</span>
+            <span className="block text-sm font-semibold text-ink">{MENTORS[subject].name}</span>
+            <span className="block text-xs text-ink-muted">ваш наставник</span>
           </span>
           <Icon name="chat-round-dots" size="2xs" className="ml-auto text-ink-accent" />
         </Link>
@@ -127,7 +138,7 @@ export function AppShell({ subject, children }: { subject: Subject; children: Re
       <header className="sticky top-0 z-20 flex items-center gap-3 border-b border-line bg-surface-page px-4 py-3 lg:hidden">
         <Logo />
         <div className="ml-auto w-[184px]">
-          <SubjectSwitch subject={subject} section={section} compact />
+          <SubjectSwitch subject={subject} section={target} compact />
         </div>
       </header>
 

@@ -7,7 +7,8 @@ import { useBookings } from "@/lib/bookings";
 import { Stamp } from "@/components/progress/progress-ui";
 import { useStats } from "@/lib/stats";
 import { plural } from "@/lib/utils";
-import { COURSES, MENTOR, type Subject } from "@mocks/course";
+import { COURSES, type Subject } from "@mocks/course";
+import { MENTORS } from "@mocks/mentor";
 import { STAMP_THRESHOLD } from "@mocks/gradebook";
 import { CAL_WEEKS, dayLabel, isPast } from "@mocks/meetings";
 
@@ -95,17 +96,18 @@ export function GradebookCard({ subject }: { subject: Subject }) {
 }
 
 export function MentorCard({ subject }: { subject: Subject }) {
+  const mentor = MENTORS[subject];
   return (
     <SideCard title="наставник">
       <div className="flex items-center gap-3">
-        <span className="grid size-11 place-items-center rounded-full bg-surface-subject text-lg font-bold">А</span>
+        <span className="grid size-11 place-items-center rounded-full bg-surface-subject text-lg font-bold">{mentor.initial}</span>
         <span>
-          <span className="block font-semibold">{MENTOR.name}</span>
-          <span className="block text-[13px] text-ink-muted">{MENTOR.reply}</span>
+          <span className="block font-semibold">{mentor.name}</span>
+          <span className="block text-[13px] text-ink-muted">{mentor.reply}</span>
         </span>
       </div>
       <Link
-        href={`/${subject}/more#mentor`}
+        href={`/${subject}/mentor`}
         className="mt-3 flex items-center gap-2 text-sm font-semibold text-ink-accent no-underline"
       >
         <Icon name="chat-round-dots" size="min" /> Написать

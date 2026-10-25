@@ -67,6 +67,8 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       window.localStorage.removeItem("enl-prototype-bookings");
       window.localStorage.removeItem("enl-prototype-achievements-seen-soc");
       window.localStorage.removeItem("enl-prototype-achievements-seen-hist");
+      window.localStorage.removeItem("enl-prototype-messages-soc");
+      window.localStorage.removeItem("enl-prototype-messages-hist");
       window.location.reload();
     } catch {
       // нечего сбрасывать

@@ -26,7 +26,7 @@ export function useStats(subject: Subject) {
   const { statusOf } = useProgress();
   const { get } = useWorks();
   const { mistakes, solvedToday } = useMistakes(subject);
-  const { isBooked, exam } = useBookings();
+  const { isBooked, exam, examResult } = useBookings();
   const course = COURSES[subject];
 
   const lessonItems = course.weeks.flatMap((w) => w.lessons.flatMap((l) => l.items));
@@ -128,6 +128,7 @@ export function useStats(subject: Subject) {
     "booked-meeting": Boolean(exam) || newBookings(isBooked),
     "no-debts": debts.length === 0,
     "week-done": current.open > 0 && current.done === current.open,
+    "exam-passed": subject === "soc" && Boolean(examResult?.passed),
   };
   const achievements = ACHIEVEMENTS.map((a) => ({
     ...a,

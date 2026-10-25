@@ -7,10 +7,19 @@ import { EXAM, INITIAL_BOOKINGS } from "@mocks/meetings";
 
 const KEY = "enl-prototype-bookings";
 
+export interface ExamResult {
+  date: string;
+  ticket: number;
+  passed: boolean;
+  feedback: string;
+}
+
 interface Store {
   booked: string[];
   /** id окна зачёта из EXAM.slots. */
   exam?: string;
+  /** Итог зачёта, сданного в прототипе (B18 → 08.16). */
+  examResult?: ExamResult;
 }
 
 interface BookingsState {
@@ -20,6 +29,8 @@ interface BookingsState {
   exam?: (typeof EXAM.slots)[number];
   bookExam: (slotId: string) => void;
   cancelExam: () => void;
+  examResult?: ExamResult;
+  finishExam: (result: ExamResult) => void;
 }
 
 const BookingsContext = createContext<BookingsState | null>(null);
@@ -53,6 +64,9 @@ export function BookingsProvider({ children }: { children: ReactNode }) {
       exam: EXAM.slots.find((s) => s.id === store.exam),
       bookExam: (slotId) => save({ ...store, exam: slotId }),
       cancelExam: () => save({ ...store, exam: undefined }),
+      examResult: store.examResult,
+      // Зачёт сдан — запись на него закрывается.
+      finishExam: (result) => save({ ...store, exam: undefined, examResult: result }),
     }),
     [store, save],
   );

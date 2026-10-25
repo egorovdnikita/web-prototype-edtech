@@ -260,13 +260,24 @@ function ExamBanner({
   onOpen: () => void;
   booked: boolean;
 }) {
-  const { exam } = useBookings();
+  const { exam, examResult } = useBookings();
   if (!hasExams(subject)) {
     return (
       <p className="flex items-start gap-2 rounded-box-m bg-surface-subtle p-3 text-[13px] text-ink-muted">
         <Icon name="info-circle" size="2xs" className="mt-0.5 shrink-0" />
         Зачёты с наставником — на тарифах «С инструктором» и VIP. На вашем
         тарифе по {SUBJECTS[subject].title.toLowerCase()} их нет.
+      </p>
+    );
+  }
+  if (examResult) {
+    return (
+      <p className="flex items-center gap-2 rounded-box-m bg-surface-subtle p-3 text-sm">
+        <Icon name="check-circle" variant="bold" size="2xs" className="shrink-0 text-ink-olive" />
+        {EXAM.title} {examResult.passed ? "сдан" : "не сдан"}, билет №{examResult.ticket}.
+        <Link href={`/${subject}/mentor`} className="font-semibold text-ink-accent">
+          Обратная связь
+        </Link>
       </p>
     );
   }

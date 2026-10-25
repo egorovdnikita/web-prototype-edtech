@@ -1,5 +1,8 @@
 {
-  "styles": ["linear", "bold"],
+  "styles": [
+    "linear",
+    "bold"
+  ],
   "names": [
     "home-smile",
     "notebook-minimalistic",
@@ -36,6 +39,16 @@
     "hourglass",
     "checklist-minimalistic",
     "wallet",
-    "flag"
+    "flag",
+    "microphone-3",
+    "videocamera",
+    "end-call",
+    "send-square",
+    "gallery",
+    "play",
+    "pause",
+    "ticket",
+    "shield-user",
+    "chat-round-line"
   ]
 }

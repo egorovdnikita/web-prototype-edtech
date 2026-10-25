@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, type ReactNode } from "react";
-import { Button } from "@/components/ui/box";
+import { Button, ButtonLink } from "@/components/ui/box";
 import { Icon } from "@/components/ui/icon";
 import { useBookings } from "@/lib/bookings";
 import { cn } from "@/lib/utils";
@@ -210,6 +210,9 @@ export function EventSheet({
               Билеты опубликованы заранее. Зачёт идёт один на один, запись видят
               только наставник и ведущий наставник.
             </p>
+            <ButtonLink href={`/${EXAM.subject}/exam`} size="l">
+              Войти в зачёт
+            </ButtonLink>
             <Button
               size="l"
               appearance="outline"

@@ -256,7 +256,6 @@ const hist: Course = {
 
 export const COURSES: Record<Subject, Course> = { soc, hist };
 
-export const MENTOR = { name: "Аня К.", role: "наставник", reply: "отвечает в течение дня" };
 
 export function isSubject(value: string): value is Subject {
   return value === "soc" || value === "hist";

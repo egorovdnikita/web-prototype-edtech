@@ -3,11 +3,11 @@
 import Link from "next/link";
 import { Icon, type IconName } from "@/components/ui/icon";
 import { useProgress } from "@/lib/progress";
-import { MENTOR, type Subject } from "@mocks/course";
+import type { Subject } from "@mocks/course";
 
 // «Ещё»: всё, что не входит в учебный цикл. Оплата — здесь, а не в главном меню.
 const ROWS: { id: string; title: string; text: string; icon: IconName; href?: string }[] = [
-  { id: "mentor", title: `Наставник — ${MENTOR.name}`, text: "Сообщения и индивидуальный план", icon: "chat-round-dots" },
+  { id: "mentor", title: "Наставник", text: "Сообщения, индивидуальный план, зачёты", icon: "chat-round-dots", href: "/mentor" },
   { id: "calendar", title: "Календарь", text: "Вебинары, зачёты, запись на продлёнки и коворкинги", icon: "calendar", href: "/calendar" },
   { id: "payment", title: "Оплата", text: "Ноябрь — оплатить до 1 ноября", icon: "wallet" },
   { id: "notifications", title: "Уведомления", text: "2 новых", icon: "bell" },
