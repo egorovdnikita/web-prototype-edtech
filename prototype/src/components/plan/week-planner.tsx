@@ -8,6 +8,10 @@ import { useProgress, useWeekProgress } from "@/lib/progress";
 import { cn } from "@/lib/utils";
 import { COURSES, type Lesson, type PlanItem, type Subject } from "@mocks/course";
 import { WORKS } from "@mocks/works";
+import Link from "next/link";
+import { useCalendarEvents } from "@/components/calendar/calendar-view";
+import { useBookings } from "@/lib/bookings";
+import { CAL_WEEKS, dayLabel, isPast } from "@mocks/meetings";
 
 type Filter = "all" | "required" | "extra";
 
@@ -29,6 +33,27 @@ export function WeekPlanner({ subject }: { subject: Subject }) {
 
   const weekIndex = course.weeks.findIndex((w) => w.number === weekNumber);
   const week = course.weeks[weekIndex];
+
+  // Встречи недели: вебинары курса + то, на что ученик записан сам (история 19.18).
+  const { isBooked } = useBookings();
+  const calendar = useCalendarEvents();
+  const days = CAL_WEEKS.find((w) => w.number === weekNumber)?.days ?? [];
+  const booked: PlanItem[] = calendar
+    .filter((e) => days.includes(e.date) && (e.subject === subject || e.subject === "all"))
+    .filter((e) => e.kind === "exam" || isBooked(e.id))
+    .map((e) => {
+      const { weekday, day } = dayLabel(e.date);
+      const date = `${weekday} ${String(day).padStart(2, "0")}.${e.date.slice(5, 7)}`;
+      return {
+        id: e.id,
+        kind: "meeting",
+        title: e.title,
+        required: false,
+        status: isPast(e) ? "done" : "todo",
+        due: `${date}, ${e.time} · вы записаны`,
+      };
+    });
+  const meetings = [...week.events, ...booked];
   const isCurrent = weekNumber === course.currentWeek;
   const progress = useWeekProgress(subject, weekNumber);
 
@@ -44,7 +69,7 @@ export function WeekPlanner({ subject }: { subject: Subject }) {
   const ordered = [
     ...debts,
     ...week.lessons.flatMap((l) => l.items.map((item) => ({ item, lesson: l as Lesson | null }))),
-    ...week.events.map((item) => ({ item, lesson: null })),
+    ...meetings.map((item) => ({ item, lesson: null })),
   ];
   const now = isCurrent
     ? ordered.find(({ item }) => item.required && ["todo", "overdue"].includes(statusOf(item)))
@@ -169,18 +194,27 @@ export function WeekPlanner({ subject }: { subject: Subject }) {
         />
       ))}
 
-      {week.events.some((e) => matches(e, filter)) && (
+      {filter !== "extra" || meetings.some((e) => matches(e, filter)) ? (
         <section className="rounded-box-l border border-line bg-surface-raised p-2 shadow-raised">
-          <h2 className="px-3 pb-1 pt-2 font-bold">Встречи недели</h2>
-          <ul>
-            {week.events
-              .filter((e) => matches(e, filter))
-              .map((e) => (
-                <PlanRow key={e.id} item={e} now={now?.item.id === e.id} />
-              ))}
-          </ul>
+          <h2 className="flex items-center justify-between px-3 pb-1 pt-2 font-bold">
+            Встречи недели
+            <Link href={`/${subject}/calendar`} className="text-sm font-semibold text-ink-accent no-underline">
+              Календарь
+            </Link>
+          </h2>
+          {meetings.some((e) => matches(e, filter)) ? (
+            <ul>
+              {meetings
+                .filter((e) => matches(e, filter))
+                .map((e) => (
+                  <PlanRow key={e.id} item={e} href={`/${subject}/calendar?e=${e.id}`} now={now?.item.id === e.id} />
+                ))}
+            </ul>
+          ) : (
+            <p className="px-3 pb-3 text-sm text-ink-muted">Записей пока нет — выберите продлёнку или коворкинг в календаре.</p>
+          )}
         </section>
-      )}
+      ) : null}
     </div>
   );
 }

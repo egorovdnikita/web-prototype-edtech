@@ -46,7 +46,7 @@ export interface Week {
   number: number;
   range: string;
   lessons: Lesson[];
-  /** Пункты недели вне уроков: вебинар, встречи. */
+  /** Пункты недели вне уроков: вебинары. Встречи по записи берутся из записей ученика (mocks/meetings.ts). */
   events: PlanItem[];
 }
 
@@ -135,7 +135,6 @@ const soc: Course = {
       ],
       events: [
         { id: "soc-w8-web", kind: "webinar", title: "Практика с АМ: задание 25", required: true, status: "todo", due: "пн 26.10, 17:00" },
-        { id: "soc-w8-cow", kind: "meeting", title: "Коворкинг с наставником", required: false, status: "todo", due: "чт 29.10, 19:00 · вы записаны" },
       ],
     },
     {

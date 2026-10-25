@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { AppShell } from "@/components/shell/app-shell";
 import { ProgressProvider } from "@/lib/progress";
+import { BookingsProvider } from "@/lib/bookings";
 import { MistakesProvider } from "@/lib/mistakes";
 import { WorksProvider } from "@/lib/works";
 import { isSubject } from "@mocks/course";
@@ -19,7 +20,9 @@ export default function SubjectLayout({ children, params }: { children: ReactNod
       <ProgressProvider>
         <WorksProvider>
           <MistakesProvider>
-            <AppShell subject={params.subject}>{children}</AppShell>
+            <BookingsProvider>
+              <AppShell subject={params.subject}>{children}</AppShell>
+            </BookingsProvider>
           </MistakesProvider>
         </WorksProvider>
       </ProgressProvider>

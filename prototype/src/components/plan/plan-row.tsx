@@ -101,7 +101,8 @@ export function PlanRow({ item, href: lessonHref, now }: { item: PlanItem; href?
     </span>
   );
 
-  const extra = !item.required && (
+  // «на 100» — про допы к урокам. Встречи по записи и так по желанию.
+  const extra = !item.required && item.kind !== "meeting" && (
     <span className="shrink-0 whitespace-nowrap rounded-full bg-surface-lime px-2 py-0.5 text-[11px] font-bold text-ink-olive">на 100</span>
   );
 

@@ -2,8 +2,11 @@
 
 import Link from "next/link";
 import { Icon } from "@/components/ui/icon";
+import { KIND_ICON, useCalendarEvents } from "@/components/calendar/calendar-view";
+import { useBookings } from "@/lib/bookings";
 import { useWeekProgress } from "@/lib/progress";
 import { COURSES, GRADEBOOK, MENTOR, type Subject } from "@mocks/course";
+import { CAL_WEEKS, dayLabel, isPast } from "@mocks/meetings";
 
 // Карточки правой колонки: «дополнительная область» из принципов Figma клиента.
 
@@ -17,29 +20,43 @@ function SideCard({ title, children }: { title: string; children: React.ReactNod
 }
 
 export function MeetingsCard({ subject }: { subject: Subject }) {
-  const course = COURSES[subject];
-  const week = course.weeks.find((w) => w.number === course.currentWeek);
-  const events = week?.events ?? [];
+  const { isBooked } = useBookings();
+  const days = CAL_WEEKS.find((w) => w.number === COURSES[subject].currentWeek)?.days ?? [];
+  // Вебинары курса и встречи, на которые ученик записан, — ближайшие этой недели.
+  const events = useCalendarEvents().filter(
+    (e) =>
+      days.includes(e.date) &&
+      !isPast(e) &&
+      (e.subject === subject || e.subject === "all") &&
+      (e.kind === "webinar" || e.kind === "exam" || isBooked(e.id)),
+  );
   return (
     <SideCard title="встречи недели">
       {events.length === 0 ? (
         <p className="text-sm text-ink-muted">На этой неделе встреч нет.</p>
       ) : (
         <ul className="flex flex-col gap-3">
-          {events.map((e) => (
-            <li key={e.id} className="flex items-start gap-3">
-              <span className="grid size-9 shrink-0 place-items-center rounded-box-m bg-surface-subject text-ink">
-                <Icon name={e.kind === "webinar" ? "videocamera-record" : "calendar"} size="2xs" />
-              </span>
-              <span className="min-w-0">
-                <span className="block text-sm font-semibold">{e.title}</span>
-                <span className="block text-[13px] text-ink-muted">{e.due}</span>
-              </span>
-            </li>
-          ))}
+          {events.map((e) => {
+            const { weekday, day } = dayLabel(e.date);
+            return (
+              <li key={e.id}>
+                <Link href={`/${subject}/calendar?e=${e.id}`} className="flex items-start gap-3 no-underline">
+                  <span className="grid size-9 shrink-0 place-items-center rounded-box-m bg-surface-subject text-ink">
+                    <Icon name={KIND_ICON[e.kind]} size="2xs" />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block text-sm font-semibold">{e.title}</span>
+                    <span className="block text-[13px] text-ink-muted">
+                      {weekday} {day}, {e.time} · {e.kind === "webinar" ? "без записи" : "вы записаны"}
+                    </span>
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       )}
-      <Link href={`/${subject}/more#calendar`} className="mt-3 inline-block text-sm font-semibold text-ink-accent">
+      <Link href={`/${subject}/calendar`} className="mt-3 inline-block text-sm font-semibold text-ink-accent">
         Календарь и запись на встречи
       </Link>
     </SideCard>
