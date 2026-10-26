@@ -83,6 +83,10 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       window.localStorage.removeItem("enl-prototype-profile");
       window.localStorage.removeItem("enl-prototype-materials");
       window.localStorage.removeItem("enl-prototype-distribution");
+      window.localStorage.removeItem("enl-prototype-chats");
+      window.localStorage.removeItem("enl-prototype-surveys");
+      window.localStorage.removeItem("enl-prototype-recheck");
+      window.localStorage.removeItem("enl-prototype-support");
       window.location.reload();
     } catch {
       // нечего сбрасывать

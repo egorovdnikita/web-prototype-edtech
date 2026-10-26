@@ -99,6 +99,7 @@ const sessions = (s: Subject): MaterialGroup[] => [
     items: [
       { id: `${s}-ses-9-test`, title: "Итоговый тест за сентябрь", kind: "test", meta: "пройден" },
       { id: `${s}-ses-9-probe`, title: "Пробник №1", kind: "test", meta: "сдан 02.10" },
+      { id: `${s}-ses-9-survey`, title: "Анкета после пробника №1", kind: "test", meta: "2 минуты", href: "/survey/probe-1" },
       { id: `${s}-ses-9-exam`, title: "Билеты к зачёту за сентябрь", kind: "pdf", meta: "PDF", examOnly: true },
     ],
   },

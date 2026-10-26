@@ -11,12 +11,14 @@ import { SUBJECTS, type Subject } from "@mocks/course";
 // «Ещё»: всё, что не входит в учебный цикл. Оплата — здесь, а не в главном меню.
 const ROWS: { id: string; title: string; text: string; icon: IconName; href?: string }[] = [
   { id: "mentor", title: "Наставник", text: "Сообщения, индивидуальный план, зачёты", icon: "chat-round-dots", href: "/mentor" },
+  { id: "chats", title: "Чаты", text: "Мини-группа с наставником и общий чат курса", icon: "chat-round-line", href: "/chats" },
   { id: "calendar", title: "Календарь", text: "Вебинары, зачёты, запись на продлёнки и коворкинги", icon: "calendar", href: "/calendar" },
   { id: "payment", title: "Оплата", text: "Оплаченный период, следующий месяц, история платежей", icon: "wallet", href: "/payment" },
   { id: "notifications", title: "Уведомления", text: "Уроки, дедлайны, проверка, оплата", icon: "bell", href: "/notifications" },
   { id: "profile", title: "Профиль", text: "Имя, часовой пояс, контакты, отчёт родителю, куда присылать уведомления", icon: "user-circle", href: "/profile" },
+  { id: "recheck", title: "Перепроверка бланков ЕГЭ", text: "После экзамена: стоит ли идти на апелляцию", icon: "shield-user", href: "/recheck" },
   // Как в текущем GetCourse: ВКонтакте, 08:00–21:00 по Москве, ответ до 2 часов.
-  { id: "support", title: "Техподдержка", text: "08:00–21:00 по Москве, ответим в течение 2 часов", icon: "info-circle" },
+  { id: "support", title: "Техподдержка", text: "08:00–21:00 по Москве, ответим в течение 2 часов", icon: "info-circle", href: "/support" },
 ];
 
 export default function MorePage({ params }: { params: { subject: Subject } }) {
@@ -53,6 +55,14 @@ export default function MorePage({ params }: { params: { subject: Subject } }) {
             </span>
           </span>
         </label>
+        <p className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
+          <Link href={`/${params.subject}/demo`} className="font-semibold text-ink-accent">
+            Демонеделя — до покупки
+          </Link>
+          <Link href={`/${params.subject}/welcome`} className="font-semibold text-ink-accent">
+            Первый вход после покупки
+          </Link>
+        </p>
       </section>
       <button type="button" onClick={reset} className="self-start text-sm font-semibold text-ink-muted underline">
         Сбросить отметки прототипа

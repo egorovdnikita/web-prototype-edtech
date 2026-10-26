@@ -15,6 +15,7 @@ import {
   type CalendarEvent,
   type MeetingKind,
 } from "@mocks/meetings";
+import { RECORDINGS } from "@mocks/recordings";
 
 // B15 — запись на встречу. Модальное окно из календаря: на телефоне — шторка снизу.
 
@@ -145,9 +146,15 @@ export function EventSheet({
       <div className="mt-5 flex flex-col gap-3">
         {event.kind === "webinar" &&
           (past ? (
-            <p className="text-sm text-ink-muted">
-              Вебинар прошёл. Запись, чат и задачник — в уроке недели.
-            </p>
+            RECORDINGS[event.id] ? (
+              <ButtonLink href={`/${event.subject}/recording/${event.id}`} size="l">
+                Смотреть запись с чатом и задачником
+              </ButtonLink>
+            ) : (
+              <p className="text-sm text-ink-muted">
+                Вебинар прошёл. Запись, чат и задачник — в уроке недели.
+              </p>
+            )
           ) : (
             <>
               <Button size="l" disabled>
@@ -162,11 +169,17 @@ export function EventSheet({
 
         {bookable &&
           (past ? (
-            <p className="text-sm text-ink-muted">
-              {booked ? "Вы были на этой встрече." : "Встреча прошла."}
-              {event.kind !== "coworking" &&
-                " Видеозапись с чатом и задачником — в уроке."}
-            </p>
+            <>
+              <p className="text-sm text-ink-muted">
+                {booked ? "Вы были на этой встрече." : "Встреча прошла."}
+                {event.kind === "coworking" && " Коворкинг не записывается."}
+              </p>
+              {RECORDINGS[event.id] && (
+                <ButtonLink href={`/${event.subject}/recording/${event.id}`} size="l">
+                  Смотреть запись с чатом и задачником
+                </ButtonLink>
+              )}
+            </>
           ) : booked ? (
             <>
               <p

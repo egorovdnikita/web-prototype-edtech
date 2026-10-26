@@ -28,7 +28,7 @@ function sectionOf(pathname: string, subject: Subject) {
   const rest = pathname.slice(`/${subject}`.length);
   if (rest.startsWith("/lesson")) return "";
   // Наставник, зачёт и календарь открываются из «Ещё».
-  if (/^\/(mentor|exam|calendar|payment|profile|notifications)/.test(rest)) return "/more";
+  if (/^\/(mentor|exam|calendar|recording|payment|profile|notifications|chats|support|survey|recheck|demo|welcome)/.test(rest)) return "/more";
   if (rest.startsWith("/training/")) return "/practice";
   return NAV.find((n) => n.href && rest.startsWith(n.href))?.href ?? "";
 }
@@ -38,6 +38,8 @@ function sectionOf(pathname: string, subject: Subject) {
 function switchTarget(pathname: string, subject: Subject, section: string) {
   const rest = pathname.slice(`/${subject}`.length);
   if (rest.startsWith("/training/")) return "/practice/trainings";
+  // Записи и анкеты — у предметов свои.
+  if (/^\/(recording|survey)\//.test(rest)) return "/more";
   // Тренажёр есть только у обществознания.
   if (rest.startsWith("/practice/trainer")) return "/practice";
   return /^\/(lesson|work)\//.test(rest) ? section : rest;
@@ -223,7 +225,7 @@ function PaymentGate({ subject, pathname, children }: { subject: Subject; pathna
   const { statusOf } = usePayment();
   const status = statusOf(subject);
   const rest = pathname.slice(`/${subject}`.length);
-  const open = /^\/(payment|more|profile|notifications)/.test(rest);
+  const open = /^\/(payment|more|profile|notifications|support)/.test(rest);
 
   if (status === "expelled" && !open) {
     return (

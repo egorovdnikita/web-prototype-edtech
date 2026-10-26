@@ -133,6 +133,17 @@ export const NOTICES: Notice[] = [
     read: true,
   },
   {
+    id: "soc-survey-probe-1",
+    group: "study",
+    subject: "soc",
+    title: "Как прошёл пробник №1? Анкета на 2 минуты",
+    text: "По ответам школа меняет курс и проверку.",
+    at: "2026-10-02T20:00",
+    href: "/survey/probe-1",
+    action: "Ответить",
+    read: true,
+  },
+  {
     id: "soc-ach-probe",
     group: "rewards",
     subject: "soc",
