@@ -1,14 +1,20 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import { useWorks } from "@/lib/works";
+import { TODAY, useWorks } from "@/lib/works";
 import { COURSES, type Subject } from "@mocks/course";
+import { TRAININGS, type Training } from "@mocks/trainings";
 import { WORKS, isCorrect, type ChoiceTask, type ShortTask } from "@mocks/works";
 
 // Работа над ошибками (B8, история 04.13): ошибки из всех тестов в одном месте.
 // Источник — последняя попытка каждого теста. Задание уходит из списка, когда
 // ученик решил его верно здесь или в новой попытке теста. Если в более поздней
 // попытке оно снова решено неверно — возвращается.
+//
+// Ошибки тренировок (запрос ЕНЛ «интерактивная работа над ошибками»): единица —
+// элемент тренировки, на котором ученик ошибся (пара, карточка, точка на карте).
+// Перерешивают их в той же механике, но только эти элементы. Источник, как у тестов, —
+// последнее прохождение: прошёл без ошибок — тренировка уходит из списка.
 
 const KEY = "enl-prototype-mistakes";
 
@@ -31,17 +37,31 @@ export interface Mistake {
   tries: number;
 }
 
+export interface TrainingMistake {
+  training: Training;
+  /** Индексы элементов в данных тренировки, на которых были ошибки. */
+  units: number[];
+  date: string;
+}
+
 interface Store {
   /** key → подпись источников, при которых задание решено верно. */
   resolved: Record<string, string>;
   tries: Record<string, number>;
   solvedToday: number;
+  trainings?: Record<string, { units: number[]; date: string }>;
 }
 
 interface MistakesState {
   list: (subject: Subject) => Mistake[];
   check: (mistake: Mistake, answer: string) => boolean;
   solvedToday: number;
+  trainings: (subject: Subject) => TrainingMistake[];
+  /** Итог прохождения: units пустой — ошибок нет, тренировка уходит из списка.
+   *  fixing — это было перерешивание из работы над ошибками. */
+  recordTraining: (id: string, units: number[], fixing?: boolean) => void;
+  /** Хранилище прочитано из браузера — до этого список ошибок пуст не по-настоящему. */
+  ready: boolean;
 }
 
 const MistakesContext = createContext<MistakesState | null>(null);
@@ -53,6 +73,7 @@ const signature = (m: Pick<Mistake, "sources">) => m.sources.map((s) => `${s.wor
 export function MistakesProvider({ children }: { children: ReactNode }) {
   const { get } = useWorks();
   const [store, setStore] = useState<Store>({ resolved: {}, tries: {}, solvedToday: 0 });
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     try {
@@ -61,6 +82,7 @@ export function MistakesProvider({ children }: { children: ReactNode }) {
     } catch {
       // без сохранения
     }
+    setReady(true);
   }, []);
 
   const save = useCallback((next: Store) => {
@@ -114,18 +136,55 @@ export function MistakesProvider({ children }: { children: ReactNode }) {
         resolved: ok ? { ...store.resolved, [mistake.key]: signature(mistake) } : store.resolved,
         tries: { ...store.tries, [mistake.key]: (store.tries[mistake.key] ?? 0) + 1 },
         solvedToday: store.solvedToday + (ok ? 1 : 0),
+        trainings: store.trainings,
       });
       return ok;
     },
     [save, store],
   );
 
-  const value = useMemo(() => ({ list, check, solvedToday: store.solvedToday }), [list, check, store.solvedToday]);
+  const trainings = useCallback(
+    (subject: Subject) =>
+      TRAININGS.filter((t) => t.subject === subject && store.trainings?.[t.id]).map((t) => ({
+        training: t,
+        ...store.trainings![t.id],
+      })),
+    [store],
+  );
+
+  const recordTraining = useCallback(
+    (id: string, units: number[], fixing?: boolean) => {
+      const rest = { ...store.trainings };
+      const had = Boolean(rest[id]);
+      if (units.length) {
+        // При перерешивании новые промахи — внутри тех же элементов, список не меняем.
+        if (!fixing) rest[id] = { units: Array.from(new Set(units)).sort((a, b) => a - b), date: TODAY };
+      } else delete rest[id];
+      save({ ...store, trainings: rest, solvedToday: store.solvedToday + (had && !units.length ? 1 : 0) });
+    },
+    [save, store],
+  );
+
+  const value = useMemo(
+    () => ({ list, check, solvedToday: store.solvedToday, trainings, recordTraining, ready }),
+    [list, check, store.solvedToday, trainings, recordTraining, ready],
+  );
   return <MistakesContext.Provider value={value}>{children}</MistakesContext.Provider>;
 }
 
 export function useMistakes(subject: Subject) {
   const context = useContext(MistakesContext);
   if (!context) throw new Error("useMistakes вне MistakesProvider");
-  return { mistakes: context.list(subject), check: context.check, solvedToday: context.solvedToday };
+  const mistakes = context.list(subject);
+  const trainings = context.trainings(subject);
+  return {
+    mistakes,
+    trainings,
+    /** Всего в работе над ошибками: задания из тестов + тренировки с ошибками. */
+    total: mistakes.length + trainings.length,
+    check: context.check,
+    recordTraining: context.recordTraining,
+    solvedToday: context.solvedToday,
+    ready: context.ready,
+  };
 }

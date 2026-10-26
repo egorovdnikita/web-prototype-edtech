@@ -5,18 +5,21 @@ import { useMemo, useRef, useState } from "react";
 import { Button, ButtonLink } from "@/components/ui/box";
 import { Icon } from "@/components/ui/icon";
 import { AnswerField } from "@/components/work/work-solve";
-import { useMistakes, type Mistake } from "@/lib/mistakes";
+import { useMistakes, type Mistake, type TrainingMistake } from "@/lib/mistakes";
 import { cn, plural } from "@/lib/utils";
 import type { Subject } from "@mocks/course";
+import { FORMATS, unitLabel } from "@mocks/trainings";
 
 // B8 — работа над ошибками. Все ошибки тестов в одном месте, фильтр по номеру
 // ЕГЭ и по теме, перерешивание прямо в карточке. Верно — задание уходит из списка.
+// Ошибки тренировок — отдельным блоком: их перерешивают в той же механике,
+// только на элементах с ошибками.
 
 /** После скольких неверных попыток показываем правильный ответ. */
 const REVEAL_AFTER = 2;
 
 export function MistakesView({ subject }: { subject: Subject }) {
-  const { mistakes, check, solvedToday } = useMistakes(subject);
+  const { mistakes, trainings, check, solvedToday } = useMistakes(subject);
   const [ege, setEge] = useState<number | "all">("all");
   const [lesson, setLesson] = useState<string>("all");
   const [openKey, setOpenKey] = useState<string | null>(null);
@@ -75,11 +78,29 @@ export function MistakesView({ subject }: { subject: Subject }) {
           работа над ошибками
         </h1>
         <p className="text-sm text-ink-muted">
-          {left ? (
+          {left || trainings.length ? (
             <>
               Осталось{" "}
-              <span className="enl-marker font-bold text-ink">{left}</span>{" "}
-              {plural(left, ["задание", "задания", "заданий"])} из тестов.
+              {left > 0 && (
+                <>
+                  <span className="enl-marker font-bold text-ink">{left}</span>{" "}
+                  {plural(left, ["задание", "задания", "заданий"])} из тестов
+                </>
+              )}
+              {left > 0 && trainings.length > 0 && " и "}
+              {trainings.length > 0 && (
+                <>
+                  <span className="enl-marker font-bold text-ink">
+                    {trainings.length}
+                  </span>{" "}
+                  {plural(trainings.length, [
+                    "тренировка",
+                    "тренировки",
+                    "тренировок",
+                  ])}
+                </>
+              )}
+              .
             </>
           ) : (
             "Ошибок нет."
@@ -88,6 +109,25 @@ export function MistakesView({ subject }: { subject: Subject }) {
           верно — задание уходит из списка.
         </p>
       </header>
+
+      {trainings.length > 0 && (
+        <section className="flex flex-col gap-2">
+          <h2 className="font-bold">Тренировки</h2>
+          <ul className="flex flex-col gap-3">
+            {trainings.map((t) => (
+              <TrainingMistakeCard
+                key={t.training.id}
+                subject={subject}
+                mistake={t}
+              />
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {all.length > 0 && trainings.length > 0 && (
+        <h2 className="-mb-2 font-bold">Задания из тестов</h2>
+      )}
 
       {all.length > 0 && (
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -131,13 +171,13 @@ export function MistakesView({ subject }: { subject: Subject }) {
         </div>
       )}
 
-      {all.length === 0 ? (
+      {all.length === 0 && trainings.length > 0 ? null : all.length === 0 ? (
         <section className="flex flex-col items-center gap-2 rounded-box-l border border-line bg-surface-raised p-8 text-center shadow-raised">
           <Icon name="cup-star" size="xl" className="text-ink-accent" />
           <p className="text-lg font-bold">Все ошибки исправлены</p>
           <p className="max-w-sm text-sm text-ink-muted">
-            Новые появятся здесь сами, если ошибётесь в тесте. А пока — тренажёр
-            по номерам.
+            Новые появятся здесь сами, если ошибётесь в тесте или тренировке. А
+            пока — тренажёр по номерам.
           </p>
           <ButtonLink
             href={`/${subject}/practice`}
@@ -181,6 +221,40 @@ export function MistakesView({ subject }: { subject: Subject }) {
         </ul>
       )}
     </div>
+  );
+}
+
+function TrainingMistakeCard({
+  subject,
+  mistake,
+}: {
+  subject: Subject;
+  mistake: TrainingMistake;
+}) {
+  const { training, units, date } = mistake;
+  const labels = Array.from(new Set(units.map((u) => unitLabel(training, u))));
+  return (
+    <li className="flex flex-wrap items-start gap-3 rounded-box-l border border-line bg-surface-raised p-4 shadow-raised sm:flex-nowrap">
+      <span className="grid size-10 shrink-0 place-items-center rounded-box-m bg-surface-subject">
+        <Icon name="magic-stick-3" size="2xs" />
+      </span>
+      <div className="min-w-0 flex-1 basis-[calc(100%-52px)] sm:basis-auto">
+        <p className="text-[13px] text-ink-muted">
+          {FORMATS[training.format].title} · {training.topic} · {date}
+        </p>
+        <p className="mt-1 font-semibold leading-snug">{training.title}</p>
+        <p className="mt-1 text-[13px] text-ink-muted">
+          Ошиблись: <span className="text-ink">{labels.join(", ")}</span>
+        </p>
+      </div>
+      <ButtonLink
+        href={`/${subject}/training/${training.id}/mistakes`}
+        appearance="soft"
+        className="w-full shrink-0 sm:w-auto"
+      >
+        Перерешать
+      </ButtonLink>
+    </li>
   );
 }
 

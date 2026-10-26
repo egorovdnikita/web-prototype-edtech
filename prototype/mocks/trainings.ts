@@ -56,7 +56,7 @@ export type TrainingData =
   | { mechanic: "pick"; rounds: PickRound[] }
   | { mechanic: "match"; left: string; right: string; pairs: [string, string][] }
   /** Текст с пропусками [0], [1]…; лишние слова — чтобы не решалось перебором. */
-  | { mechanic: "slots"; text: string; answers: string[]; extra: string[] }
+  | { mechanic: "slots"; text: string; answers: string[]; extra: string[]; numbers?: number[] }
   /** Элементы в верном порядке; `notes` открываются, когда элемент встал на место. */
   | { mechanic: "order"; items: string[]; notes?: string[] }
   | { mechanic: "sort"; categories: string[]; items: { text: string; category: number }[] }
@@ -67,6 +67,8 @@ export type TrainingData =
       mechanic: "map";
       pins: { label: string; year: string; note: string; x: number; y: number }[];
       landmarks: { label: string; x: number; y: number }[];
+      /** Какие подписи ставить; по умолчанию — все. */
+      only?: number[];
     };
 
 export interface Training {
@@ -374,3 +376,57 @@ export const TRAININGS: Training[] = [
 
 export const findTraining = (id: string) => TRAININGS.find((t) => t.id === id);
 export const trainingByPlanItem = (planItem: string) => TRAININGS.find((t) => t.planItem === planItem);
+
+/** Название элемента тренировки — чтобы в работе над ошибками было видно, где ошибся. */
+export function unitLabel(training: Training, unit: number): string {
+  const d = training.data;
+  switch (d.mechanic) {
+    case "pick":
+      return d.rounds[unit].clues ? `загадка ${unit + 1}` : d.rounds[unit].prompt.toLowerCase();
+    case "match":
+      return d.pairs[unit][0];
+    case "slots":
+      return `пропуск ${unit + 1}`;
+    case "order":
+      return d.items[unit];
+    case "sort":
+      return d.items[unit].text;
+    case "fragments": {
+      const part = d.parts[unit];
+      return typeof part === "string" ? part : part.text;
+    }
+    case "map":
+      return d.pins[unit].label;
+  }
+}
+
+/**
+ * Тренировка только из элементов с ошибками. Порядок и «найди ошибку» целиком:
+ * вне цепочки и текста элемент теряет смысл. В соответствиях оставляем хотя бы
+ * три пары, на карте — все точки, иначе выбор становится угадыванием.
+ */
+export function focusData(data: TrainingData, units: number[]): TrainingData {
+  const has = (i: number) => units.includes(i);
+  switch (data.mechanic) {
+    case "pick":
+      return { ...data, rounds: data.rounds.filter((_, i) => has(i)) };
+    case "match": {
+      const pad = data.pairs.map((_, i) => i).filter((i) => !has(i));
+      const keep = [...units, ...pad.slice(0, Math.max(0, 3 - units.length))];
+      return { ...data, pairs: data.pairs.filter((_, i) => keep.includes(i)) };
+    }
+    case "slots": {
+      let n = 0;
+      const text = data.text.replace(/\[(\d+)\]/g, (_, i) => (has(Number(i)) ? `[${n++}]` : data.answers[Number(i)]));
+      // Номера пропусков — исходные, как в подписи «где ошиблись».
+      const kept = data.answers.map((_, i) => i).filter(has);
+      return { ...data, text, answers: kept.map((i) => data.answers[i]), numbers: kept.map((i) => i + 1) };
+    }
+    case "sort":
+      return { ...data, items: data.items.filter((_, i) => has(i)) };
+    case "map":
+      return { ...data, only: units };
+    default:
+      return data;
+  }
+}

@@ -79,14 +79,14 @@ function SubjectSwitch({ subject, section, compact }: { subject: Subject; sectio
 
 /** Счётчик ошибок на вкладке «Практика» — чтобы работа над ошибками не терялась. */
 function NavBadge({ subject, href }: { subject: Subject; href: string }) {
-  const { mistakes } = useMistakes(subject);
-  if (href !== "/practice" || mistakes.length === 0) return null;
+  const { total } = useMistakes(subject);
+  if (href !== "/practice" || total === 0) return null;
   return (
     <span
-      aria-label={`ошибок: ${mistakes.length}`}
+      aria-label={`ошибок: ${total}`}
       className="grid min-w-5 place-items-center rounded-full bg-accent px-1 text-[11px] font-bold leading-5 text-accent-on"
     >
-      {mistakes.length}
+      {total}
     </span>
   );
 }

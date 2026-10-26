@@ -8,7 +8,7 @@ import type { Subject } from "@mocks/course";
 
 /** Карточка «Работа над ошибками» в практике — с живым счётчиком. */
 export function MistakesLink({ subject }: { subject: Subject }) {
-  const { mistakes } = useMistakes(subject);
+  const { mistakes, trainings } = useMistakes(subject);
   const count = mistakes.length;
   return (
     <Link
@@ -21,9 +21,14 @@ export function MistakesLink({ subject }: { subject: Subject }) {
       <span className="min-w-0 flex-1">
         <span className="block font-bold leading-snug">Работа над ошибками</span>
         <span className="block text-[13px] text-ink-muted">
-          {count
-            ? `${count} ${plural(count, ["задание", "задания", "заданий"])} из тестов ждут, когда вы их перерешаете`
-            : "Ошибок нет — новые появятся сами после тестов"}
+          {count || trainings.length
+            ? `${[
+                count && `${count} ${plural(count, ["задание", "задания", "заданий"])} из тестов`,
+                trainings.length && `${trainings.length} ${plural(trainings.length, ["тренировка", "тренировки", "тренировок"])}`,
+              ]
+                .filter(Boolean)
+                .join(" и ")} — ждут, когда вы их перерешаете`
+            : "Ошибок нет — новые появятся сами после тестов и тренировок"}
         </span>
       </span>
       <Icon name="alt-arrow-right" size="min" className="shrink-0 text-ink-subtle" />

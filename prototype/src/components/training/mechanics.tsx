@@ -13,7 +13,8 @@ import type { TrainingData } from "@mocks/trainings";
 export interface MechanicProps<D> {
   data: D;
   seed: string;
-  onMistake: () => void;
+  /** Индекс элемента данных, на котором ошибся ученик, — для работы над ошибками. */
+  onMistake: (unit: number) => void;
   onDone: () => void;
 }
 
@@ -135,7 +136,7 @@ export function Pick({ data, seed, onMistake, onDone }: MechanicProps<Extract<Tr
                       }
                       flash(`${ri}-${i}`);
                       setWrong((w) => [...w, i]);
-                      onMistake();
+                      onMistake(ri);
                       // Неверный ответ открывает следующую подсказку.
                       if (r.clues) setClues((c) => Math.min(c + 1, r.clues!.length));
                     }}
@@ -181,7 +182,7 @@ export function Match({ data, seed, onMistake, onDone }: MechanicProps<Extract<T
       return;
     }
     flash(`${side}-${i}`);
-    onMistake();
+    onMistake(sel.i);
   };
   const state = (side: "l" | "r", i: number): ChipState =>
     done.includes(i) ? "correct" : flashKey === `${side}-${i}` ? "wrong" : sel?.side === side && sel.i === i ? "selected" : "idle";
@@ -222,6 +223,7 @@ export function Slots({ data, seed, onMistake, onDone }: MechanicProps<Extract<T
   const [flashKey, flash] = useFlash();
 
   const parts = data.text.split(/\[(\d+)\]/);
+  const num = (i: number) => data.numbers?.[i] ?? i + 1;
 
   return (
     <div className="flex flex-col gap-4">
@@ -241,21 +243,21 @@ export function Slots({ data, seed, onMistake, onDone }: MechanicProps<Extract<T
               key={k}
               type="button"
               onClick={() => setChosen(i)}
-              aria-label={`Пропуск ${i + 1}${active === i ? ", выбран" : ""}`}
+              aria-label={`Пропуск ${num(i)}${active === i ? ", выбран" : ""}`}
               aria-pressed={active === i}
               className={cn(
                 "inline-block min-h-9 min-w-24 rounded-box-xs border-2 border-dashed px-2 align-middle leading-8",
                 active === i ? "border-accent bg-accent-soft" : "border-line-strong bg-surface-page",
               )}
             >
-              <span className="text-sm text-ink-muted">{i + 1}</span>
+              <span className="text-sm text-ink-muted">{num(i)}</span>
             </button>
           );
         })}
       </p>
       {active >= 0 && (
         <Dock>
-          <Hint>Пропуск {active + 1} выбран. Нажмите на слово — или сначала на другой пропуск.</Hint>
+          <Hint>Пропуск {num(active)} выбран. Нажмите на слово — или сначала на другой пропуск.</Hint>
           <div className="flex flex-wrap gap-2">
             {bank.map((word) => {
               const used = filled.includes(word);
@@ -274,7 +276,7 @@ export function Slots({ data, seed, onMistake, onDone }: MechanicProps<Extract<T
                       return;
                     }
                     flash(word);
-                    onMistake();
+                    onMistake(active);
                   }}
                 >
                   {word}
@@ -338,7 +340,7 @@ export function Order({ data, seed, onMistake, onDone }: MechanicProps<Extract<T
                   return;
                 }
                 flash(String(i));
-                onMistake();
+                onMistake(placed);
               }}
             >
               {data.items[i]}
@@ -367,7 +369,7 @@ export function Sort({ data, seed, onMistake, onDone }: MechanicProps<Extract<Tr
       return;
     }
     flash(`i-${sel}`);
-    onMistake();
+    onMistake(sel);
   };
 
   // Карточки остаются на месте и получают метку категории — список не прыгает.
@@ -453,7 +455,7 @@ export function Fragments({ data, onMistake, onDone }: MechanicProps<Extract<Tra
                   return;
                 }
                 flash(String(k));
-                onMistake();
+                onMistake(k);
               }}
               className={cn(
                 "rounded-box-xs px-0.5 py-1 underline decoration-dotted decoration-2 underline-offset-[6px] transition-colors",
@@ -475,7 +477,8 @@ export function Fragments({ data, onMistake, onDone }: MechanicProps<Extract<Tra
    видны и пронумерованы, каждая — кнопка 44 px. Подпись ставится нажатием. */
 
 export function MapPlace({ data, seed, onMistake, onDone }: MechanicProps<Extract<TrainingData, { mechanic: "map" }>>) {
-  const labels = useMemo(() => shuffle(data.pins.map((_, i) => i), seed), [data, seed]);
+  // В работе над ошибками ставим только подписи с ошибками, остальные точки — как отвлекающие.
+  const labels = useMemo(() => shuffle(data.only ?? data.pins.map((_, i) => i), seed), [data, seed]);
   const [sel, setSel] = useState<number | null>(null);
   const [done, setDone] = useState<number[]>([]);
   const [flashKey, flash] = useFlash();
@@ -486,11 +489,11 @@ export function MapPlace({ data, seed, onMistake, onDone }: MechanicProps<Extrac
       const next = [...done, pin];
       setDone(next);
       setSel(null);
-      if (next.length === data.pins.length) onDone();
+      if (next.length === labels.length) onDone();
       return;
     }
     flash(`p-${pin}`);
-    onMistake();
+    onMistake(sel);
   };
 
   return (

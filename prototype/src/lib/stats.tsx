@@ -25,7 +25,7 @@ const isDone = (s: PlanItem["status"]) => s === "done" || s === "review";
 export function useStats(subject: Subject) {
   const { statusOf } = useProgress();
   const { get } = useWorks();
-  const { mistakes, solvedToday } = useMistakes(subject);
+  const { total: mistakesLeft, solvedToday } = useMistakes(subject);
   const { isBooked, exam, examResult } = useBookings();
   const course = COURSES[subject];
 
@@ -137,7 +137,7 @@ export function useStats(subject: Subject) {
     date: earned[a.id] ? (a.earnedAt ?? (a.id === "stamp" && stamps[0].stamp ? "30.09" : "сегодня")) : undefined,
   }));
 
-  return { materials, weeks, gradebook, ege, works, debts, achievements, mistakesLeft: mistakes.length };
+  return { materials, weeks, gradebook, ege, works, debts, achievements, mistakesLeft };
 }
 
 /** Самопроверка, сделанная до прототипа, ачивку не даёт — нужна своя. */
