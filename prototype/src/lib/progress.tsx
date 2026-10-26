@@ -73,6 +73,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       window.localStorage.removeItem("enl-prototype-trainings");
       window.localStorage.removeItem("enl-prototype-notifications");
       window.localStorage.removeItem("enl-prototype-profile");
+      window.localStorage.removeItem("enl-prototype-materials");
       window.location.reload();
     } catch {
       // нечего сбрасывать

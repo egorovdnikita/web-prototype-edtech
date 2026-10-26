@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { WithRail } from "@/components/shell/app-shell";
 import { MeetingsCard } from "@/components/plan/side-cards";
+import { ProgramTabs } from "@/components/program/program-tabs";
 import { Icon } from "@/components/ui/icon";
 import { cn } from "@/lib/utils";
 import { COURSES, SUBJECTS, type Subject } from "@mocks/course";
@@ -22,6 +23,8 @@ export default function ProgramPage({ params }: { params: { subject: Subject } }
             {SUBJECTS[params.subject].title} · {course.product} · тариф «{course.tariff}» · {course.period}
           </p>
         </header>
+
+        <ProgramTabs subject={params.subject} active="weeks" />
 
         <p className="flex items-start gap-2 rounded-box-m bg-surface-subtle p-3 text-[13px] text-ink-muted">
           <Icon name="info-circle" size="2xs" className="mt-0.5 shrink-0" />
