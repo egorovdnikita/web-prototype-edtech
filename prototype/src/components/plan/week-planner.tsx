@@ -112,7 +112,7 @@ export function WeekPlanner({ subject }: { subject: Subject }) {
       </div>
 
       {/* Прогресс обязательного плана */}
-      <section className="rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+      <section className="rounded-box-l border border-line bg-surface-raised p-4">
         <div className="flex items-baseline justify-between gap-3">
           <p className="font-semibold">
             Обязательный план: <span className="enl-marker">{progress.done} из {progress.open}</span>
@@ -198,7 +198,7 @@ export function WeekPlanner({ subject }: { subject: Subject }) {
       ))}
 
       {filter !== "extra" || meetings.some((e) => matches(e, filter)) ? (
-        <section className="rounded-box-l border border-line bg-surface-raised p-2 shadow-raised">
+        <section className="rounded-box-l border border-line bg-surface-raised p-2">
           <h2 className="flex items-center justify-between px-3 pb-1 pt-2 font-bold">
             Встречи недели
             <Link href={`/${subject}/calendar`} className="text-sm font-semibold text-ink-accent no-underline">
@@ -243,7 +243,7 @@ function LessonGroup({
   const locked = lesson.status === "locked";
 
   return (
-    <section className={cn("rounded-box-l border border-line bg-surface-raised shadow-raised", locked && "bg-surface-subtle")}>
+    <section className={cn("rounded-box-l border border-line bg-surface-raised", locked && "bg-surface-subtle")}>
       <button
         type="button"
         onClick={() => setOpen(!open)}

@@ -13,7 +13,7 @@ export function MistakesLink({ subject }: { subject: Subject }) {
   return (
     <Link
       href={`/${subject}/practice/mistakes`}
-      className="flex items-center gap-3 rounded-box-l border border-line bg-surface-raised p-4 no-underline shadow-raised transition-colors hover:border-accent-border"
+      className="flex items-center gap-3 rounded-box-l border border-line bg-surface-raised p-4 no-underline transition-colors hover:border-accent-border"
     >
       <span className="grid size-11 shrink-0 place-items-center rounded-box-m bg-surface-subject">
         <Icon name="danger-circle" size="2xs" />

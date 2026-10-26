@@ -75,7 +75,7 @@ export function TrainingPlayer({
   if (fixing && focus === null) return null;
   if (fixing && focus?.length === 0)
     return (
-      <section className="mx-auto flex max-w-xl flex-col items-center gap-3 rounded-box-l border border-line bg-surface-raised p-8 text-center shadow-raised">
+      <section className="mx-auto flex max-w-xl flex-col items-center gap-3 rounded-box-l border border-line bg-surface-raised p-8 text-center">
         <Icon name="cup-star" size="xl" className="text-ink-accent" />
         <p className="text-lg font-bold">В этой тренировке ошибок нет</p>
         <ButtonLink href={back.href} appearance="soft">

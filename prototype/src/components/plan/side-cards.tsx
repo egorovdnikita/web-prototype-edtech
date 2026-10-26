@@ -18,7 +18,7 @@ import { CAL_WEEKS, dayLabel, isPast } from "@mocks/meetings";
 
 function SideCard({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+    <section className="rounded-box-l border border-line bg-surface-raised p-4">
       <h2 className="enl-display mb-3 text-lg">{title}</h2>
       {children}
     </section>

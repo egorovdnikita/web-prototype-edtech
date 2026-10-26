@@ -59,7 +59,7 @@ export function LessonView({ subject, lessonId }: { subject: Subject; lessonId: 
       ) : (
         <>
           {video && (
-            <section className="overflow-hidden rounded-box-l border border-line bg-surface-raised shadow-raised">
+            <section className="overflow-hidden rounded-box-l border border-line bg-surface-raised">
               <div className="relative grid aspect-video place-items-center bg-surface-subject">
                 <div className="enl-display absolute left-4 top-3 text-sm opacity-70">егэ налегке</div>
                 <button
@@ -68,7 +68,7 @@ export function LessonView({ subject, lessonId }: { subject: Subject; lessonId: 
                   className="flex flex-col items-center gap-2 font-semibold"
                   aria-label={videoDone ? "Пересмотреть видеоурок" : "Смотреть видеоурок"}
                 >
-                  <span className="grid size-16 place-items-center rounded-full bg-accent text-accent-on shadow-raised sm:size-20">
+                  <span className="grid size-16 place-items-center rounded-full bg-accent text-accent-on sm:size-20">
                     <Icon name="play-circle" variant="bold" size="xl" />
                   </span>
                   <span className="rounded-full bg-surface-raised px-3 py-1 text-sm">
@@ -95,13 +95,13 @@ export function LessonView({ subject, lessonId }: { subject: Subject; lessonId: 
           )}
 
           {lesson.important && (
-            <aside className="enl-grid-paper rounded-box-l border-2 border-accent p-4">
+            <aside className="enl-note rounded-box-l p-4">
               <p className="enl-display text-ink-accent">важно!</p>
               <p className="mt-1 font-medium">{lesson.important}</p>
             </aside>
           )}
 
-          <section className="rounded-box-l border border-line bg-surface-raised p-2 shadow-raised">
+          <section className="rounded-box-l border border-line bg-surface-raised p-2">
             <h2 className="px-3 pb-1 pt-2 font-bold">Материалы и задания</h2>
             <ul>
               {required.map((item) => (

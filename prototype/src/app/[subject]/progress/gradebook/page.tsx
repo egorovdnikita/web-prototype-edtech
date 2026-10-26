@@ -57,7 +57,7 @@ export default function GradebookPage({ params }: { params: { subject: Subject }
       </section>
 
       {/* Сезон: печати по месяцам, оба предмета */}
-      <section className="rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+      <section className="rounded-box-l border border-line bg-surface-raised p-4">
         <h2 className="font-bold">Печати сезона</h2>
         {(["soc", "hist"] as Subject[]).map((s) => {
           const stats = s === "soc" ? soc : hist;
@@ -84,7 +84,7 @@ export default function GradebookPage({ params }: { params: { subject: Subject }
       </section>
 
       {/* Розыгрыш */}
-      <section className="rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+      <section className="rounded-box-l border border-line bg-surface-raised p-4">
         <h2 className="flex items-center gap-2 font-bold">
           <Icon name="cup-star" size="2xs" className="text-ink-accent" /> Розыгрыш
         </h2>

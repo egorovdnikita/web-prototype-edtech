@@ -108,7 +108,7 @@ export function NotificationsView({ subject }: { subject: Subject }) {
         days.map((day) => (
           <section key={day} className="flex flex-col gap-2">
             <h2 className="text-[13px] font-bold uppercase tracking-wide text-ink-muted">{day}</h2>
-            <ul className="divide-y divide-line-subtle overflow-hidden rounded-box-l border border-line bg-surface-raised shadow-raised">
+            <ul className="divide-y divide-line-subtle overflow-hidden rounded-box-l border border-line bg-surface-raised">
               {shown
                 .filter((n) => dayOf(n.at) === day)
                 .map((n) => (

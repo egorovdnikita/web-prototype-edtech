@@ -103,7 +103,7 @@ export function Medal({ earned, size = 72 }: { earned: boolean; size?: number })
       <span
         className={cn(
           "relative grid place-items-center rounded-full border-4",
-          earned ? "border-surface-marker bg-surface-subject text-ink-accent shadow-raised" : "border-line bg-surface-subtle text-ink-subtle",
+          earned ? "border-surface-marker bg-surface-subject text-ink-accent" : "border-line bg-surface-subtle text-ink-subtle",
         )}
         style={{ width: size, height: size }}
       >

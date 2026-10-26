@@ -43,7 +43,7 @@ export function RecordingView({ subject, recording: r }: { subject: Subject; rec
       </header>
 
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_320px]">
-        <section className="overflow-hidden rounded-box-l border border-line bg-surface-raised shadow-raised">
+        <section className="overflow-hidden rounded-box-l border border-line bg-surface-raised">
           <div className="relative grid aspect-video place-items-center bg-surface-subject">
             <div className="enl-display absolute left-4 top-3 text-sm opacity-70">егэ налегке</div>
             <button
@@ -52,7 +52,7 @@ export function RecordingView({ subject, recording: r }: { subject: Subject; rec
               className="flex flex-col items-center gap-2 font-semibold"
               aria-label="Смотреть запись"
             >
-              <span className="grid size-16 place-items-center rounded-full bg-accent text-accent-on shadow-raised sm:size-20">
+              <span className="grid size-16 place-items-center rounded-full bg-accent text-accent-on sm:size-20">
                 <Icon name={position ? "pause" : "play"} variant="bold" size="l" />
               </span>
               <span className="rounded-full bg-surface-raised px-3 py-1 text-sm">
@@ -79,7 +79,7 @@ export function RecordingView({ subject, recording: r }: { subject: Subject; rec
         </section>
 
         <aside className="flex flex-col gap-4">
-          <section className="flex flex-col rounded-box-l border border-line bg-surface-raised shadow-raised">
+          <section className="flex flex-col rounded-box-l border border-line bg-surface-raised">
             <h2 className="border-b border-line-subtle px-4 py-2.5 font-bold">Чат встречи</h2>
             <ol className="flex max-h-80 flex-col gap-3 overflow-y-auto p-4">
               {r.chat.map((line) => {
@@ -104,7 +104,7 @@ export function RecordingView({ subject, recording: r }: { subject: Subject; rec
           <button
             type="button"
             onClick={() => setWorkbook(true)}
-            className="flex items-center gap-3 rounded-box-l border border-line bg-surface-raised p-4 text-left shadow-raised hover:border-accent-border"
+            className="flex items-center gap-3 rounded-box-l border border-line bg-surface-raised p-4 text-left hover:border-accent-border"
           >
             <span className="grid size-10 shrink-0 place-items-center rounded-box-m bg-surface-subject">
               <Icon name="document-text" size="2xs" />

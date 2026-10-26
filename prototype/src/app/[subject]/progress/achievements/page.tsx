@@ -29,7 +29,7 @@ export default function AchievementsPage({ params }: { params: { subject: Subjec
             key={a.id}
             className={cn(
               "flex flex-col items-center gap-2 rounded-box-l border p-4 text-center",
-              a.earned ? "border-line bg-surface-raised shadow-raised" : "border-dashed border-line bg-surface-subtle",
+              a.earned ? "border-line bg-surface-raised" : "border-dashed border-line bg-surface-subtle",
             )}
           >
             <Medal earned={a.earned} />

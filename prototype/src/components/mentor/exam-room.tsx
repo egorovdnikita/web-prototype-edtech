@@ -170,7 +170,7 @@ export function ExamRoom({ subject }: { subject: Subject }) {
         </section>
 
         {/* Ход зачёта */}
-        <section className="flex flex-col gap-3 rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+        <section className="flex flex-col gap-3 rounded-box-l border border-line bg-surface-raised p-4">
           {stage === "check" && (
             <>
               <h2 className="font-bold">Перед входом</h2>
@@ -295,7 +295,7 @@ function Check({ ok, text }: { ok: boolean; text: string }) {
 
 function Notice({ title, text, children }: { title: string; text: string; children?: React.ReactNode }) {
   return (
-    <section className="mx-auto flex max-w-md flex-col items-center gap-2 rounded-box-l border border-line bg-surface-raised p-8 text-center shadow-raised">
+    <section className="mx-auto flex max-w-md flex-col items-center gap-2 rounded-box-l border border-line bg-surface-raised p-8 text-center">
       <p className="text-lg font-bold">{title}</p>
       <p className="text-sm text-ink-muted">{text}</p>
       {children}

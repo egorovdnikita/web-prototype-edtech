@@ -175,7 +175,7 @@ export function MistakesView({ subject }: { subject: Subject }) {
       )}
 
       {all.length === 0 && trainings.length > 0 ? null : all.length === 0 ? (
-        <section className="flex flex-col items-center gap-2 rounded-box-l border border-line bg-surface-raised p-8 text-center shadow-raised">
+        <section className="flex flex-col items-center gap-2 rounded-box-l border border-line bg-surface-raised p-8 text-center">
           <Icon name="cup-star" size="xl" className="text-ink-accent" />
           <p className="text-lg font-bold">Все ошибки исправлены</p>
           <p className="max-w-sm text-sm text-ink-muted">
@@ -237,7 +237,7 @@ function TrainingMistakeCard({
   const { training, units, date } = mistake;
   const labels = Array.from(new Set(units.map((u) => unitLabel(training, u))));
   return (
-    <li className="flex flex-wrap items-start gap-3 rounded-box-l border border-line bg-surface-raised p-4 shadow-raised sm:flex-nowrap">
+    <li className="flex flex-wrap items-start gap-3 rounded-box-l border border-line bg-surface-raised p-4 sm:flex-nowrap">
       <span className="grid size-10 shrink-0 place-items-center rounded-box-m bg-surface-subject">
         <Icon name="magic-stick-3" size="2xs" />
       </span>
@@ -296,7 +296,7 @@ function MistakeCard({
   return (
     <li
       className={cn(
-        "rounded-box-l border bg-surface-raised shadow-raised transition-colors",
+        "rounded-box-l border bg-surface-raised transition-colors",
         solved
           ? "border-ink-olive"
           : open

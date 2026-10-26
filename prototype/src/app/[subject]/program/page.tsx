@@ -41,7 +41,7 @@ export default function ProgramPage({ params }: { params: { subject: Subject } }
               <li
                 key={week.number}
                 className={cn(
-                  "rounded-box-l border bg-surface-raised shadow-raised",
+                  "rounded-box-l border bg-surface-raised",
                   current ? "border-accent-border" : "border-line",
                 )}
               >

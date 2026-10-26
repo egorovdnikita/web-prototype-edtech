@@ -155,7 +155,7 @@ export function RecheckView({ subject }: { subject: Subject }) {
       )}
 
       {(store.stage === "result" || store.stage === "appeal" || store.stage === "closed") && (
-        <section className="flex flex-col gap-3 rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+        <section className="flex flex-col gap-3 rounded-box-l border border-line bg-surface-raised p-4">
           <p className="text-[13px] font-semibold text-ink-muted">Результат перепроверки · проверяющий куратор Лис</p>
           <p className="text-[15px] leading-relaxed">
             В задании 25 можно претендовать на +1 балл: пример из сферы экономики раскрыт, а засчитан не был. В задании 21

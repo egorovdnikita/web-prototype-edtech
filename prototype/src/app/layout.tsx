@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter_Tight, Raleway } from "next/font/google";
-import { FONT } from "@/lib/style";
+import { FONT, ICON, RADIUS } from "@/lib/style";
 
 // Порядок важен: Box UI (примитивы → темы → контролы → адаптив → компоненты),
 // поверх — бренд-слой ЕНЛ, затем Tailwind.
@@ -48,9 +48,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html
       lang="ru"
       data-theme="light"
-      data-radius="high"
+      data-radius={RADIUS}
       data-font={FONT}
-      data-icon-style="linear"
+      data-icon-style={ICON}
       className={`${interTight.variable} ${raleway.variable}`}
     >
       <body className="min-h-dvh antialiased">{children}</body>

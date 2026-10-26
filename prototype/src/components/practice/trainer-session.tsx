@@ -63,7 +63,7 @@ export function TrainerSession({ subject, set }: { subject: Subject; set: Traine
 
   if (queue.length === 0)
     return (
-      <section className="mx-auto flex max-w-xl flex-col items-center gap-3 rounded-box-l border border-line bg-surface-raised p-8 text-center shadow-raised">
+      <section className="mx-auto flex max-w-xl flex-col items-center gap-3 rounded-box-l border border-line bg-surface-raised p-8 text-center">
         <Icon name="cup-star" size="xl" className="text-ink-accent" />
         <p className="text-lg font-bold">{set === "weak" ? "Слабых номеров нет" : "В этой подборке пока нет заданий"}</p>
         <p className="text-sm text-ink-muted">
@@ -95,7 +95,7 @@ export function TrainerSession({ subject, set }: { subject: Subject; set: Traine
       </header>
 
       {!done ? (
-        <section className="rounded-box-l border border-line bg-surface-raised p-4 shadow-raised sm:p-5">
+        <section className="rounded-box-l border border-line bg-surface-raised p-4 sm:p-5">
           <p className="flex items-center gap-2 text-[13px] font-semibold text-ink-muted">
             <span className="rounded-full bg-surface-subject px-2 py-0.5 font-extrabold text-ink">№{task.ege}</span>
             {task.topic}

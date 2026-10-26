@@ -29,7 +29,7 @@ export default function MorePage({ params }: { params: { subject: Subject } }) {
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-5">
       <h1 className="enl-display text-[28px] leading-tight sm:text-[34px]">ещё</h1>
-      <ul className="divide-y divide-line-subtle overflow-hidden rounded-box-l border border-line bg-surface-raised shadow-raised">
+      <ul className="divide-y divide-line-subtle overflow-hidden rounded-box-l border border-line bg-surface-raised">
         {ROWS.map((r) => (
           <li key={r.id} id={r.id}>
             <Row

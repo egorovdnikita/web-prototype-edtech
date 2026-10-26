@@ -43,7 +43,7 @@ function Sheet({
       onClick={onClose}
     >
       <div
-        className="max-h-[90dvh] w-full max-w-lg overflow-y-auto rounded-t-box-xl bg-surface-raised p-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] shadow-raised sm:rounded-box-xl"
+        className="max-h-[90dvh] w-full max-w-lg overflow-y-auto rounded-t-box-xl bg-surface-raised p-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] sm:rounded-box-xl"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mb-3 flex justify-end">

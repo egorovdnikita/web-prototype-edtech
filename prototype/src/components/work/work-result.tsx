@@ -29,7 +29,7 @@ export function WorkResult({ subject, id }: { subject: Subject; id: string }) {
       </nav>
 
       {!record.submitted ? (
-        <section className="rounded-box-l border border-line bg-surface-raised p-6 text-center shadow-raised">
+        <section className="rounded-box-l border border-line bg-surface-raised p-6 text-center">
           <p className="font-bold">Работа ещё не сдана</p>
           <ButtonLink href={`/${subject}/work/${id}`} className="mt-3">
             Решать
@@ -94,7 +94,7 @@ function TestResult({ subject, id, title, work, record }: { subject: Subject; id
           const shown = task.type === "choice" && task.answer.length === 1 && given ? task.options[Number(given) - 1] : given;
           const right = task.type === "choice" && task.answer.length === 1 ? task.options[Number(task.answer) - 1] : task.answer;
           return (
-            <li key={task.id} className={cn("rounded-box-l border bg-surface-raised p-4 shadow-raised", ok ? "border-line" : "border-accent-border")}>
+            <li key={task.id} className={cn("rounded-box-l border bg-surface-raised p-4", ok ? "border-line" : "border-accent-border")}>
               <p className="flex items-center gap-2 text-sm font-bold">
                 <Icon
                   name={ok ? "check-circle" : "close-circle"}
@@ -119,7 +119,7 @@ function TestResult({ subject, id, title, work, record }: { subject: Subject; id
         })}
       </ol>
 
-      <section className="rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+      <section className="rounded-box-l border border-line bg-surface-raised p-4">
         <h2 className="font-bold">Мои попытки</h2>
         <ul className="mt-2 divide-y divide-line-subtle text-sm">
           {record.attempts.map((a, i) => (
@@ -180,7 +180,7 @@ function CuratorResult({ id, subject, title, work, record }: { id: string; subje
       <>
         {/* Никаких баллов до проверки: сейчас GetCourse ставит максимум заранее, и ученик видит завышенный результат. */}
         <ScoreHeader title={title} score={null} max={max} label={`Сдано ${record.submitted!.date} · на проверке у куратора`} />
-        <section className="flex items-start gap-3 rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+        <section className="flex items-start gap-3 rounded-box-l border border-line bg-surface-raised p-4">
           <Icon name="hourglass" size="s" className="shrink-0 text-ink-accent" />
           <div className="text-sm">
             <p className="font-bold">Куратор проверит до {checkDue(record.submitted!.date)}</p>
@@ -209,7 +209,7 @@ function CuratorResult({ id, subject, title, work, record }: { id: string; subje
           const scores = review.scores[task.id] ?? {};
           const got = Object.values(scores).reduce((a, b) => a + b, 0);
           return (
-            <li key={task.id} className="rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+            <li key={task.id} className="rounded-box-l border border-line bg-surface-raised p-4">
               <p className="flex justify-between gap-2 font-bold">
                 <span>
                   Задание {i + 1} · №{task.ege}
@@ -257,7 +257,7 @@ function checkDue(date: string) {
 
 function Answers({ tasks, answers }: { tasks: LongTask[]; answers: Record<string, string> }) {
   return (
-    <section className="rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+    <section className="rounded-box-l border border-line bg-surface-raised p-4">
       <h2 className="font-bold">Мои ответы</h2>
       <ol className="mt-2 flex flex-col gap-3">
         {tasks.map((t, i) => (
@@ -304,7 +304,7 @@ function SelfCheck({ id, title, work, record }: { id: string; title: string; wor
 
       <ol className="flex flex-col gap-3">
         {tasks.map((task, i) => (
-          <li key={task.id} className="rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+          <li key={task.id} className="rounded-box-l border border-line bg-surface-raised p-4">
             <p className="font-bold">
               Задание {i + 1} · №{task.ege}
             </p>

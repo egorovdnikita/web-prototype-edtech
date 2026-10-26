@@ -99,8 +99,9 @@
   --enl-marker: var(--brand-color-alpha-8);
   --enl-lime: var(--system-color-positive-alpha-16);
   --enl-olive-ink: var(--system-color-positive-850);
-  --enl-grid-line: var(--system-color-black-alpha-8);
-  --enl-shadow-raised: 0 1px 2px var(--system-color-black-alpha-8);
+  --enl-grid-line: transparent;
+  /* Выделенная карточка — обводкой чуть плотнее обычной, а не чёрной рамкой. */
+  --enl-accent-border: var(--surface-base-border-strong);
 }
 
 /* Вторичный текст Box UI (neutral-500, #737373) на фоне страницы (neutral-100,
@@ -108,6 +109,21 @@
  * 7.17 на фоне и 7.81 на белом. Правку стоит внести в саму Box UI. */
 [data-theme="light"][data-accent="monochrome"] {
   --surface-base-content-muted: var(--system-color-neutral-600);
+  /* Плоский чистый слой: белая страница, карточки отделяют тонкие обводки. */
+  --surface-base-fill-page: var(--system-color-white-base);
+}
+
+/* Маркер и «стикер» — учебные мотивы ЕНЛ. В монохроме их нет: сделанное
+ * показывает галочка, «прямо сейчас» — обычная метка. */
+[data-accent="monochrome"] .enl-marker {
+  background: none;
+  padding-inline: 0;
+}
+[data-accent="monochrome"] .enl-sticker {
+  transform: none;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 600;
 }
 
 /* --- Гарнитура: Brand · Typography ------------------------------------- */
@@ -116,6 +132,9 @@
 [data-font="inter-tight"] {
   --brand-font-family-heading: var(--font-inter-tight), "Inter Tight", var(--font-fallback);
   --brand-font-family-body: var(--font-inter-tight), "Inter Tight", var(--font-fallback);
+  /* Гротеск плотнее Raleway: на полступени легче — чище и спокойнее. */
+  --enl-weight-bold: 600;
+  --enl-weight-extrabold: 700;
 }
 
 
@@ -150,7 +169,6 @@
   --enl-lime: #d9dc6a; /* light-green */
   --enl-olive-ink: #5c5e1f; /* текст на лайме, 6.60 на фоне */
   --enl-grid-line: rgb(31 27 22 / 0.06); /* клетка тетради */
-  --enl-shadow-raised: 0 1px 0 rgb(31 27 22 / 0.04), 0 8px 24px -12px rgb(31 27 22 / 0.18);
 }
 
 /* --- Утилиты ------------------------------------------------------------ */
@@ -188,6 +206,21 @@
     linear-gradient(var(--enl-grid-line) 1px, transparent 1px),
     linear-gradient(90deg, var(--enl-grid-line) 1px, transparent 1px);
   background-size: 20px 20px;
+}
+
+/* Плашка «на заметку»: в стиле ЕНЛ — лист в клетку с рамкой предмета,
+ * в монохроме — спокойная серая подложка без рамки. */
+.enl-note {
+  background-color: var(--surface-base-fill-raised);
+  background-image:
+    linear-gradient(var(--enl-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--enl-grid-line) 1px, transparent 1px);
+  background-size: 20px 20px;
+  border: 2px solid var(--accent-fill-solid);
+}
+[data-accent="monochrome"] .enl-note {
+  background: var(--surface-base-fill-layer-subtle);
+  border-color: transparent;
 }
 
 /* Ошибка в тренировке: короткая встряска, ничего не блокирует. */

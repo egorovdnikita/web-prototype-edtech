@@ -42,7 +42,7 @@ export default function PracticePage({ params }: { params: { subject: Subject } 
               <p className="mt-auto text-[13px] font-semibold text-ink-accent">{b.meta(params.subject)}</p>
             </>
           );
-          const box = "flex flex-col gap-2 rounded-box-l border border-line bg-surface-raised p-4 shadow-raised";
+          const box = "flex flex-col gap-2 rounded-box-l border border-line bg-surface-raised p-4";
           return b.href ? (
             <Link key={b.title} href={`/${params.subject}${b.href}`} className={`${box} text-ink no-underline transition-colors hover:border-accent-border`}>
               {body}

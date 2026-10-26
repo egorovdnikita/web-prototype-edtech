@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss";
 
-// Цвета, радиусы и тени — только через токены Box UI и --enl-*.
+// Цвета и радиусы — только через токены Box UI и --enl-*. Теней нет: слои делят обводки.
 // В компонентах никаких hex: surface / accent / ink.
 const config: Config = {
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
@@ -19,7 +19,7 @@ const config: Config = {
         accent: {
           DEFAULT: "var(--accent-fill-solid)",
           soft: "var(--accent-fill-soft)",
-          border: "var(--accent-border-default)",
+          border: "var(--enl-accent-border, var(--accent-border-default))",
           on: "var(--accent-content-on-solid-default)",
         },
         ink: {
@@ -35,6 +35,11 @@ const config: Config = {
           subtle: "var(--surface-base-border-subtle)",
         },
       },
+      // Насыщенность через моду гарнитуры: в Inter Tight bold — 600, extrabold — 700.
+      fontWeight: {
+        bold: "var(--enl-weight-bold, 700)",
+        extrabold: "var(--enl-weight-extrabold, 800)",
+      },
       borderRadius: {
         // box-*: у Tailwind уже есть rounded-s / rounded-l (логические стороны)
         "box-xs": "var(--rounding-xs)",
@@ -42,9 +47,6 @@ const config: Config = {
         "box-m": "var(--rounding-m)",
         "box-l": "var(--rounding-l)",
         "box-xl": "var(--rounding-xl)",
-      },
-      boxShadow: {
-        raised: "var(--enl-shadow-raised)",
       },
     },
   },

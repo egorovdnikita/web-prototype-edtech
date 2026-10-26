@@ -22,7 +22,7 @@ export function DistributionGate({ subject, id, children }: { subject: Subject; 
   // Куратор проверяет ДЗ на тех же тарифах, где есть зачёт.
   const curator = hasExams(subject);
   return (
-    <section className="mx-auto flex max-w-xl flex-col gap-4 rounded-box-l border border-line bg-surface-raised p-6 shadow-raised">
+    <section className="mx-auto flex max-w-xl flex-col gap-4 rounded-box-l border border-line bg-surface-raised p-6">
       <span className="grid size-12 place-items-center rounded-full bg-surface-subject">
         <Icon name="hourglass" size="xs" />
       </span>

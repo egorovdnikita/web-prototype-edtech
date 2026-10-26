@@ -227,7 +227,7 @@ export function Slots({ data, seed, onMistake, onDone }: MechanicProps<Extract<T
 
   return (
     <div className="flex flex-col gap-4">
-      <p className="rounded-box-l bg-surface-raised p-4 text-[17px] leading-[2.4] shadow-raised">
+      <p className="rounded-box-l bg-surface-raised p-4 text-[17px] leading-[2.4]">
         {parts.map((part, k) => {
           if (k % 2 === 0) return <span key={k}>{part}</span>;
           const i = Number(part);
@@ -433,7 +433,7 @@ export function Fragments({ data, onMistake, onDone }: MechanicProps<Extract<Tra
       <Hint>
         Найдено {found.length} из {data.errors}
       </Hint>
-      <p className="rounded-box-l bg-surface-raised p-4 text-[17px] leading-[2.2] shadow-raised">
+      <p className="rounded-box-l bg-surface-raised p-4 text-[17px] leading-[2.2]">
         {data.parts.map((part, k) => {
           if (typeof part === "string") return <span key={k}>{part}</span>;
           if (found.includes(k))
@@ -535,7 +535,7 @@ export function MapPlace({ data, seed, onMistake, onDone }: MechanicProps<Extrac
               >
                 <span
                   className={cn(
-                    "grid size-7 place-items-center rounded-full border-2 text-sm font-bold shadow-raised transition-colors",
+                    "grid size-7 place-items-center rounded-full border-2 text-sm font-bold transition-colors",
                     placed
                       ? "border-transparent bg-surface-lime"
                       : flashKey === `p-${i}`
@@ -551,7 +551,7 @@ export function MapPlace({ data, seed, onMistake, onDone }: MechanicProps<Extrac
               {placed && (
                 <span
                   className={cn(
-                    "pointer-events-none absolute top-full -mt-1 whitespace-nowrap rounded-box-xs bg-surface-raised px-1.5 py-0.5 text-[11px] font-bold shadow-raised",
+                    "pointer-events-none absolute top-full -mt-1 whitespace-nowrap rounded-box-xs bg-surface-raised px-1.5 py-0.5 text-[11px] font-bold",
                     align,
                   )}
                 >

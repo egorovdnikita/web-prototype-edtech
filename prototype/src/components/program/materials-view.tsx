@@ -99,7 +99,7 @@ export function MaterialsView({ subject }: { subject: Subject }) {
             {found.length ? `Нашлось: ${found.length}` : "Ничего не нашлось — попробуйте другое слово."}
           </h2>
           {found.length > 0 && (
-            <ul className="divide-y divide-line-subtle overflow-hidden rounded-box-l border border-line bg-surface-raised shadow-raised">
+            <ul className="divide-y divide-line-subtle overflow-hidden rounded-box-l border border-line bg-surface-raised">
               {found.map(({ item, group }) => row(item, `${SECTIONS[group.section].title} · ${group.title}`))}
             </ul>
           )}
@@ -156,7 +156,7 @@ export function MaterialsView({ subject }: { subject: Subject }) {
                       </span>
                     </p>
                   ) : (
-                    <div key={g.title} className="overflow-hidden rounded-box-l border border-line bg-surface-raised shadow-raised">
+                    <div key={g.title} className="overflow-hidden rounded-box-l border border-line bg-surface-raised">
                       <h3 className="border-b border-line-subtle px-4 py-2.5 text-[13px] font-bold uppercase tracking-wide text-ink-muted">
                         {g.title}
                       </h3>
@@ -169,7 +169,7 @@ export function MaterialsView({ subject }: { subject: Subject }) {
 
           <Link
             href={`/${subject}/practice`}
-            className="flex items-center gap-3 rounded-box-l border border-line bg-surface-raised p-4 text-sm no-underline shadow-raised hover:border-accent-border"
+            className="flex items-center gap-3 rounded-box-l border border-line bg-surface-raised p-4 text-sm no-underline hover:border-accent-border"
           >
             <Icon name="dumbbell-large" size="2xs" className="shrink-0 text-ink-accent" />
             <span className="flex-1 text-ink">

@@ -20,7 +20,7 @@ const field =
 
 function Section({ id, title, text, children }: { id?: string; title: string; text?: string; children: ReactNode }) {
   return (
-    <section id={id} className="flex scroll-mt-20 flex-col gap-3 rounded-box-l border border-line bg-surface-raised p-4 shadow-raised sm:p-5">
+    <section id={id} className="flex scroll-mt-20 flex-col gap-3 rounded-box-l border border-line bg-surface-raised p-4 sm:p-5">
       <div>
         <h2 className="font-bold">{title}</h2>
         {text && <p className="text-[13px] text-ink-muted">{text}</p>}

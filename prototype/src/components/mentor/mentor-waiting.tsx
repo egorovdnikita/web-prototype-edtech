@@ -47,7 +47,7 @@ export function MentorWaiting({ subject }: { subject: Subject }) {
         </div>
       </header>
 
-      <ol className="flex flex-col gap-0 rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+      <ol className="flex flex-col gap-0 rounded-box-l border border-line bg-surface-raised p-4">
         {steps.map((s, i) => (
           <li key={s.title} className="flex gap-3">
             <span className="flex flex-col items-center">

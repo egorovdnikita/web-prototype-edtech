@@ -69,7 +69,7 @@ export function ChatsView({ subject }: { subject: Subject }) {
                 onClick={() => setOpenId(c.id)}
                 aria-current={desktopOpen?.id === c.id ? "true" : undefined}
                 className={cn(
-                  "flex w-full items-center gap-3 rounded-box-l border bg-surface-raised p-3 text-left shadow-raised transition-colors",
+                  "flex w-full items-center gap-3 rounded-box-l border bg-surface-raised p-3 text-left transition-colors",
                   desktopOpen?.id === c.id ? "lg:border-accent-border" : "border-line",
                   locked(c) ? "opacity-70" : "hover:border-accent-border",
                 )}
@@ -142,7 +142,7 @@ function Conversation({
   }, [messages.length]);
 
   return (
-    <section className="flex h-[calc(100dvh-210px)] min-h-[420px] flex-col overflow-hidden rounded-box-l border border-line bg-surface-raised shadow-raised lg:h-[600px]">
+    <section className="flex h-[calc(100dvh-210px)] min-h-[420px] flex-col overflow-hidden rounded-box-l border border-line bg-surface-raised lg:h-[600px]">
       <header className="flex items-center gap-2 border-b border-line-subtle px-3 py-2.5">
         <button type="button" onClick={onBack} aria-label="К списку чатов" className="grid size-9 place-items-center rounded-full hover:bg-surface-subtle lg:hidden">
           <Icon name="alt-arrow-left" size="xs" />

@@ -85,7 +85,7 @@ export function WorkSolve({ subject, id }: { subject: Subject; id: string }) {
         </p>
       )}
 
-      <div className="flex flex-wrap items-center gap-3 rounded-box-l border border-line bg-surface-raised p-3 shadow-raised">
+      <div className="flex flex-wrap items-center gap-3 rounded-box-l border border-line bg-surface-raised p-3">
         <span className="grid size-9 shrink-0 place-items-center rounded-box-m bg-surface-subject">
           <Icon name={work.check === "auto" ? "checklist-minimalistic" : work.check === "curator" ? "user-circle" : "pen-new-square"} size="2xs" />
         </span>
@@ -167,7 +167,7 @@ export function WorkSolve({ subject, id }: { subject: Subject; id: string }) {
 
       {confirming && (
         <div role="dialog" aria-modal="true" aria-labelledby="confirm-title" className="fixed inset-0 z-30 flex items-end justify-center bg-[var(--surface-base-fill-overlay)] sm:items-center">
-          <div className="w-full max-w-md rounded-t-box-xl bg-surface-raised p-5 shadow-raised sm:rounded-box-xl">
+          <div className="w-full max-w-md rounded-t-box-xl bg-surface-raised p-5 sm:rounded-box-xl">
             <h2 id="confirm-title" className="text-lg font-extrabold">Сдать работу?</h2>
             <p className="mt-1 text-sm text-ink-muted">
               Отвечено {answered} из {work.tasks.length}.
@@ -191,7 +191,7 @@ export function WorkSolve({ subject, id }: { subject: Subject; id: string }) {
 
 function TaskCard({ task, number, value, onChange }: { task: Task; number: number; value: string; onChange: (v: string) => void }) {
   return (
-    <section className="rounded-box-l border border-line bg-surface-raised p-4 shadow-raised sm:p-5">
+    <section className="rounded-box-l border border-line bg-surface-raised p-4 sm:p-5">
       <p className="text-[13px] font-semibold text-ink-muted">
         Задание {number} · №{task.ege} ЕГЭ{task.type === "long" && " · развёрнутый ответ"}
       </p>

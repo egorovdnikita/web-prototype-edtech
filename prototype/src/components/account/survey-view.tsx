@@ -47,7 +47,7 @@ export function SurveyView({ subject, probe }: { subject: Subject; probe: { id: 
 
   if (done)
     return (
-      <section className="mx-auto flex max-w-xl flex-col items-center gap-3 rounded-box-l border border-line bg-surface-raised p-8 text-center shadow-raised">
+      <section className="mx-auto flex max-w-xl flex-col items-center gap-3 rounded-box-l border border-line bg-surface-raised p-8 text-center">
         <Icon name="check-circle" variant="bold" size="xl" className="text-ink-olive" />
         <h1 className="text-xl font-extrabold">Спасибо, анкета отправлена</h1>
         <p className="text-sm text-ink-muted">Школа читает ответы и по ним меняет курс и проверку.</p>

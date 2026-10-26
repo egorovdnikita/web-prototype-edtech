@@ -24,7 +24,7 @@ export function TrainerGrid({ subject }: { subject: Subject }) {
 
   if (!stats)
     return (
-      <section className="rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+      <section className="rounded-box-l border border-line bg-surface-raised p-4">
         <h2 className="font-bold">Тренажёр по номерам ЕГЭ</h2>
         <p className="mt-1 text-sm text-ink-muted">
           В прототипе тренажёр только по обществознанию — как действующий test-soc. Есть ли аналог по истории, уточняем у
@@ -34,7 +34,7 @@ export function TrainerGrid({ subject }: { subject: Subject }) {
     );
 
   return (
-    <section className="flex flex-col gap-3 rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+    <section className="flex flex-col gap-3 rounded-box-l border border-line bg-surface-raised p-4">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <div>
           <h2 className="font-bold">Тренажёр по номерам ЕГЭ</h2>
@@ -115,14 +115,14 @@ export function TrainerStats({ subject }: { subject: Subject }) {
           { label: "номеров начато", value: `${tried.length} из ${stats.part1}` },
           { label: "слабых номеров", value: stats.weak.length },
         ].map((s) => (
-          <div key={s.label} className="rounded-box-l border border-line bg-surface-raised p-3 shadow-raised">
+          <div key={s.label} className="rounded-box-l border border-line bg-surface-raised p-3">
             <p className="enl-display text-2xl">{s.value}</p>
             <p className="text-[12px] leading-tight text-ink-muted">{s.label}</p>
           </div>
         ))}
       </div>
 
-      <section className="rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+      <section className="rounded-box-l border border-line bg-surface-raised p-4">
         <h2 className="font-bold">Решаемость по номерам</h2>
         <ul className="mt-3 flex flex-col gap-2">
           {stats.rows.map((r) => (

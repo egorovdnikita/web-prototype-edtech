@@ -64,7 +64,7 @@ export function AchievementToast({ subject }: { subject: Subject }) {
     <div
       role="status"
       aria-live="polite"
-      className="fixed inset-x-4 top-[72px] z-40 mx-auto flex max-w-sm animate-in fade-in slide-in-from-top-4 items-center gap-3 rounded-box-l border border-line bg-surface-raised p-3 shadow-raised lg:bottom-6 lg:left-auto lg:right-6 lg:top-auto lg:mx-0 lg:slide-in-from-bottom-4"
+      className="fixed inset-x-4 top-[72px] z-40 mx-auto flex max-w-sm animate-in fade-in slide-in-from-top-4 items-center gap-3 rounded-box-l border border-line bg-surface-raised p-3 lg:bottom-6 lg:left-auto lg:right-6 lg:top-auto lg:mx-0 lg:slide-in-from-bottom-4"
     >
       <Medal earned size={48} />
       <Link href={`/${subject}/progress/achievements`} className="min-w-0 flex-1 no-underline" onClick={() => setShown(null)}>

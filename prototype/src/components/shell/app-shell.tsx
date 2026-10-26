@@ -91,7 +91,7 @@ function Bell({ subject }: { subject: Subject }) {
     <Link
       href={`/${subject}/notifications`}
       aria-label={unread ? `Уведомления, новых: ${unread}` : "Уведомления"}
-      className="relative grid size-11 shrink-0 place-items-center rounded-full text-ink no-underline hover:bg-surface-raised"
+      className="relative grid size-11 shrink-0 place-items-center rounded-full text-ink no-underline hover:bg-surface-subtle"
     >
       <Icon name="bell" size="2xs" />
       {unread > 0 && (
@@ -126,7 +126,7 @@ export function AppShell({ subject, children }: { subject: Subject; children: Re
   return (
     <div className="lg:grid lg:min-h-dvh lg:grid-cols-[248px_minmax(0,1fr)]">
       {/* Десктоп: меню слева */}
-      <aside className="sticky top-0 hidden h-dvh flex-col gap-6 border-r border-line bg-surface-subtle px-5 py-6 lg:flex">
+      <aside className="sticky top-0 hidden h-dvh flex-col gap-6 border-r border-line bg-surface-page px-5 py-6 lg:flex">
         <div className="-my-2 flex items-center justify-between">
           <Logo />
           <Bell subject={subject} />
@@ -142,7 +142,7 @@ export function AppShell({ subject, children }: { subject: Subject; children: Re
                 aria-current={active ? "page" : undefined}
                 className={cn(
                   "flex items-center gap-3 rounded-box-m px-3 py-2.5 font-semibold no-underline transition-colors",
-                  active ? "bg-accent-soft text-ink-accent" : "text-ink-muted hover:bg-surface-raised hover:text-ink",
+                  active ? "bg-accent-soft text-ink-accent" : "text-ink-muted hover:bg-surface-subtle hover:text-ink",
                 )}
               >
                 <Icon name={item.icon} variant={active ? "bold" : "linear"} size="2xs" />
@@ -156,7 +156,7 @@ export function AppShell({ subject, children }: { subject: Subject; children: Re
         </nav>
         <Link
           href={`/${subject}/mentor`}
-          className="mt-auto flex items-center gap-3 rounded-box-l border border-line bg-surface-raised p-3 no-underline"
+          className="-mx-2 mt-auto flex items-center gap-3 rounded-box-m p-2 no-underline transition-colors hover:bg-surface-subtle"
         >
           <span className="grid size-10 place-items-center rounded-full bg-surface-subject font-bold text-ink">
             {waiting ? "?" : MENTORS[subject].initial}
@@ -230,7 +230,7 @@ function PaymentGate({ subject, pathname, children }: { subject: Subject; pathna
 
   if (status === "expelled" && !open) {
     return (
-      <section className="mx-auto flex max-w-md flex-col items-center gap-3 rounded-box-l border border-line bg-surface-raised p-8 text-center shadow-raised">
+      <section className="mx-auto flex max-w-md flex-col items-center gap-3 rounded-box-l border border-line bg-surface-raised p-8 text-center">
         <Icon name="lock-keyhole" size="xl" className="text-ink-subtle" />
         <p className="text-lg font-bold">Вы отчислены с курса</p>
         <p className="text-sm text-ink-muted">

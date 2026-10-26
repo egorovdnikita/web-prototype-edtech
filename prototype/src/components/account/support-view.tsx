@@ -96,7 +96,7 @@ export function SupportView({ subject }: { subject: Subject }) {
           <h2 className="font-bold">Мои обращения</h2>
           <ul className="flex flex-col gap-2">
             {tickets.map((t) => (
-              <li key={t.id} className="rounded-box-l border border-line bg-surface-raised p-3 shadow-raised">
+              <li key={t.id} className="rounded-box-l border border-line bg-surface-raised p-3">
                 <p className="flex items-center gap-2 text-[13px] font-semibold text-ink-accent">
                   <Icon name="hourglass" size="min" /> ждёт ответа · {t.topic}
                 </p>
@@ -111,7 +111,7 @@ export function SupportView({ subject }: { subject: Subject }) {
 
       <section className="flex flex-col gap-2">
         <h2 className="font-bold">Частые вопросы</h2>
-        <ul className="divide-y divide-line-subtle overflow-hidden rounded-box-l border border-line bg-surface-raised shadow-raised">
+        <ul className="divide-y divide-line-subtle overflow-hidden rounded-box-l border border-line bg-surface-raised">
           {FAQ.map((f, i) => (
             <li key={f.q}>
               <button
@@ -141,7 +141,7 @@ export function SupportView({ subject }: { subject: Subject }) {
         </ul>
       </section>
 
-      <section className="flex flex-col gap-3 rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+      <section className="flex flex-col gap-3 rounded-box-l border border-line bg-surface-raised p-4">
         <h2 className="font-bold">Не нашли ответ — напишите</h2>
         <div role="radiogroup" aria-label="Тема" className="flex flex-wrap gap-2">
           {TOPICS.map((t) => (

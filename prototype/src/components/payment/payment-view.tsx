@@ -101,7 +101,7 @@ export function PaymentView() {
       )}
 
       {expelled.length === ALL.length ? (
-        <section className="rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+        <section className="rounded-box-l border border-line bg-surface-raised p-4">
           <h2 className="font-bold">Как вернуться</h2>
           <p className="mt-1 text-sm text-ink-muted">
             После отчисления оплатить самому уже нельзя — возвращение обсуждается с менеджером: он подберёт месяц и тариф.
@@ -112,7 +112,7 @@ export function PaymentView() {
         </section>
       ) : (
         options.length > 0 && (
-          <section className="flex flex-col gap-4 rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+          <section className="flex flex-col gap-4 rounded-box-l border border-line bg-surface-raised p-4">
             <fieldset>
               <legend className="mb-2 font-bold">Что оплачиваем</legend>
               <div className="flex flex-col gap-2 sm:flex-row">
@@ -224,7 +224,7 @@ export function PaymentView() {
         )
       )}
 
-      <section className="rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+      <section className="rounded-box-l border border-line bg-surface-raised p-4">
         <h2 className="font-bold">История платежей</h2>
         <ul className="mt-2 divide-y divide-line-subtle text-sm">
           {history.map((h) => (
@@ -293,7 +293,7 @@ function StatusCard({ subject, status, paidUntil, skipped }: { subject: Subject;
     <div
       className={cn(
         "flex items-start gap-3 rounded-box-l border p-4",
-        tone ? "border-accent-border bg-accent-soft" : "border-line bg-surface-raised shadow-raised",
+        tone ? "border-accent-border bg-accent-soft" : "border-line bg-surface-raised",
       )}
     >
       <span className="grid size-10 shrink-0 place-items-center rounded-box-m bg-surface-raised">
@@ -329,7 +329,7 @@ function Checkout({ total, onClose, onPaid }: { total: number; onClose: () => vo
   const [method, setMethod] = useState("sbp");
   return (
     <div role="dialog" aria-modal="true" aria-label="Оплата" className="fixed inset-0 z-30 flex items-end justify-center bg-[var(--surface-base-fill-overlay)] sm:items-center" onClick={onClose}>
-      <div className="w-full max-w-md rounded-t-box-xl bg-surface-raised p-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] shadow-raised sm:rounded-box-xl" onClick={(e) => e.stopPropagation()}>
+      <div className="w-full max-w-md rounded-t-box-xl bg-surface-raised p-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] sm:rounded-box-xl" onClick={(e) => e.stopPropagation()}>
         <h2 className="text-lg font-extrabold">Оплата {rub(total)}</h2>
         <p className="text-[13px] text-ink-muted">Прототип: деньги не списываются.</p>
         <div className="mt-3 flex flex-col gap-2">

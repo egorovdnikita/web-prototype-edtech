@@ -47,7 +47,7 @@ export function DemoWeek({ subject }: { subject: Subject }) {
       </section>
 
       <section className="grid gap-4 sm:grid-cols-2">
-        <div className="rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+        <div className="rounded-box-l border border-line bg-surface-raised p-4">
           <h2 className="font-bold">Открыто</h2>
           <ul className="mt-2 flex flex-col gap-2">
             <Check ok>Уроки и тесты недели</Check>
@@ -56,7 +56,7 @@ export function DemoWeek({ subject }: { subject: Subject }) {
             <Check ok>Материалы курса</Check>
           </ul>
         </div>
-        <div className="rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+        <div className="rounded-box-l border border-line bg-surface-raised p-4">
           <h2 className="font-bold">После покупки</h2>
           <ul className="mt-2 flex flex-col gap-2">
             <Check ok={false}>Наставник и мини-группа</Check>
@@ -74,7 +74,7 @@ export function DemoWeek({ subject }: { subject: Subject }) {
             <li key={l.id}>
               <Link
                 href={`/${subject}/lesson/${l.id}`}
-                className="flex items-center gap-3 rounded-box-l border border-line bg-surface-raised p-4 no-underline shadow-raised hover:border-accent-border"
+                className="flex items-center gap-3 rounded-box-l border border-line bg-surface-raised p-4 no-underline hover:border-accent-border"
               >
                 <span className="grid size-10 shrink-0 place-items-center rounded-box-m bg-surface-subject text-sm font-extrabold">{l.number}</span>
                 <span className="min-w-0 flex-1 font-semibold text-ink">{l.title}</span>
@@ -89,7 +89,7 @@ export function DemoWeek({ subject }: { subject: Subject }) {
         </p>
       </section>
 
-      <section className="flex flex-col gap-3 rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+      <section className="flex flex-col gap-3 rounded-box-l border border-line bg-surface-raised p-4">
         <h2 className="font-bold">Купить курс</h2>
         <p className="text-sm text-ink-muted">
           После оплаты доступ откроется сам — под почтой из заказа, без регистрации и повторного входа. Тариф и цена — на
@@ -162,7 +162,7 @@ export function Welcome({ subject }: { subject: Subject }) {
         <h2 className="font-bold">Три шага на старт</h2>
         <ol className="flex flex-col gap-2">
           {steps.map((s, i) => (
-            <li key={s.title} className="flex items-start gap-3 rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+            <li key={s.title} className="flex items-start gap-3 rounded-box-l border border-line bg-surface-raised p-4">
               <span
                 className={cn(
                   "grid size-8 shrink-0 place-items-center rounded-full text-sm font-bold",

@@ -152,7 +152,7 @@ function Chat({ subject }: { subject: Subject }) {
   const messages = [...THREADS[subject], ...mine];
 
   return (
-    <section className="flex flex-col rounded-box-l border border-line bg-surface-raised shadow-raised">
+    <section className="flex flex-col rounded-box-l border border-line bg-surface-raised">
       <h2 className="border-b border-line-subtle px-4 py-3 font-bold">Переписка</h2>
       <ol ref={listRef} className="flex max-h-[60dvh] min-h-[320px] flex-col gap-3 overflow-y-auto p-4" aria-live="polite">
         {messages.map((m) => (
@@ -272,7 +272,7 @@ function IndividualPlan({ subject }: { subject: Subject }) {
   const done = rows.filter((r) => ["done", "review"].includes(statusOf(r.found.item))).length;
 
   return (
-    <section className="rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+    <section className="rounded-box-l border border-line bg-surface-raised p-4">
       <p className="enl-display text-sm text-ink-accent">план от наставника</p>
       <h2 className="font-bold">{plan.note}</h2>
       <p className="mt-1 text-sm text-ink-muted">
@@ -316,7 +316,7 @@ function Exams({ subject }: { subject: Subject }) {
   const { exam, cancelExam, examResult } = useBookings();
   if (!hasExams(subject)) {
     return (
-      <section className="rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+      <section className="rounded-box-l border border-line bg-surface-raised p-4">
         <h2 className="font-bold">Зачёты</h2>
         <p className="mt-1 text-sm text-ink-muted">Зачёты с наставником — на тарифах «С инструктором» и VIP. На вашем тарифе их нет.</p>
       </section>
@@ -329,7 +329,7 @@ function Exams({ subject }: { subject: Subject }) {
   ];
 
   return (
-    <section className="rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+    <section className="rounded-box-l border border-line bg-surface-raised p-4">
       <h2 className="font-bold">Зачёты</h2>
       {exam && when ? (
         <div className="mt-3 rounded-box-m bg-surface-subject p-3">

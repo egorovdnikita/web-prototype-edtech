@@ -90,7 +90,7 @@ export function PlanRow({ item, href: lessonHref, now }: { item: PlanItem; href?
           {item.title}
         </span>
         {now && (
-          <span className="rotate-[-2deg] rounded-box-s bg-surface-marker px-1.5 py-0.5 text-[11px] font-extrabold uppercase tracking-wide text-ink">
+          <span className="enl-sticker rotate-[-2deg] rounded-box-s bg-surface-marker px-1.5 py-0.5 text-[11px] font-extrabold uppercase tracking-wide text-ink">
             прямо сейчас!
           </span>
         )}

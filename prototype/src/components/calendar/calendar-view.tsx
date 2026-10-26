@@ -203,7 +203,7 @@ export function CalendarView({ subject }: { subject: Subject }) {
       </ol>
 
       {/* Десктоп: неделя колонками */}
-      <div className="hidden overflow-hidden rounded-box-l border border-line bg-surface-raised shadow-raised lg:grid lg:grid-cols-7">
+      <div className="hidden overflow-hidden rounded-box-l border border-line bg-surface-raised lg:grid lg:grid-cols-7">
         {week.days.map((day) => {
           const list = visible.filter((e) => e.date === day);
           const { weekday, day: d } = dayLabel(day);
@@ -432,7 +432,7 @@ function EventRow({
   const className = cn(
     "flex w-full items-start gap-3 rounded-box-m border text-left transition-colors hover:border-line-strong",
     // На десктопе предмет — полоса слева: иконка съедала ширину узкой колонки.
-    compact ? "gap-2 border-l-4 p-2" : "bg-surface-raised p-3 shadow-raised",
+    compact ? "gap-2 border-l-4 p-2" : "bg-surface-raised p-3",
     booked && !past ? "border-accent-border" : "border-line",
     // Последним: twMerge иначе перекроет цвет полосы общим цветом рамки.
     compact && (event.subject === "all" ? "border-l-surface-lime" : "border-l-surface-subject-strong"),

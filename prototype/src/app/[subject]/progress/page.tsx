@@ -33,7 +33,7 @@ export default function ProgressPage({ params }: { params: { subject: Subject } 
           <Stat title="Допы «на 100»" value={`${pct(ext.done, ext.total)}%`} note={`${ext.done} из ${ext.total} · по желанию`} bar={pct(ext.done, ext.total)} soft />
           <Link
             href={`/${subject}/practice/mistakes`}
-            className="flex flex-col rounded-box-l border border-line bg-surface-raised p-4 no-underline shadow-raised hover:border-accent-border"
+            className="flex flex-col rounded-box-l border border-line bg-surface-raised p-4 no-underline hover:border-accent-border"
           >
             <span className="text-sm font-semibold text-ink-muted">Работа над ошибками</span>
             <span className="enl-display mt-1 text-[32px] leading-none">{stats.mistakesLeft}</span>
@@ -42,7 +42,7 @@ export default function ProgressPage({ params }: { params: { subject: Subject } 
         </section>
 
         {stats.debts.length > 0 && (
-          <section className="rounded-box-l border border-accent-border bg-surface-raised p-4 shadow-raised">
+          <section className="rounded-box-l border border-accent-border bg-surface-raised p-4">
             <h2 className="flex items-center gap-2 font-bold">
               <Icon name="hourglass" size="2xs" className="text-ink-accent" /> Не сдано
             </h2>
@@ -63,7 +63,7 @@ export default function ProgressPage({ params }: { params: { subject: Subject } 
         )}
 
         {/* Недели */}
-        <section className="rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+        <section className="rounded-box-l border border-line bg-surface-raised p-4">
           <h2 className="font-bold">Обязательный план по неделям</h2>
           <ul className="mt-3 flex flex-col gap-2">
             {stats.weeks.map((w) => {
@@ -85,7 +85,7 @@ export default function ProgressPage({ params }: { params: { subject: Subject } 
         </section>
 
         {/* Решаемость по номерам ЕГЭ */}
-        <section className="rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+        <section className="rounded-box-l border border-line bg-surface-raised p-4">
           <h2 className="font-bold">Решаемость по номерам ЕГЭ</h2>
           <p className="text-[13px] text-ink-muted">По последней попытке каждого теста.</p>
           {stats.ege.length === 0 ? (
@@ -104,7 +104,7 @@ export default function ProgressPage({ params }: { params: { subject: Subject } 
         </section>
 
         {/* Попытки */}
-        <section className="rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+        <section className="rounded-box-l border border-line bg-surface-raised p-4">
           <h2 className="font-bold">Сданные работы</h2>
           <ul className="mt-2 divide-y divide-line-subtle">
             {stats.works.map(({ item, attempts, best }) => (
@@ -129,7 +129,7 @@ export default function ProgressPage({ params }: { params: { subject: Subject } 
 
 function Stat({ title, value, note, bar, soft }: { title: string; value: string; note: string; bar: number; soft?: boolean }) {
   return (
-    <section className="flex flex-col rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
+    <section className="flex flex-col rounded-box-l border border-line bg-surface-raised p-4">
       <span className="text-sm font-semibold text-ink-muted">{title}</span>
       <span className="enl-display mt-1 text-[32px] leading-none">{value}</span>
       <span className="mt-2 h-2 rounded-full bg-surface-subtle" aria-hidden>
