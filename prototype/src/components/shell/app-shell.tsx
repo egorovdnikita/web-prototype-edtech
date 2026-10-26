@@ -37,6 +37,8 @@ function sectionOf(pathname: string, subject: Subject) {
 function switchTarget(pathname: string, subject: Subject, section: string) {
   const rest = pathname.slice(`/${subject}`.length);
   if (rest.startsWith("/training/")) return "/practice/trainings";
+  // Тренажёр есть только у обществознания.
+  if (rest.startsWith("/practice/trainer")) return "/practice";
   return /^\/(lesson|work)\//.test(rest) ? section : rest;
 }
 

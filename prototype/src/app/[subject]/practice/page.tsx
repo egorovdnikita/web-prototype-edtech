@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { MistakesLink } from "@/components/practice/mistakes-link";
+import { TrainerGrid } from "@/components/practice/trainer-grid";
 import { Icon, type IconName } from "@/components/ui/icon";
 import type { Subject } from "@mocks/course";
 import { TRAININGS } from "@mocks/trainings";
 
 // Практика: свободная тренировка вне недели. Строится от действующего тренажёра
 // (рекомендация разбора), работа над ошибками — фильтр «мои ошибки».
-const TASKS = Array.from({ length: 25 }, (_, i) => i + 1);
-
 const BLOCKS: { title: string; text: string; icon: IconName; meta: (s: Subject) => string; href?: string }[] = [
   {
     title: "Интерактивные тренировки",
@@ -20,7 +19,6 @@ const BLOCKS: { title: string; text: string; icon: IconName; meta: (s: Subject) 
 ];
 
 export default function PracticePage({ params }: { params: { subject: Subject } }) {
-  const total = params.subject === "soc" ? 25 : 21;
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-5">
       <header>
@@ -30,21 +28,7 @@ export default function PracticePage({ params }: { params: { subject: Subject } 
 
       <MistakesLink subject={params.subject} />
 
-      <section className="rounded-box-l border border-line bg-surface-raised p-4 shadow-raised">
-        <h2 className="font-bold">Тренажёр по номерам ЕГЭ</h2>
-        <p className="text-[13px] text-ink-muted">Выберите номер задания — тренажёр подберёт задания из базы.</p>
-        <div className="mt-3 grid grid-cols-5 gap-2 sm:grid-cols-9">
-          {TASKS.slice(0, total).map((n) => (
-            <button
-              key={n}
-              type="button"
-              className="aspect-square rounded-box-m border border-line bg-surface-page text-sm font-bold transition-colors hover:border-accent hover:bg-accent-soft"
-            >
-              {n}
-            </button>
-          ))}
-        </div>
-      </section>
+      <TrainerGrid subject={params.subject} />
 
       <div className="grid gap-3 sm:grid-cols-2">
         {BLOCKS.map((b) => {

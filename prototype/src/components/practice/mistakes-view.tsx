@@ -50,7 +50,9 @@ export function MistakesView({ subject }: { subject: Subject }) {
       all.flatMap((m) =>
         m.sources.map(
           (s) =>
-            [s.lessonId, `Урок ${s.lessonNumber}. ${s.lessonTitle}`] as const,
+            (s.lessonId
+              ? [s.lessonId, `Урок ${s.lessonNumber}. ${s.lessonTitle}`]
+              : [s.workId, s.title]) as readonly [string, string],
         ),
       ),
     ),
@@ -58,7 +60,8 @@ export function MistakesView({ subject }: { subject: Subject }) {
   const shown = all.filter(
     (m) =>
       (ege === "all" || m.task.ege === ege) &&
-      (lesson === "all" || m.sources.some((s) => s.lessonId === lesson)),
+      (lesson === "all" ||
+        m.sources.some((s) => (s.lessonId ?? s.workId) === lesson)),
   );
   const left = mistakes.length;
 
@@ -84,7 +87,7 @@ export function MistakesView({ subject }: { subject: Subject }) {
               {left > 0 && (
                 <>
                   <span className="enl-marker font-bold text-ink">{left}</span>{" "}
-                  {plural(left, ["задание", "задания", "заданий"])} из тестов
+                  {plural(left, ["задание", "задания", "заданий"])} из тестов и тренажёра
                 </>
               )}
               {left > 0 && trainings.length > 0 && " и "}
@@ -126,7 +129,7 @@ export function MistakesView({ subject }: { subject: Subject }) {
       )}
 
       {all.length > 0 && trainings.length > 0 && (
-        <h2 className="-mb-2 font-bold">Задания из тестов</h2>
+        <h2 className="-mb-2 font-bold">Задания из тестов и тренажёра</h2>
       )}
 
       {all.length > 0 && (
@@ -307,7 +310,8 @@ function MistakeCard({
         </span>
         <div className="min-w-0 flex-1 basis-[calc(100%-52px)] sm:basis-auto">
           <p className="text-[13px] text-ink-muted">
-            {source.title} · урок {source.lessonNumber}
+            {source.title}
+            {source.lessonNumber && ` · урок ${source.lessonNumber}`}
             {sources.length > 1 && ` и ещё ${sources.length - 1}`} ·{" "}
             {source.date}
           </p>

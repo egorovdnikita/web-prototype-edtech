@@ -3,6 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { TODAY, useWorks } from "@/lib/works";
 import { COURSES, type Subject } from "@mocks/course";
+import { TRAINER } from "@mocks/trainer";
 import { TRAININGS, type Training } from "@mocks/trainings";
 import { WORKS, isCorrect, type ChoiceTask, type ShortTask } from "@mocks/works";
 
@@ -19,11 +20,13 @@ import { WORKS, isCorrect, type ChoiceTask, type ShortTask } from "@mocks/works"
 const KEY = "enl-prototype-mistakes";
 
 export interface MistakeSource {
+  /** id работы или "trainer" — для заданий из тренажёра. */
   workId: string;
   title: string;
-  lessonId: string;
-  lessonNumber: number;
-  lessonTitle: string;
+  /** У тренажёра урока нет. */
+  lessonId?: string;
+  lessonNumber?: number;
+  lessonTitle?: string;
   date: string;
   /** Номер попытки — по нему понятно, что ошибка «новая». */
   attempt: number;
@@ -50,6 +53,14 @@ interface Store {
   tries: Record<string, number>;
   solvedToday: number;
   trainings?: Record<string, { units: number[]; date: string }>;
+  /** Тренажёр: последний ответ на каждое задание и число попыток. */
+  trainer?: Record<string, TrainerResult>;
+}
+
+export interface TrainerResult {
+  answer: string;
+  ok: boolean;
+  tries: number;
 }
 
 interface MistakesState {
@@ -62,6 +73,9 @@ interface MistakesState {
   recordTraining: (id: string, units: number[], fixing?: boolean) => void;
   /** Хранилище прочитано из браузера — до этого список ошибок пуст не по-настоящему. */
   ready: boolean;
+  trainer: Record<string, TrainerResult>;
+  /** Ответ в тренажёре: неверный — задание попадает в работу над ошибками. */
+  recordTrainer: (task: ChoiceTask | ShortTask, answer: string) => boolean;
 }
 
 const MistakesContext = createContext<MistakesState | null>(null);
@@ -124,6 +138,16 @@ export function MistakesProvider({ children }: { children: ReactNode }) {
           }
         }
       }
+      // Тренажёр: задание с неверным последним ответом.
+      for (const task of TRAINER[subject]?.tasks ?? []) {
+        const result = store.trainer?.[task.id];
+        if (!result || result.ok) continue;
+        const key = taskKey(task);
+        const source: MistakeSource = { workId: "trainer", title: "Тренажёр", date: TODAY, attempt: result.tries };
+        const existing = byKey.get(key);
+        if (existing) existing.sources.push(source);
+        else byKey.set(key, { key, task, sources: [source], given: result.answer, tries: store.tries[key] ?? 0 });
+      }
       return Array.from(byKey.values()).filter((m) => store.resolved[m.key] !== signature(m));
     },
     [get, store],
@@ -137,6 +161,7 @@ export function MistakesProvider({ children }: { children: ReactNode }) {
         tries: { ...store.tries, [mistake.key]: (store.tries[mistake.key] ?? 0) + 1 },
         solvedToday: store.solvedToday + (ok ? 1 : 0),
         trainings: store.trainings,
+        trainer: store.trainer,
       });
       return ok;
     },
@@ -165,9 +190,28 @@ export function MistakesProvider({ children }: { children: ReactNode }) {
     [save, store],
   );
 
+  const recordTrainer = useCallback(
+    (task: ChoiceTask | ShortTask, answer: string) => {
+      const ok = isCorrect(task, answer);
+      const old = store.trainer?.[task.id];
+      save({ ...store, trainer: { ...store.trainer, [task.id]: { answer, ok, tries: (old?.tries ?? 0) + 1 } } });
+      return ok;
+    },
+    [save, store],
+  );
+
   const value = useMemo(
-    () => ({ list, check, solvedToday: store.solvedToday, trainings, recordTraining, ready }),
-    [list, check, store.solvedToday, trainings, recordTraining, ready],
+    () => ({
+      list,
+      check,
+      solvedToday: store.solvedToday,
+      trainings,
+      recordTraining,
+      ready,
+      trainer: store.trainer ?? {},
+      recordTrainer,
+    }),
+    [list, check, store.solvedToday, store.trainer, trainings, recordTraining, ready, recordTrainer],
   );
   return <MistakesContext.Provider value={value}>{children}</MistakesContext.Provider>;
 }
@@ -186,5 +230,7 @@ export function useMistakes(subject: Subject) {
     recordTraining: context.recordTraining,
     solvedToday: context.solvedToday,
     ready: context.ready,
+    trainer: context.trainer,
+    recordTrainer: context.recordTrainer,
   };
 }
