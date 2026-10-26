@@ -18,6 +18,10 @@ interface IconProps extends Omit<SVGProps<SVGSVGElement>, "name"> {
   title?: string;
 }
 
+// Стрелки — навигация, а не смысл: всегда контурные, чтобы не спорить с текстом.
+const setOf = (name: IconName, variant: Style): Style =>
+  name.includes("arrow") ? "linear" : ICON === "linear" ? variant : ICON;
+
 export function Icon({ name, variant = "linear", size = "xs", title, style, ...rest }: IconProps) {
   const box = `var(--size-${size})`;
   return (
@@ -30,7 +34,7 @@ export function Icon({ name, variant = "linear", size = "xs", title, style, ...r
       focusable="false"
       data-icon={name}
       style={{ display: "block", flex: "none", width: box, height: box, ...style }}
-      dangerouslySetInnerHTML={{ __html: icons[ICON === "linear" ? variant : ICON][name] }}
+      dangerouslySetInnerHTML={{ __html: icons[setOf(name, variant)][name] }}
       {...rest}
     />
   );

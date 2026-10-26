@@ -70,7 +70,6 @@ export function RecheckView({ subject }: { subject: Subject }) {
       </header>
 
       <p className="flex items-start gap-2 rounded-box-m border border-dashed border-line p-3 text-[13px] text-ink-muted">
-        <Icon name="info-circle" size="2xs" className="mt-0.5 shrink-0" />
         Откроется в июле, когда придут результаты экзамена. В прототипе можно попробовать заранее.
       </p>
 
@@ -87,7 +86,7 @@ export function RecheckView({ subject }: { subject: Subject }) {
                 onClick={() => save({ kind: k })}
                 className={cn(
                   "flex flex-col gap-0.5 rounded-box-l border-2 p-4 text-left transition-colors",
-                  store.kind === k ? "border-accent bg-accent-soft" : "border-line bg-surface-raised",
+                  store.kind === k ? "border-accent bg-surface-raised" : "border-line bg-surface-raised",
                 )}
               >
                 <span className="font-bold">{KINDS[k].title}</span>
@@ -144,7 +143,7 @@ export function RecheckView({ subject }: { subject: Subject }) {
       )}
 
       {store.stage === "sent" && (
-        <Status icon="hourglass" title="Бланки у проверяющего">
+        <Status title="Бланки у проверяющего">
           {store.kind === "appeal"
             ? "Ответ придёт в течение суток — уведомлением и здесь."
             : "Ответ придёт уведомлением и появится здесь."}
@@ -177,12 +176,12 @@ export function RecheckView({ subject }: { subject: Subject }) {
       )}
 
       {store.stage === "appeal" && (
-        <Status icon="shield-user" title="Готовим базу для апелляции">
+        <Status title="Готовим базу для апелляции">
           Проверяющий перепроверит работу целиком и пришлёт аргументы по каждому спорному заданию — с ними идти на апелляцию.
         </Status>
       )}
 
-      {store.stage === "closed" && <Status icon="check-circle" title="Перепроверка закрыта">Разбор остаётся здесь.</Status>}
+      {store.stage === "closed" && <Status title="Перепроверка закрыта">Разбор остаётся здесь.</Status>}
 
       {store.stage !== "form" && (
         <button
@@ -201,11 +200,11 @@ export function RecheckView({ subject }: { subject: Subject }) {
   );
 }
 
-function Status({ icon, title, children }: { icon: "hourglass" | "shield-user" | "check-circle"; title: string; children: React.ReactNode }) {
+function Status({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section role="status" className="flex flex-col rounded-box-l bg-surface-subject p-4">
       <p className="flex items-center gap-2 font-bold">
-        <Icon name={icon} size="xs" /> {title}
+        {title}
       </p>
       <div className="mt-1 flex flex-col text-sm">{children}</div>
     </section>

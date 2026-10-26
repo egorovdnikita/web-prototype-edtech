@@ -2,7 +2,6 @@
 
 import { ProgressTabs, Stamp } from "@/components/progress/progress-ui";
 import { ButtonLink } from "@/components/ui/box";
-import { Icon } from "@/components/ui/icon";
 import { useStats } from "@/lib/stats";
 import { plural } from "@/lib/utils";
 import { SUBJECTS, type Subject } from "@mocks/course";
@@ -86,7 +85,7 @@ export default function GradebookPage({ params }: { params: { subject: Subject }
       {/* Розыгрыш */}
       <section className="rounded-box-l border border-line bg-surface-raised p-4">
         <h2 className="flex items-center gap-2 font-bold">
-          <Icon name="cup-star" size="2xs" className="text-ink-accent" /> Розыгрыш
+Розыгрыш
         </h2>
         {own.gradebook.drawAllowed ? (
           <>

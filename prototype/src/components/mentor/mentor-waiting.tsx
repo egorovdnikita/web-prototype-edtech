@@ -39,7 +39,7 @@ export function MentorWaiting({ subject }: { subject: Subject }) {
     <div className="mx-auto flex max-w-2xl flex-col gap-5">
       <header className="flex items-center gap-4">
         <span className="grid size-16 shrink-0 place-items-center rounded-full border-2 border-dashed border-line-strong bg-surface-raised">
-          <Icon name="user-circle" size="s" className="text-ink-subtle" />
+          <Icon name="user-circle" size="s" />
         </span>
         <div>
           <p className="text-sm text-ink-muted">ваш наставник · {SUBJECTS[subject].title.toLowerCase()}</p>

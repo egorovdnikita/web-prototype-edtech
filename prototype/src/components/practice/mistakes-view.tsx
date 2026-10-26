@@ -176,7 +176,6 @@ export function MistakesView({ subject }: { subject: Subject }) {
 
       {all.length === 0 && trainings.length > 0 ? null : all.length === 0 ? (
         <section className="flex flex-col items-center gap-2 rounded-box-l border border-line bg-surface-raised p-8 text-center">
-          <Icon name="cup-star" size="xl" className="text-ink-accent" />
           <p className="text-lg font-bold">Все ошибки исправлены</p>
           <p className="max-w-sm text-sm text-ink-muted">
             Новые появятся здесь сами, если ошибётесь в тесте или тренировке. А
@@ -238,9 +237,6 @@ function TrainingMistakeCard({
   const labels = Array.from(new Set(units.map((u) => unitLabel(training, u))));
   return (
     <li className="flex flex-wrap items-start gap-3 rounded-box-l border border-line bg-surface-raised p-4 sm:flex-nowrap">
-      <span className="grid size-10 shrink-0 place-items-center rounded-box-m bg-surface-subject">
-        <Icon name="magic-stick-3" size="2xs" />
-      </span>
       <div className="min-w-0 flex-1 basis-[calc(100%-52px)] sm:basis-auto">
         <p className="text-[13px] text-ink-muted">
           {FORMATS[training.format].title} · {training.topic} · {date}
@@ -359,7 +355,8 @@ function MistakeCard({
           {wrong && !revealed && (
             <p
               role="status"
-              className="mt-3 flex items-start gap-2 rounded-box-m bg-accent-soft p-3 text-sm"
+              data-status="negative"
+              className="mt-3 flex items-start gap-2 rounded-box-m bg-status-soft p-3 text-sm"
             >
               <Icon
                 name="close-circle"

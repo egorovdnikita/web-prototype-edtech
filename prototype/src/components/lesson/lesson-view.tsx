@@ -47,7 +47,7 @@ export function LessonView({ subject, lessonId }: { subject: Subject; lessonId: 
 
       {locked ? (
         <section className="flex flex-col items-center gap-2 rounded-box-l border border-line bg-surface-subtle p-8 text-center">
-          <Icon name="lock-keyhole" size="l" className="text-ink-subtle" />
+          <Icon name="lock-keyhole" size="l" />
           <p className="font-bold">Урок откроется {lesson.opens}</p>
           <p className="max-w-sm text-sm text-ink-muted">
             Уроки открываются по расписанию потока — в субботу и во вторник. Пока можно закрыть задачи этой недели.
@@ -69,7 +69,7 @@ export function LessonView({ subject, lessonId }: { subject: Subject; lessonId: 
                   aria-label={videoDone ? "Пересмотреть видеоурок" : "Смотреть видеоурок"}
                 >
                   <span className="grid size-16 place-items-center rounded-full bg-accent text-accent-on sm:size-20">
-                    <Icon name="play-circle" variant="bold" size="xl" />
+                    <Icon name="play-circle" variant="bold" size="xl" className="text-current" />
                   </span>
                   <span className="rounded-full bg-surface-raised px-3 py-1 text-sm">
                     {videoDone ? "Просмотрено · пересмотреть" : `Смотреть · ${video.meta ?? ""}`}
@@ -118,9 +118,9 @@ export function LessonView({ subject, lessonId }: { subject: Subject; lessonId: 
                 aria-expanded={showExtra}
                 className="flex w-full items-center gap-2 px-3 py-2 text-left font-bold"
               >
-                <span className="shrink-0 whitespace-nowrap rounded-full bg-surface-lime px-2 py-0.5 text-[11px] text-ink-olive">на 100</span>
+                <span className="shrink-0 whitespace-nowrap rounded-full bg-surface-subtle px-2 py-0.5 text-[11px] text-ink-muted">на 100</span>
                 Для тех, кто хочет больше ({extra.length})
-                <Icon name={showExtra ? "alt-arrow-up" : "alt-arrow-down"} size="2xs" className="ml-auto text-ink-muted" />
+                <Icon name={showExtra ? "alt-arrow-up" : "alt-arrow-down"} size="2xs" className="ml-auto" />
               </button>
               {showExtra && (
                 <ul>

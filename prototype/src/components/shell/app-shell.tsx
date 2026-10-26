@@ -93,7 +93,7 @@ function Bell({ subject }: { subject: Subject }) {
       aria-label={unread ? `Уведомления, новых: ${unread}` : "Уведомления"}
       className="relative grid size-11 shrink-0 place-items-center rounded-full text-ink no-underline hover:bg-surface-subtle"
     >
-      <Icon name="bell" size="2xs" />
+      <Icon name="bell" size="2xs" className="text-current" />
       {unread > 0 && (
         <span className="absolute right-1 top-1 grid min-w-5 place-items-center rounded-full bg-accent px-1 text-[11px] font-bold leading-5 text-accent-on">
           {unread}
@@ -165,7 +165,6 @@ export function AppShell({ subject, children }: { subject: Subject; children: Re
             <span className="block text-sm font-semibold text-ink">{waiting ? "Подбираем" : MENTORS[subject].name}</span>
             <span className="block text-xs text-ink-muted">ваш наставник</span>
           </span>
-          <Icon name="chat-round-dots" size="2xs" className="ml-auto text-ink-accent" />
         </Link>
       </aside>
 
@@ -231,7 +230,7 @@ function PaymentGate({ subject, pathname, children }: { subject: Subject; pathna
   if (status === "expelled" && !open) {
     return (
       <section className="mx-auto flex max-w-md flex-col items-center gap-3 rounded-box-l border border-line bg-surface-raised p-8 text-center">
-        <Icon name="lock-keyhole" size="xl" className="text-ink-subtle" />
+        <Icon name="lock-keyhole" size="xl" />
         <p className="text-lg font-bold">Вы отчислены с курса</p>
         <p className="text-sm text-ink-muted">
           Ноябрь не был оплачен до конца месяца, поэтому с 1 декабря материалы закрыты. Вернуться можно через менеджера.
@@ -247,13 +246,14 @@ function PaymentGate({ subject, pathname, children }: { subject: Subject; pathna
       {status === "overdue" && !open && (
         <Link
           href={`/${subject}/payment`}
-          className="mx-auto mb-5 flex max-w-6xl items-start gap-3 rounded-box-l border border-accent-border bg-accent-soft p-3 text-sm no-underline"
+          data-status="warning"
+          className="mx-auto mb-5 flex max-w-6xl items-start gap-3 rounded-box-l border border-status-border bg-status-soft p-3 text-sm text-ink no-underline"
         >
-          <Icon name="danger-circle" size="2xs" className="mt-0.5 shrink-0 text-ink-accent" />
+          <Icon name="danger-circle" size="2xs" className="mt-0.5 shrink-0 text-status-ink" />
           <span className="min-w-0 flex-1">
             <span className="font-bold">Ноябрь не оплачен.</span> Открытое доступно до 30 ноября, новые уроки и проверка — после оплаты.
           </span>
-          <span className="shrink-0 font-semibold text-ink-accent">Оплатить</span>
+          <span className="shrink-0 font-semibold text-status-ink">Оплатить</span>
         </Link>
       )}
       {children}

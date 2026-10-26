@@ -28,7 +28,8 @@
 
 - Папка `prototype/`. Next.js 14 App Router, TypeScript, Tailwind v3. Подробности — `prototype/README.md`.
 - Дизайн-система — Box UI (github.com/egorovdnikita/box-ui): токены, примитивы и иконки лежат снимком в `prototype/src/vendor/box-ui/`, обновляются `npm run sync:box-ui`. Руками vendor не правим.
-- Стиль прототипа — моды Box UI в одном месте, `prototype/src/lib/style.ts`. Сейчас: Brand · Color `monochrome`, Brand · Typography `inter-tight`, Brand · Icon `bold`, радиусы `medium`, светлая тема Box UI. Теней нет: слои делят обводки на белой странице.
+- Стиль прототипа — моды Box UI в одном месте, `prototype/src/lib/style.ts`. Сейчас: Brand · Color `monochrome`, Brand · Typography `inter`, Brand · Icon `bold` (стрелки контурные), радиусы `medium`, светлая тема Box UI. Теней нет: слои делят обводки на белой странице.
+- Цвета — только роли Box UI: content strong / muted / subtle, layer-subtle, accent, System · Status через `data-status` (positive — верно, warning — долг и просрочка, negative — ошибка). Иконки — `content-subtle`, без декоративных плиток; иконка — только там, где она несёт навигацию, состояние или действие.
 - Стиль ЕНЛ (тёплая тема, цвета предметов `data-accent="soc" | "hist"`, Raleway) лежит в `prototype/src/styles/enl.css` и включается одной строкой в `style.ts`. Токены `--enl-*` в монохроме выводятся из токенов Box UI. Новый предмет = новый блок `[data-accent]` с одним цветом.
 - Сначала компонент Box UI, своё — только если в Box UI нет аналога.
 - Это прототип «покликать», а не прод: без бекенда, данные — моки в `prototype/mocks/`.

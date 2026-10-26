@@ -8,7 +8,7 @@
  *     маркер планера, клетка тетради.
  *
  * Стиль переключается модами Box UI (src/lib/style.ts). Сейчас прототип на чистом
- * Box UI: Brand · Color «monochrome», Brand · Typography «inter-tight», светлая тема
+ * Box UI: Brand · Color «monochrome», Brand · Typography «inter», светлая тема
  * Box UI. Всё ЕНЛ-специфичное (тёплый фон, цвета предметов, маркер, лайм, Raleway)
  * привязано к модам [data-accent="soc" | "hist"] и [data-font="enl"] и включается,
  * только если вернуть их в src/lib/style.ts. Для монохрома токены --enl-* ниже
@@ -90,15 +90,15 @@
 
 /* --- Монохром Box UI: токены ЕНЛ из токенов Box UI ---------------------- */
 
-/* Заливка предмета, маркер и «верно» в монохроме: нейтральные ступени акцента
- * и System · Status «positive». Объявлены на том же элементе, что data-accent,
- * поэтому разрешаются в монохромные значения (правило переключения поддерева). */
+/* В монохроме токены ЕНЛ — только псевдонимы семантических токенов Box UI:
+ * подсветка = слой (layer-subtle), выделение = accent soft, «верно» = System ·
+ * Status «positive» (мода по умолчанию). Сырых ступеней палитры здесь нет. */
 [data-accent="monochrome"] {
-  --enl-subject-fill: var(--brand-color-alpha-8);
-  --enl-subject-fill-strong: var(--brand-color-alpha-16);
-  --enl-marker: var(--brand-color-alpha-8);
-  --enl-lime: var(--system-color-positive-alpha-16);
-  --enl-olive-ink: var(--system-color-positive-850);
+  --enl-subject-fill: var(--surface-base-fill-layer-subtle);
+  --enl-subject-fill-strong: var(--accent-fill-soft);
+  --enl-marker: var(--accent-fill-soft);
+  --enl-lime: var(--status-fill-soft);
+  --enl-olive-ink: var(--status-content-on-surface-default);
   --enl-grid-line: transparent;
   /* Выделенная карточка — обводкой чуть плотнее обычной, а не чёрной рамкой. */
   --enl-accent-border: var(--surface-base-border-strong);
@@ -111,6 +111,27 @@
   --surface-base-content-muted: var(--system-color-neutral-600);
   /* Плоский чистый слой: белая страница, карточки отделяют тонкие обводки. */
   --surface-base-fill-page: var(--system-color-white-base);
+}
+
+/* System · Status на любом элементе. Box UI переобъявляет статусные токены темы
+ * только на контролах; так же делаем для плашек и иконок, чтобы data-status
+ * на элементе менял тон: warning — долг и просрочка, negative — ошибка в ответе. */
+[data-theme="light"] [data-status],
+[data-theme="light"][data-status] {
+  --status-fill-solid: var(--status-color-solid-base);
+  --status-fill-soft: var(--status-color-alpha-16);
+  --status-content-on-surface-default: var(--status-color-content-on-light);
+  --status-border-default: var(--status-color-alpha-48);
+}
+
+/* Иконки по умолчанию — третичный цвет текста (content-subtle), как подписи.
+ * Внутри кнопок, выбранных элементов и на акцентной заливке наследуют цвет
+ * контрола; у статусных иконок цвет задаёт класс (text-status-ink и т. п.). */
+:where([data-icon]) {
+  color: var(--surface-base-content-subtle);
+}
+:where(.box-button, [data-box-control], .bg-accent, [aria-current="page"], [aria-pressed="true"], [role="tab"][aria-selected="true"]) :where([data-icon]) {
+  color: currentColor;
 }
 
 /* Маркер и «стикер» — учебные мотивы ЕНЛ. В монохроме их нет: сделанное
@@ -128,10 +149,10 @@
 
 /* --- Гарнитура: Brand · Typography ------------------------------------- */
 
-/* Inter Tight грузит next/font под своим именем — подставляем его в моду Box UI. */
-[data-font="inter-tight"] {
-  --brand-font-family-heading: var(--font-inter-tight), "Inter Tight", var(--font-fallback);
-  --brand-font-family-body: var(--font-inter-tight), "Inter Tight", var(--font-fallback);
+/* Inter грузит next/font под своим именем — подставляем его в моду Box UI. */
+[data-font="inter"] {
+  --brand-font-family-heading: var(--font-inter), "Inter", var(--font-fallback);
+  --brand-font-family-body: var(--font-inter), "Inter", var(--font-fallback);
   /* Гротеск плотнее Raleway: на полступени легче — чище и спокойнее. */
   --enl-weight-bold: 600;
   --enl-weight-extrabold: 700;
@@ -187,7 +208,7 @@
   text-transform: lowercase;
 }
 /* Логотип — знак, его регистр не трогаем. */
-[data-font="inter-tight"] .enl-display:not(.enl-wordmark)::first-letter {
+[data-font="inter"] .enl-display:not(.enl-wordmark)::first-letter {
   text-transform: uppercase;
 }
 

@@ -78,13 +78,12 @@ export function DemoWeek({ subject }: { subject: Subject }) {
               >
                 <span className="grid size-10 shrink-0 place-items-center rounded-box-m bg-surface-subject text-sm font-extrabold">{l.number}</span>
                 <span className="min-w-0 flex-1 font-semibold text-ink">{l.title}</span>
-                <Icon name="alt-arrow-right" size="min" className="text-ink-subtle" />
+                <Icon name="alt-arrow-right" size="min" />
               </Link>
             </li>
           ))}
         </ul>
         <p className="flex items-center gap-2 rounded-box-m bg-surface-subtle p-3 text-sm">
-          <Icon name="hourglass" size="2xs" className="shrink-0 text-ink-accent" />
           Пример: «ДЗ №1 сдано · проверка после покупки». Работы из демонедели не пропадут.
         </p>
       </section>

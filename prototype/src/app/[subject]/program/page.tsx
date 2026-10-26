@@ -27,7 +27,6 @@ export default function ProgramPage({ params }: { params: { subject: Subject } }
         <ProgramTabs subject={params.subject} active="weeks" />
 
         <p className="flex items-start gap-2 rounded-box-m bg-surface-subtle p-3 text-[13px] text-ink-muted">
-          <Icon name="info-circle" size="2xs" className="mt-0.5 shrink-0" />
           Здесь только материалы и задания вашего тарифа. Уроки открываются по субботам и вторникам; прошедшие недели до
           вашего старта не открываются — пропущенное будет в повторении.
         </p>
@@ -67,7 +66,7 @@ export default function ProgramPage({ params }: { params: { subject: Subject } }
                       {week.range} · {week.lessons.length} {week.lessons.length === 1 ? "урок" : "урока"}
                     </span>
                   </span>
-                  <Icon name={open ? "alt-arrow-up" : "alt-arrow-down"} size="2xs" className="text-ink-muted" />
+                  <Icon name={open ? "alt-arrow-up" : "alt-arrow-down"} size="2xs" />
                 </button>
                 {open && (
                   <ul className="border-t border-line-subtle p-2">
@@ -93,7 +92,7 @@ export default function ProgramPage({ params }: { params: { subject: Subject } }
                                 {locked ? `откроется ${lesson.opens}` : lesson.status === "done" ? "пройден" : `открыт ${lesson.opens}`}
                               </span>
                             </span>
-                            <Icon name="alt-arrow-right" size="min" className="text-ink-subtle" />
+                            <Icon name="alt-arrow-right" size="min" />
                           </Link>
                         </li>
                       );

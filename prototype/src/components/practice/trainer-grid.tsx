@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { ButtonLink } from "@/components/ui/box";
-import { Icon } from "@/components/ui/icon";
 import { useTrainerStats, type NumberStat } from "@/lib/trainer";
 import { cn } from "@/lib/utils";
 import type { Subject } from "@mocks/course";
@@ -11,7 +10,7 @@ import { WEAK_BELOW } from "@mocks/trainer";
 /** Цвет решаемости: не по светофору, а по шкале предмета — слабое заметнее. */
 function tone(r: NumberStat) {
   if (r.percent === null) return "border-line bg-surface-page";
-  if (r.percent < WEAK_BELOW) return "border-accent bg-accent-soft";
+  if (r.percent < WEAK_BELOW) return "border-accent bg-surface-raised";
   return "border-transparent bg-surface-lime";
 }
 
@@ -87,7 +86,6 @@ export function TrainerGrid({ subject }: { subject: Subject }) {
           appearance={stats.weak.length ? "solid" : "soft"}
           className="sm:flex-1"
         >
-          <Icon name="fire" size="min" />
           {stats.weak.length ? `Слабые номера: ${stats.weak.map((n) => `№${n}`).join(", ")}` : "Слабые номера"}
         </ButtonLink>
         <ButtonLink href={`/${subject}/practice/trainer/mix`} appearance="outline" className="sm:flex-1">

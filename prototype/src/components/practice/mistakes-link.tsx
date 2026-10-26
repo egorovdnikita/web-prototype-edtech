@@ -15,9 +15,6 @@ export function MistakesLink({ subject }: { subject: Subject }) {
       href={`/${subject}/practice/mistakes`}
       className="flex items-center gap-3 rounded-box-l border border-line bg-surface-raised p-4 no-underline transition-colors hover:border-accent-border"
     >
-      <span className="grid size-11 shrink-0 place-items-center rounded-box-m bg-surface-subject">
-        <Icon name="danger-circle" size="2xs" />
-      </span>
       <span className="min-w-0 flex-1">
         <span className="block font-bold leading-snug">Работа над ошибками</span>
         <span className="block text-[13px] text-ink-muted">
@@ -31,7 +28,7 @@ export function MistakesLink({ subject }: { subject: Subject }) {
             : "Ошибок нет — новые появятся сами после тестов и тренировок"}
         </span>
       </span>
-      <Icon name="alt-arrow-right" size="min" className="shrink-0 text-ink-subtle" />
+      <Icon name="alt-arrow-right" size="min" className="shrink-0" />
     </Link>
   );
 }

@@ -31,18 +31,19 @@ function Chip({
       type="button"
       aria-pressed={state === "selected"}
       disabled={state === "correct"}
+      data-status={state === "wrong" ? "negative" : state === "correct" ? "positive" : undefined}
       className={cn(
         "flex min-h-11 items-center gap-2 rounded-box-m border-2 px-3 py-2 text-left text-[15px] font-semibold leading-snug transition-colors",
         state === "idle" && "border-line bg-surface-raised hover:border-accent-border",
-        state === "selected" && "border-accent bg-accent-soft",
+        state === "selected" && "border-accent bg-surface-raised",
         state === "correct" && "border-transparent bg-surface-lime",
-        state === "wrong" && "enl-shake border-accent bg-accent-soft",
+        state === "wrong" && "enl-shake border-status-border bg-status-soft",
         className,
       )}
       {...rest}
     >
       {state === "correct" && <Icon name="check-circle" variant="bold" size="min" className="shrink-0 text-ink-olive" />}
-      {state === "wrong" && <Icon name="close-circle" size="min" className="shrink-0 text-ink-accent" />}
+      {state === "wrong" && <Icon name="close-circle" size="min" className="shrink-0 text-status-ink" />}
       <span className="min-w-0">{children}</span>
     </button>
   );
@@ -247,7 +248,7 @@ export function Slots({ data, seed, onMistake, onDone }: MechanicProps<Extract<T
               aria-pressed={active === i}
               className={cn(
                 "inline-block min-h-9 min-w-24 rounded-box-xs border-2 border-dashed px-2 align-middle leading-8",
-                active === i ? "border-accent bg-accent-soft" : "border-line-strong bg-surface-page",
+                active === i ? "border-accent bg-surface-raised" : "border-line-strong bg-surface-page",
               )}
             >
               <span className="text-sm text-ink-muted">{num(i)}</span>
@@ -457,9 +458,10 @@ export function Fragments({ data, onMistake, onDone }: MechanicProps<Extract<Tra
                 flash(String(k));
                 onMistake(k);
               }}
+              data-status={flashKey === String(k) ? "negative" : undefined}
               className={cn(
                 "rounded-box-xs px-0.5 py-1 underline decoration-dotted decoration-2 underline-offset-[6px] transition-colors",
-                flashKey === String(k) ? "enl-shake bg-accent-soft decoration-accent" : "decoration-line-strong hover:bg-surface-subtle",
+                flashKey === String(k) ? "enl-shake bg-status-soft decoration-[var(--status-border-default)]" : "decoration-line-strong hover:bg-surface-subtle",
               )}
             >
               {part.text}
@@ -534,12 +536,13 @@ export function MapPlace({ data, seed, onMistake, onDone }: MechanicProps<Extrac
                 className="grid size-11 place-items-center"
               >
                 <span
+                  data-status={flashKey === `p-${i}` ? "negative" : undefined}
                   className={cn(
                     "grid size-7 place-items-center rounded-full border-2 text-sm font-bold transition-colors",
                     placed
                       ? "border-transparent bg-surface-lime"
                       : flashKey === `p-${i}`
-                        ? "enl-shake border-accent bg-accent-soft"
+                        ? "enl-shake border-status-border bg-status-soft"
                         : sel !== null
                           ? "border-accent bg-accent text-accent-on"
                           : "border-ink bg-surface-raised",

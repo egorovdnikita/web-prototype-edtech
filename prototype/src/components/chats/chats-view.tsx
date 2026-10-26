@@ -74,16 +74,13 @@ export function ChatsView({ subject }: { subject: Subject }) {
                   locked(c) ? "opacity-70" : "hover:border-accent-border",
                 )}
               >
-                <span className="grid size-11 shrink-0 place-items-center rounded-full bg-surface-subject">
-                  <Icon name={c.kind === "group" ? "chat-round-dots" : "chat-round-line"} size="2xs" />
-                </span>
                 <span className="min-w-0 flex-1">
                   <span className="block truncate font-semibold">{c.title}</span>
                   <span className="block truncate text-[13px] text-ink-muted">
                     {locked(c) ? "Появится, когда назначат наставника" : lastLine(c, sent[c.id])}
                   </span>
                 </span>
-                {locked(c) && <Icon name="lock-keyhole" size="xs" className="shrink-0 text-ink-subtle" />}
+                {locked(c) && <Icon name="lock-keyhole" size="xs" className="shrink-0" />}
               </button>
             </li>
           ))}
@@ -145,7 +142,7 @@ function Conversation({
     <section className="flex h-[calc(100dvh-210px)] min-h-[420px] flex-col overflow-hidden rounded-box-l border border-line bg-surface-raised lg:h-[600px]">
       <header className="flex items-center gap-2 border-b border-line-subtle px-3 py-2.5">
         <button type="button" onClick={onBack} aria-label="К списку чатов" className="grid size-9 place-items-center rounded-full hover:bg-surface-subtle lg:hidden">
-          <Icon name="alt-arrow-left" size="xs" />
+          <Icon name="alt-arrow-left" size="xs" className="text-current" />
         </button>
         <span className="min-w-0">
           <span className="block truncate font-bold">{chat.title}</span>
@@ -154,7 +151,7 @@ function Conversation({
       </header>
       {chat.pinned && (
         <p className="flex items-start gap-2 border-b border-line-subtle bg-surface-marker px-4 py-2 text-[13px]">
-          <Icon name="paperclip" size="min" className="mt-0.5 shrink-0" />
+          <Icon name="paperclip" size="min" className="mt-0.5 shrink-0 text-current" />
           {chat.pinned}
         </p>
       )}
@@ -212,7 +209,7 @@ function Conversation({
           className="min-w-0 flex-1 rounded-full border border-line-strong bg-surface-page px-4 py-2.5 text-[15px] focus:border-accent"
         />
         <Button type="submit" disabled={!text.trim()} aria-label="Отправить">
-          <Icon name="send-square" size="xs" />
+          <Icon name="send-square" size="xs" className="text-current" />
         </Button>
       </form>
       {chat.kind === "course" && (

@@ -165,7 +165,7 @@ function Chat({ subject }: { subject: Subject }) {
             >
               {m.voice ? (
                 <span className="flex items-center gap-2 font-semibold">
-                  <Icon name="play" variant="bold" size="2xs" />
+                  <Icon name="play" variant="bold" size="2xs" className="text-current" />
                   <span aria-hidden className="flex h-4 items-end gap-0.5">
                     {[3, 6, 9, 5, 8, 4, 7, 10, 5, 3, 6, 8].map((h, i) => (
                       <span key={i} className="w-0.5 rounded-full bg-current opacity-70" style={{ height: h + 4 }} />
@@ -236,11 +236,11 @@ function Chat({ subject }: { subject: Subject }) {
               />
             </label>
             <button type="button" aria-label="Приложить фото" className="grid size-11 shrink-0 place-items-center rounded-full text-ink-muted hover:bg-surface-subtle">
-              <Icon name="gallery" size="2xs" />
+              <Icon name="gallery" size="2xs" className="text-current" />
             </button>
             {text.trim() ? (
               <button type="submit" aria-label="Отправить" className="grid size-11 shrink-0 place-items-center rounded-full bg-accent text-accent-on">
-                <Icon name="send-square" variant="bold" size="2xs" />
+                <Icon name="send-square" variant="bold" size="2xs" className="text-current" />
               </button>
             ) : (
               <button
@@ -249,13 +249,12 @@ function Chat({ subject }: { subject: Subject }) {
                 onClick={() => setRecording(0)}
                 className="grid size-11 shrink-0 place-items-center rounded-full bg-accent text-accent-on"
               >
-                <Icon name="microphone-3" variant="bold" size="2xs" />
+                <Icon name="microphone-3" variant="bold" size="2xs" className="text-current" />
               </button>
             )}
           </div>
         )}
         <p className="flex items-start gap-1.5 text-[12px] text-ink-muted">
-          <Icon name="shield-user" size="min" className="mt-0.5 shrink-0" />
           Вопрос по проверке ДЗ — тоже сюда: наставник передаст проверяющему. Проверяющий анонимен и в личку не пишет.
         </p>
       </form>

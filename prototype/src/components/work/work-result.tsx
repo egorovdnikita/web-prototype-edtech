@@ -100,7 +100,8 @@ function TestResult({ subject, id, title, work, record }: { subject: Subject; id
                   name={ok ? "check-circle" : "close-circle"}
                   variant="bold"
                   size="2xs"
-                  className={ok ? "text-ink-olive" : "text-ink-accent"}
+                  data-status={ok ? "positive" : "negative"}
+                  className="text-status-ink"
                 />
                 Задание {i + 1} · {ok ? "верно" : "неверно"}
               </p>
@@ -181,7 +182,6 @@ function CuratorResult({ id, subject, title, work, record }: { id: string; subje
         {/* Никаких баллов до проверки: сейчас GetCourse ставит максимум заранее, и ученик видит завышенный результат. */}
         <ScoreHeader title={title} score={null} max={max} label={`Сдано ${record.submitted!.date} · на проверке у куратора`} />
         <section className="flex items-start gap-3 rounded-box-l border border-line bg-surface-raised p-4">
-          <Icon name="hourglass" size="s" className="shrink-0 text-ink-accent" />
           <div className="text-sm">
             <p className="font-bold">Куратор проверит до {checkDue(record.submitted!.date)}</p>
             <p className="mt-1 text-ink-muted">
@@ -297,7 +297,6 @@ function SelfCheck({ id, title, work, record }: { id: string; title: string; wor
 
       {/* Явно разводим самопроверку и проверку куратором — сейчас ученики их путают. */}
       <p className="flex items-start gap-2 rounded-box-m bg-surface-subtle p-3 text-sm">
-        <Icon name="info-circle" size="2xs" className="mt-0.5 shrink-0" />
         На тарифе «Фристайл» ДЗ не проверяет куратор. Сравните свой ответ с ключом и поставьте баллы по критериям — так
         вы увидите, где теряете баллы на экзамене.
       </p>

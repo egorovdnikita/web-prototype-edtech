@@ -121,9 +121,9 @@ export function CalendarView({ subject }: { subject: Subject }) {
             aria-label="Предыдущая неделя"
             disabled={weekIndex === 0}
             onClick={() => setWeekIndex(weekIndex - 1)}
-            className="grid size-10 place-items-center rounded-full border border-line bg-surface-raised disabled:opacity-40"
+            className="grid size-10 place-items-center rounded-full border border-line bg-surface-raised disabled:text-ink-disabled"
           >
-            <Icon name="alt-arrow-left" size="2xs" />
+            <Icon name="alt-arrow-left" size="2xs" className="text-current" />
           </button>
           <p className="min-w-[200px] text-center font-bold">
             Неделя {week.number} · {range}
@@ -133,9 +133,9 @@ export function CalendarView({ subject }: { subject: Subject }) {
             aria-label="Следующая неделя"
             disabled={weekIndex === CAL_WEEKS.length - 1}
             onClick={() => setWeekIndex(weekIndex + 1)}
-            className="grid size-10 place-items-center rounded-full border border-line bg-surface-raised disabled:opacity-40"
+            className="grid size-10 place-items-center rounded-full border border-line bg-surface-raised disabled:text-ink-disabled"
           >
-            <Icon name="alt-arrow-right" size="2xs" />
+            <Icon name="alt-arrow-right" size="2xs" className="text-current" />
           </button>
         </div>
         <div
@@ -267,7 +267,6 @@ function ExamBanner({
   if (hasExams(subject) && isWaiting(subject)) {
     return (
       <p className="flex items-start gap-2 rounded-box-m bg-surface-subtle p-3 text-[13px] text-ink-muted">
-        <Icon name="hourglass" size="2xs" className="mt-0.5 shrink-0" />
         Запись на зачёт откроется, когда назначат наставника: зачёт идёт по его свободным окнам.
       </p>
     );
@@ -275,7 +274,6 @@ function ExamBanner({
   if (!hasExams(subject)) {
     return (
       <p className="flex items-start gap-2 rounded-box-m bg-surface-subtle p-3 text-[13px] text-ink-muted">
-        <Icon name="info-circle" size="2xs" className="mt-0.5 shrink-0" />
         Зачёты с наставником — на тарифах «С инструктором» и VIP. На вашем
         тарифе по {SUBJECTS[subject].title.toLowerCase()} их нет.
       </p>
@@ -295,9 +293,6 @@ function ExamBanner({
   const when = exam && dayLabel(exam.date);
   return (
     <section className="flex flex-col gap-3 rounded-box-l bg-surface-subject p-4 sm:flex-row sm:items-center">
-      <span className="grid size-11 shrink-0 place-items-center rounded-box-m bg-surface-raised">
-        <Icon name="checklist-minimalistic" size="2xs" />
-      </span>
       <div className="min-w-0 flex-1">
         <p className="font-bold">{EXAM.title}</p>
         <p className="text-sm text-ink-muted">
@@ -367,20 +362,6 @@ function EventRow({
     event.subject === "all" ? "все предметы" : SUBJECTS[event.subject].short;
   const content = (
     <>
-      {!compact && (
-        <span
-          data-accent={event.subject === "all" ? undefined : accentOf(event.subject)}
-          className={cn(
-            "grid shrink-0 place-items-center rounded-box-m",
-            compact ? "size-7" : "size-10",
-            event.subject === "all"
-              ? "bg-surface-lime text-ink-olive"
-              : "bg-surface-subject text-ink",
-          )}
-        >
-          <Icon name={KIND_ICON[event.kind]} size="2xs" />
-        </span>
-      )}
       <span className="min-w-0 flex-1">
         <span
           className={cn(
@@ -424,7 +405,7 @@ function EventRow({
         <Icon
           name="alt-arrow-right"
           size="min"
-          className="shrink-0 text-ink-subtle"
+          className="shrink-0"
         />
       )}
     </>

@@ -74,14 +74,11 @@ export default function MorePage({ params }: { params: { subject: Subject } }) {
 function Row({ row, subject }: { row: (typeof ROWS)[number]; subject: Subject }) {
   const body = (
     <>
-      <span className="grid size-10 shrink-0 place-items-center rounded-box-m bg-surface-subject">
-        <Icon name={row.icon} size="2xs" />
-      </span>
       <span className="min-w-0 flex-1">
         <span className="block font-semibold">{row.title}</span>
         <span className="block text-[13px] text-ink-muted">{row.text}</span>
       </span>
-      <Icon name="alt-arrow-right" size="min" className="text-ink-subtle" />
+      <Icon name="alt-arrow-right" size="min" />
     </>
   );
   const className = "flex w-full items-center gap-3 p-4 text-left no-underline hover:bg-surface-subtle";

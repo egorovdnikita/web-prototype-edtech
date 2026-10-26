@@ -52,9 +52,6 @@ export function RecordingView({ subject, recording: r }: { subject: Subject; rec
               className="flex flex-col items-center gap-2 font-semibold"
               aria-label="Смотреть запись"
             >
-              <span className="grid size-16 place-items-center rounded-full bg-accent text-accent-on sm:size-20">
-                <Icon name={position ? "pause" : "play"} variant="bold" size="l" />
-              </span>
               <span className="rounded-full bg-surface-raised px-3 py-1 text-sm">
                 {position ? `Сейчас ${position}` : `Смотреть · ${r.duration}`}
               </span>
@@ -69,7 +66,7 @@ export function RecordingView({ subject, recording: r }: { subject: Subject; rec
                 onClick={() => setPosition(t.at)}
                 className={cn(
                   "shrink-0 rounded-full border px-3 py-1.5 text-[13px] transition-colors",
-                  position === t.at ? "border-accent bg-accent-soft text-ink" : "border-line text-ink-muted hover:border-accent-border",
+                  position === t.at ? "border-accent bg-surface-raised text-ink" : "border-line text-ink-muted hover:border-accent-border",
                 )}
               >
                 <span className="font-bold text-ink">{t.at}</span> {t.title}
@@ -106,14 +103,11 @@ export function RecordingView({ subject, recording: r }: { subject: Subject; rec
             onClick={() => setWorkbook(true)}
             className="flex items-center gap-3 rounded-box-l border border-line bg-surface-raised p-4 text-left hover:border-accent-border"
           >
-            <span className="grid size-10 shrink-0 place-items-center rounded-box-m bg-surface-subject">
-              <Icon name="document-text" size="2xs" />
-            </span>
             <span className="min-w-0 flex-1">
               <span className="block font-semibold">Задачник</span>
               <span className="block text-[13px] text-ink-muted">{workbook ? "Скачан — в прототипе файл не сохраняется" : r.workbook}</span>
             </span>
-            <Icon name={workbook ? "check-circle" : "alt-arrow-down"} variant={workbook ? "bold" : "linear"} size="min" className="text-ink-accent" />
+            <Icon name={workbook ? "check-circle" : "alt-arrow-down"} variant={workbook ? "bold" : "linear"} size="min" />
           </button>
         </aside>
       </div>

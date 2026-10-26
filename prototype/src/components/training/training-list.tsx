@@ -29,9 +29,6 @@ export function TrainingList({ subject }: { subject: Subject }) {
                       href={`/${subject}/training/${t.id}`}
                       className="flex h-full items-center gap-3 rounded-box-l border border-line bg-surface-raised p-4 no-underline transition-colors hover:border-accent-border"
                     >
-                      <span className="grid size-10 shrink-0 place-items-center rounded-box-m bg-surface-subject">
-                        <Icon name={r ? "check-circle" : "magic-stick-3"} variant={r ? "bold" : "linear"} size="2xs" />
-                      </span>
                       <span className="min-w-0 flex-1">
                         <span className="block font-semibold leading-snug">{t.title}</span>
                         <span className="block text-[13px] text-ink-muted">
@@ -40,7 +37,7 @@ export function TrainingList({ subject }: { subject: Subject }) {
                             ` · ${r.errors === 0 ? "без ошибок" : `лучший — ${r.errors} ${plural(r.errors, ["ошибка", "ошибки", "ошибок"])}`}`}
                         </span>
                       </span>
-                      <Icon name="alt-arrow-right" size="min" className="shrink-0 text-ink-subtle" />
+                      <Icon name="alt-arrow-right" size="min" className="shrink-0" />
                     </Link>
                   </li>
                 );

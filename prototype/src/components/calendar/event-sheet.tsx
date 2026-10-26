@@ -53,7 +53,7 @@ function Sheet({
             aria-label="Закрыть"
             className="grid size-9 place-items-center rounded-full hover:bg-surface-subtle"
           >
-            <Icon name="close-circle" size="2xs" />
+            <Icon name="close-circle" size="2xs" className="text-current" />
           </button>
         </div>
         {children}
@@ -102,12 +102,10 @@ export function EventSheet({
       </h2>
       <ul className="mt-3 flex flex-col gap-2 text-sm">
         <li className="flex items-center gap-2">
-          <Icon name="calendar" size="min" className="text-ink-muted" />
           <span className="first-letter:uppercase">{when(event)}</span>
         </li>
         {event.host && (
           <li className="flex items-center gap-2">
-            <Icon name="user-circle" size="min" className="text-ink-muted" />
             ведёт {event.host}
           </li>
         )}

@@ -65,21 +65,20 @@ export function PlanRow({ item, href: lessonHref, now }: { item: PlanItem; href?
     </button>
   ) : (
     <span
-      className={cn(
-        "grid size-7 shrink-0 place-items-center rounded-full",
-        done && "text-ink-accent",
-        locked && "text-ink-subtle",
-        overdue && "text-ink-accent",
-        status === "todo" && "text-ink-muted",
-        review && "text-ink-accent",
-      )}
+      data-status={overdue ? "warning" : done ? "positive" : undefined}
+      className="grid size-7 shrink-0 place-items-center rounded-full"
       title={done ? "Сделано — отмечено автоматически" : undefined}
     >
-      <Icon
-        name={done ? "check-circle" : locked ? "lock-keyhole" : overdue ? "danger-circle" : review ? "hourglass" : kind.icon}
-        variant={done ? "bold" : "linear"}
-        size="2xs"
-      />
+      {done || locked || overdue || review ? (
+        <Icon
+          name={done ? "check-circle" : locked ? "lock-keyhole" : overdue ? "danger-circle" : "hourglass"}
+          variant={done ? "bold" : "linear"}
+          size="2xs"
+          className={done || overdue ? "text-status-ink" : undefined}
+        />
+      ) : (
+        <span className="size-4 rounded-full border-2 border-line-strong" aria-hidden />
+      )}
     </span>
   );
 
@@ -105,7 +104,7 @@ export function PlanRow({ item, href: lessonHref, now }: { item: PlanItem; href?
         {waiting ? (
           <span className="font-semibold text-ink-accent">· откроется, когда назначат наставника</span>
         ) : (
-          item.due && !done && !review && <span className={cn(overdue && "font-semibold text-ink-accent")}>· {item.due}</span>
+          item.due && !done && !review && <span data-status={overdue ? "warning" : undefined} className={cn(overdue && "font-semibold text-status-ink")}>· {item.due}</span>
         )}
         {item.manual && !done && <span>· отметьте сами</span>}
       </span>
@@ -114,13 +113,12 @@ export function PlanRow({ item, href: lessonHref, now }: { item: PlanItem; href?
 
   // «на 100» — про допы к урокам. Встречи по записи и так по желанию.
   const extra = !item.required && item.kind !== "meeting" && (
-    <span className="shrink-0 whitespace-nowrap rounded-full bg-surface-lime px-2 py-0.5 text-[11px] font-bold text-ink-olive">на 100</span>
+    <span className="shrink-0 whitespace-nowrap rounded-full bg-surface-subtle px-2 py-0.5 text-[11px] font-semibold text-ink-muted">на 100</span>
   );
 
   const row = cn(
     "flex items-center gap-3 rounded-box-m px-3 py-3 text-left",
     now && "bg-surface-subject",
-    overdue && !now && "bg-accent-soft",
   );
 
   if (href && !locked && !item.manual) {
@@ -130,7 +128,7 @@ export function PlanRow({ item, href: lessonHref, now }: { item: PlanItem; href?
           {mark}
           {body}
           {extra}
-          <Icon name="alt-arrow-right" size="min" className="shrink-0 text-ink-subtle" />
+          <Icon name="alt-arrow-right" size="min" className="shrink-0" />
         </Link>
       </li>
     );

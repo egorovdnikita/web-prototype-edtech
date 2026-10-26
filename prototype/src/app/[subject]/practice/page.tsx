@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { MistakesLink } from "@/components/practice/mistakes-link";
 import { TrainerGrid } from "@/components/practice/trainer-grid";
-import { Icon, type IconName } from "@/components/ui/icon";
+import type { IconName } from "@/components/ui/icon";
 import type { Subject } from "@mocks/course";
 import { TRAININGS } from "@mocks/trainings";
 
@@ -34,9 +34,6 @@ export default function PracticePage({ params }: { params: { subject: Subject } 
         {BLOCKS.map((b) => {
           const body = (
             <>
-              <span className="grid size-10 place-items-center rounded-box-m bg-surface-subject">
-                <Icon name={b.icon} size="2xs" />
-              </span>
               <h2 className="font-bold leading-snug">{b.title}</h2>
               <p className="text-[13px] text-ink-muted">{b.text}</p>
               <p className="mt-auto text-[13px] font-semibold text-ink-accent">{b.meta(params.subject)}</p>

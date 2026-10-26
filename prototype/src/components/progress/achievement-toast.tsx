@@ -73,7 +73,7 @@ export function AchievementToast({ subject }: { subject: Subject }) {
         <span className="block text-[13px] text-ink-muted">{shown.why}</span>
       </Link>
       <button type="button" onClick={() => setShown(null)} aria-label="Закрыть" className="grid size-8 shrink-0 place-items-center rounded-full hover:bg-surface-subtle">
-        <Icon name="close-circle" size="min" />
+        <Icon name="close-circle" size="min" className="text-current" />
       </button>
     </div>
   );

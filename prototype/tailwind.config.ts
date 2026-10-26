@@ -28,6 +28,14 @@ const config: Config = {
           subtle: "var(--surface-base-content-subtle)",
           accent: "var(--accent-content-on-soft-default)",
           olive: "var(--enl-olive-ink)",
+          disabled: "var(--interaction-disabled-content)",
+        },
+        // System · Status: тон задаёт data-status на самом элементе (positive / warning / negative).
+        status: {
+          DEFAULT: "var(--status-fill-solid)",
+          soft: "var(--status-fill-soft)",
+          ink: "var(--status-content-on-surface-default)",
+          border: "var(--status-border-default)",
         },
         line: {
           DEFAULT: "var(--surface-base-border-default)",

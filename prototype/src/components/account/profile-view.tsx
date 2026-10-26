@@ -86,7 +86,7 @@ export function ProfileView() {
                   onClick={() => update({ grade: g })}
                   className={cn(
                     "rounded-box-m border-2 py-2 text-[15px] font-semibold transition-colors",
-                    profile.grade === g ? "border-accent bg-accent-soft" : "border-line bg-surface-page",
+                    profile.grade === g ? "border-accent bg-surface-raised" : "border-line bg-surface-page",
                   )}
                 >
                   {g} класс
@@ -181,7 +181,7 @@ export function ProfileView() {
                       onClick={() => setChannel(g, c, !on)}
                       className={cn(
                         "flex min-h-11 items-center gap-1.5 rounded-full border-2 px-3.5 text-sm font-semibold transition-colors",
-                        on ? "border-accent bg-accent-soft text-ink" : "border-line bg-surface-page text-ink-muted",
+                        on ? "border-accent bg-surface-raised text-ink" : "border-line bg-surface-page text-ink-muted",
                       )}
                     >
                       {on && <Icon name="check-circle" variant="bold" size="min" className="text-ink-accent" />}

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { hasExams } from "@/components/calendar/calendar-view";
-import { Icon, type IconName } from "@/components/ui/icon";
+import { Icon } from "@/components/ui/icon";
 import { cn } from "@/lib/utils";
 import { COURSES, type Subject } from "@mocks/course";
 import {
@@ -12,19 +12,10 @@ import {
   SECTIONS,
   type Material,
   type MaterialGroup,
-  type MaterialKind,
   type MaterialSection,
 } from "@mocks/materials";
 
 const KEY = "enl-prototype-materials";
-
-const KIND_ICON: Record<MaterialKind, IconName> = {
-  pdf: "document-text",
-  video: "play-circle",
-  cards: "notebook-minimalistic",
-  link: "paperclip",
-  test: "checklist-minimalistic",
-};
 
 /** Просмотренное — как статус «просмотрено» в B9; хранится в браузере. */
 function useViewed() {
@@ -171,11 +162,10 @@ export function MaterialsView({ subject }: { subject: Subject }) {
             href={`/${subject}/practice`}
             className="flex items-center gap-3 rounded-box-l border border-line bg-surface-raised p-4 text-sm no-underline hover:border-accent-border"
           >
-            <Icon name="dumbbell-large" size="2xs" className="shrink-0 text-ink-accent" />
             <span className="flex-1 text-ink">
               Тренировки, квизлеты и тренажёр — в <span className="font-semibold">Практике</span>
             </span>
-            <Icon name="alt-arrow-right" size="min" className="text-ink-subtle" />
+            <Icon name="alt-arrow-right" size="min" />
           </Link>
         </>
       )}
@@ -198,16 +188,13 @@ function MaterialRow({
 }) {
   const body = (
     <>
-      <span className="grid size-9 shrink-0 place-items-center rounded-box-m bg-surface-subtle">
-        <Icon name={KIND_ICON[item.kind]} size="2xs" />
-      </span>
       <span className="min-w-0 flex-1">
         {hint && <span className="block text-[12px] text-ink-muted">{hint}</span>}
         <span className="block font-semibold leading-snug">{item.title}</span>
         {(item.soon ?? item.meta) && <span className="block text-[13px] text-ink-muted">{item.soon ?? item.meta}</span>}
       </span>
       {item.soon ? (
-        <Icon name="lock-keyhole" size="xs" className="shrink-0 text-ink-subtle" />
+        <Icon name="lock-keyhole" size="xs" className="shrink-0" />
       ) : viewed ? (
         <span className="flex shrink-0 items-center gap-1 text-[13px] font-semibold text-ink-olive">
           <Icon name="check-circle" variant="bold" size="min" />

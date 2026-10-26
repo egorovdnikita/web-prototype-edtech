@@ -76,7 +76,6 @@ export function TrainingPlayer({
   if (fixing && focus?.length === 0)
     return (
       <section className="mx-auto flex max-w-xl flex-col items-center gap-3 rounded-box-l border border-line bg-surface-raised p-8 text-center">
-        <Icon name="cup-star" size="xl" className="text-ink-accent" />
         <p className="text-lg font-bold">В этой тренировке ошибок нет</p>
         <ButtonLink href={back.href} appearance="soft">
           {back.label}
@@ -118,7 +117,6 @@ export function TrainingPlayer({
         </p>
         <h1 className="enl-display text-[26px] normal-case leading-tight sm:text-[32px]">{training.title}</h1>
         <p className="flex items-start gap-2 font-semibold">
-          <Icon name="magic-stick-3" size="xs" className="mt-0.5 shrink-0 text-ink-accent" />
           {training.action}
         </p>
         {fixing && focus && (

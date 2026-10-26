@@ -4,7 +4,6 @@ import Link from "next/link";
 import { GradebookCard } from "@/components/plan/side-cards";
 import { ProgressTabs } from "@/components/progress/progress-ui";
 import { WithRail } from "@/components/shell/app-shell";
-import { Icon } from "@/components/ui/icon";
 import { useStats } from "@/lib/stats";
 import { cn } from "@/lib/utils";
 import { WORKS } from "@mocks/works";
@@ -44,7 +43,7 @@ export default function ProgressPage({ params }: { params: { subject: Subject } 
         {stats.debts.length > 0 && (
           <section className="rounded-box-l border border-accent-border bg-surface-raised p-4">
             <h2 className="flex items-center gap-2 font-bold">
-              <Icon name="hourglass" size="2xs" className="text-ink-accent" /> Не сдано
+Не сдано
             </h2>
             <ul className="mt-2 flex flex-col gap-1">
               {stats.debts.map((d) => (
@@ -133,7 +132,7 @@ function Stat({ title, value, note, bar, soft }: { title: string; value: string;
       <span className="text-sm font-semibold text-ink-muted">{title}</span>
       <span className="enl-display mt-1 text-[32px] leading-none">{value}</span>
       <span className="mt-2 h-2 rounded-full bg-surface-subtle" aria-hidden>
-        <span className={cn("block h-full rounded-full", soft ? "bg-surface-lime" : "bg-accent")} style={{ width: `${bar}%` }} />
+        <span className={cn("block h-full rounded-full", soft ? "bg-ink-subtle" : "bg-accent")} style={{ width: `${bar}%` }} />
       </span>
       <span className="mt-2 text-[13px] text-ink-muted">{note}</span>
     </section>

@@ -71,7 +71,6 @@ export function ExamRoom({ subject }: { subject: Subject }) {
     return (
       <div className="mx-auto flex max-w-xl flex-col gap-4">
         <section className="rounded-box-l bg-surface-subject p-5 text-center">
-          <Icon name="cup-star" size="xl" className="mx-auto text-ink-accent" />
           <p className="enl-display mt-2 text-[28px]">{r.passed ? "зачёт!" : "не зачтено"}</p>
           <p className="text-sm text-ink-muted">
             Билет №{r.ticket} · {r.date} · {mentor.name}
@@ -119,7 +118,6 @@ export function ExamRoom({ subject }: { subject: Subject }) {
 
       {!exam && stage === "check" && (
         <p className="flex items-start gap-2 rounded-box-m bg-surface-subtle p-3 text-sm">
-          <Icon name="info-circle" size="2xs" className="mt-0.5 shrink-0" />
           Вы не записаны на зачёт — в прототипе войти можно и так. В жизни кнопка «Войти» появится за 15 минут до записи.
         </p>
       )}
@@ -163,7 +161,7 @@ export function ExamRoom({ subject }: { subject: Subject }) {
                 aria-label="Выйти из зачёта"
                 className="grid size-11 place-items-center rounded-full bg-accent text-accent-on no-underline"
               >
-                <Icon name="end-call" variant="bold" size="2xs" />
+                <Icon name="end-call" variant="bold" size="2xs" className="text-current" />
               </Link>
             )}
           </div>
@@ -202,7 +200,7 @@ export function ExamRoom({ subject }: { subject: Subject }) {
                 <>
                   <h2 className="font-bold">Тема «Политика»</h2>
                   <p className="text-sm text-ink-muted">Билет выпадет случайно. На подготовку — {EXAM_PREP_MINUTES} минут, потом ответ.</p>
-                  <Button size="l" onClick={draw} disabled={drawing} startIcon={<Icon name="ticket" size="min" />}>
+                  <Button size="l" onClick={draw} disabled={drawing}>
                     {drawing ? "Тянем билет…" : "Вытянуть билет"}
                   </Button>
                 </>
@@ -287,7 +285,7 @@ function CallButton({ active, label, icon, onClick }: { active: boolean; label: 
 function Check({ ok, text }: { ok: boolean; text: string }) {
   return (
     <li className="flex items-start gap-2">
-      <Icon name={ok ? "check-circle" : "danger-circle"} variant={ok ? "bold" : "linear"} size="2xs" className={cn("shrink-0", ok ? "text-ink-olive" : "text-ink-accent")} />
+      <Icon name={ok ? "check-circle" : "danger-circle"} variant={ok ? "bold" : "linear"} size="2xs" data-status={ok ? "positive" : "negative"} className="shrink-0 text-status-ink" />
       {text}
     </li>
   );

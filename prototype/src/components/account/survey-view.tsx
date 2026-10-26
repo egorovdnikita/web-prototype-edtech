@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { Button, ButtonLink } from "@/components/ui/box";
-import { Icon } from "@/components/ui/icon";
 import { cn } from "@/lib/utils";
 import type { Subject } from "@mocks/course";
 
@@ -48,7 +47,6 @@ export function SurveyView({ subject, probe }: { subject: Subject; probe: { id: 
   if (done)
     return (
       <section className="mx-auto flex max-w-xl flex-col items-center gap-3 rounded-box-l border border-line bg-surface-raised p-8 text-center">
-        <Icon name="check-circle" variant="bold" size="xl" className="text-ink-olive" />
         <h1 className="text-xl font-extrabold">Спасибо, анкета отправлена</h1>
         <p className="text-sm text-ink-muted">Школа читает ответы и по ним меняет курс и проверку.</p>
         <ButtonLink href={`/${subject}`} appearance="soft">
@@ -60,7 +58,7 @@ export function SurveyView({ subject, probe }: { subject: Subject; probe: { id: 
   const chip = (on: boolean) =>
     cn(
       "min-h-11 rounded-full border-2 px-4 text-[15px] font-semibold transition-colors",
-      on ? "border-accent bg-accent-soft" : "border-line bg-surface-page",
+      on ? "border-accent bg-surface-raised" : "border-line bg-surface-page",
     );
 
   return (

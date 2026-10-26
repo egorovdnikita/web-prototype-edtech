@@ -23,9 +23,6 @@ export function DistributionGate({ subject, id, children }: { subject: Subject; 
   const curator = hasExams(subject);
   return (
     <section className="mx-auto flex max-w-xl flex-col gap-4 rounded-box-l border border-line bg-surface-raised p-6">
-      <span className="grid size-12 place-items-center rounded-full bg-surface-subject">
-        <Icon name="hourglass" size="xs" />
-      </span>
       <div>
         <h1 className="text-xl font-extrabold leading-tight">ДЗ откроется, когда назначат наставника</h1>
         <p className="mt-2 text-[15px] leading-relaxed">

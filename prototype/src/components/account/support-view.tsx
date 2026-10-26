@@ -98,7 +98,7 @@ export function SupportView({ subject }: { subject: Subject }) {
             {tickets.map((t) => (
               <li key={t.id} className="rounded-box-l border border-line bg-surface-raised p-3">
                 <p className="flex items-center gap-2 text-[13px] font-semibold text-ink-accent">
-                  <Icon name="hourglass" size="min" /> ждёт ответа · {t.topic}
+ждёт ответа · {t.topic}
                 </p>
                 <p className="mt-1 text-sm">{t.text}</p>
                 {t.file && <p className="mt-1 text-[12px] text-ink-muted">Скриншот: {t.file}</p>}
@@ -121,7 +121,7 @@ export function SupportView({ subject }: { subject: Subject }) {
                 className="flex w-full items-center gap-3 px-4 py-3 text-left font-semibold hover:bg-surface-subtle"
               >
                 <span className="flex-1">{f.q}</span>
-                <Icon name={open === i ? "alt-arrow-up" : "alt-arrow-down"} size="min" className="text-ink-subtle" />
+                <Icon name={open === i ? "alt-arrow-up" : "alt-arrow-down"} size="min" />
               </button>
               {open === i && (
                 <p className="px-4 pb-3 text-sm leading-relaxed text-ink-muted">
@@ -153,7 +153,7 @@ export function SupportView({ subject }: { subject: Subject }) {
               onClick={() => setTopic(t)}
               className={cn(
                 "rounded-full border-2 px-3.5 py-1.5 text-sm font-semibold transition-colors",
-                topic === t ? "border-accent bg-accent-soft" : "border-line bg-surface-page",
+                topic === t ? "border-accent bg-surface-raised" : "border-line bg-surface-page",
               )}
             >
               {t}

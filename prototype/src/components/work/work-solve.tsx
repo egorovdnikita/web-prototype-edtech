@@ -79,23 +79,19 @@ export function WorkSolve({ subject, id }: { subject: Subject; id: string }) {
       </header>
 
       {status === "overdue" && (
-        <p className="flex items-start gap-2 rounded-box-m bg-accent-soft p-3 text-sm">
-          <Icon name="hourglass" size="2xs" className="mt-0.5 shrink-0 text-ink-accent" />
+        <p data-status="warning" className="flex items-start gap-2 rounded-box-m bg-status-soft p-3 text-sm">
           Дедлайн прошёл, но сдать ещё можно — работа уйдёт на проверку как обычно, с увеличенным сроком.
         </p>
       )}
 
       <div className="flex flex-wrap items-center gap-3 rounded-box-l border border-line bg-surface-raised p-3">
-        <span className="grid size-9 shrink-0 place-items-center rounded-box-m bg-surface-subject">
-          <Icon name={work.check === "auto" ? "checklist-minimalistic" : work.check === "curator" ? "user-circle" : "pen-new-square"} size="2xs" />
-        </span>
         <span className="min-w-[200px] flex-1 text-sm">
           <span className="block font-bold">{CHECK_LABEL[work.check].title}</span>
           <span className="block text-ink-muted">{CHECK_LABEL[work.check].text}</span>
         </span>
         {work.timer &&
           (timerLeft === null ? (
-            <Button appearance="outline" size="s" onClick={() => startTimer(id)} startIcon={<Icon name="clock-circle" size="min" />}>
+            <Button appearance="outline" size="s" onClick={() => startTimer(id)}>
               Таймер {work.timer} мин
             </Button>
           ) : (
@@ -107,7 +103,7 @@ export function WorkSolve({ subject, id }: { subject: Subject; id: string }) {
                 timerLeft < 60_000 ? "bg-accent text-accent-on" : "bg-surface-marker",
               )}
             >
-              <Icon name="clock-circle" size="min" /> {mmss(timerLeft)}
+{mmss(timerLeft)}
             </span>
           ))}
       </div>
@@ -147,7 +143,7 @@ export function WorkSolve({ subject, id }: { subject: Subject; id: string }) {
       />
 
       <p className="flex items-center gap-1.5 text-[13px] text-ink-muted">
-        <Icon name="check-circle" size="min" /> Ответы сохраняются сами — можно закрыть и вернуться.
+Ответы сохраняются сами — можно закрыть и вернуться.
       </p>
 
       <div className="flex gap-3">
@@ -221,7 +217,7 @@ export function AnswerField({ task, value, onChange }: { task: Task; value: stri
                   <label
                     className={cn(
                       "flex cursor-pointer items-start gap-3 rounded-box-m border p-3 transition-colors",
-                      checked ? "border-accent bg-accent-soft" : "border-line hover:border-line-strong",
+                      checked ? "border-accent bg-surface-raised" : "border-line hover:border-line-strong",
                     )}
                   >
                     <input

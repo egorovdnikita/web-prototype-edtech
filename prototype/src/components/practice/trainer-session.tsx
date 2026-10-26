@@ -64,7 +64,6 @@ export function TrainerSession({ subject, set }: { subject: Subject; set: Traine
   if (queue.length === 0)
     return (
       <section className="mx-auto flex max-w-xl flex-col items-center gap-3 rounded-box-l border border-line bg-surface-raised p-8 text-center">
-        <Icon name="cup-star" size="xl" className="text-ink-accent" />
         <p className="text-lg font-bold">{set === "weak" ? "Слабых номеров нет" : "В этой подборке пока нет заданий"}</p>
         <p className="text-sm text-ink-muted">
           {set === "weak" ? "Ни один номер не ниже 60% — решайте любой номер, статистика обновится." : "В прототипе задания есть для №1–6."}
@@ -161,9 +160,9 @@ export function TrainerSession({ subject, set }: { subject: Subject; set: Traine
 function Feedback({ item }: { item: Answered }) {
   const { task, answer, ok } = item;
   return (
-    <div role="status" className={cn("mt-4 rounded-box-m p-3 text-sm leading-relaxed", ok ? "bg-surface-lime" : "bg-accent-soft")}>
-      <p className={cn("flex items-center gap-2 font-bold", ok ? "text-ink-olive" : "text-ink-accent")}>
-        <Icon name={ok ? "check-circle" : "close-circle"} variant="bold" size="2xs" />
+    <div role="status" data-status={ok ? "positive" : "negative"} className="mt-4 rounded-box-m bg-status-soft p-3 text-sm leading-relaxed">
+      <p className="flex items-center gap-2 font-bold text-status-ink">
+        <Icon name={ok ? "check-circle" : "close-circle"} variant="bold" size="2xs" className="text-status-ink" />
         {ok ? "Верно" : "Неверно"}
       </p>
       {!ok && (
@@ -226,7 +225,8 @@ function Summary({
               name={ok ? "check-circle" : "close-circle"}
               variant="bold"
               size="2xs"
-              className={cn("mt-0.5 shrink-0", ok ? "text-ink-olive" : "text-ink-accent")}
+              data-status={ok ? "positive" : "negative"}
+              className="mt-0.5 shrink-0 text-status-ink"
             />
             <span>
               <span className="font-bold">№{task.ege}</span> · {task.prompt}

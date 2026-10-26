@@ -87,9 +87,9 @@ export function WeekPlanner({ subject }: { subject: Subject }) {
           aria-label="Предыдущая неделя"
           disabled={weekIndex === 0}
           onClick={() => setWeekNumber(course.weeks[weekIndex - 1].number)}
-          className="grid size-10 place-items-center rounded-full border border-line bg-surface-raised disabled:opacity-40"
+          className="grid size-10 place-items-center rounded-full border border-line bg-surface-raised disabled:text-ink-disabled"
         >
-          <Icon name="alt-arrow-left" size="2xs" />
+          <Icon name="alt-arrow-left" size="2xs" className="text-current" />
         </button>
         <div className="min-w-0 flex-1 text-center sm:text-left">
           <h1 className="enl-display text-[28px] leading-tight sm:text-[34px]">
@@ -105,9 +105,9 @@ export function WeekPlanner({ subject }: { subject: Subject }) {
           aria-label="Следующая неделя"
           disabled={weekIndex === course.weeks.length - 1}
           onClick={() => setWeekNumber(course.weeks[weekIndex + 1].number)}
-          className="grid size-10 place-items-center rounded-full border border-line bg-surface-raised disabled:opacity-40"
+          className="grid size-10 place-items-center rounded-full border border-line bg-surface-raised disabled:text-ink-disabled"
         >
-          <Icon name="alt-arrow-right" size="2xs" />
+          <Icon name="alt-arrow-right" size="2xs" className="text-current" />
         </button>
       </div>
 
@@ -176,7 +176,6 @@ export function WeekPlanner({ subject }: { subject: Subject }) {
       {debts.length > 0 && filter !== "extra" && (
         <section className="rounded-box-l border border-accent-border bg-surface-raised p-2">
           <h2 className="flex items-center gap-2 px-3 pb-1 pt-2 font-bold">
-            <Icon name="hourglass" size="2xs" className="text-ink-accent" />
             Не сдано с прошлых недель
           </h2>
           <ul>
@@ -266,7 +265,7 @@ function LessonGroup({
             {locked ? `откроется ${lesson.opens}` : `≈ ${lesson.minutes} мин · обязательное ${done} из ${required.length}`}
           </span>
         </span>
-        <Icon name={open ? "alt-arrow-up" : "alt-arrow-down"} size="2xs" className="text-ink-muted" />
+        <Icon name={open ? "alt-arrow-up" : "alt-arrow-down"} size="2xs" />
       </button>
       {open && (
         <ul className="border-t border-line-subtle p-2">

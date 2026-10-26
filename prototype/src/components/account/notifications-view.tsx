@@ -2,20 +2,12 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Icon, type IconName } from "@/components/ui/icon";
+import { Icon } from "@/components/ui/icon";
 import { useNotifications } from "@/lib/notifications";
-import { accentOf } from "@/lib/style";
 import { cn } from "@/lib/utils";
 import { SUBJECTS, type Subject } from "@mocks/course";
 import { TODAY_ISO } from "@mocks/meetings";
-import type { Notice, NoticeGroup } from "@mocks/notifications";
-
-const GROUP_ICON: Record<NoticeGroup, IconName> = {
-  study: "notebook-minimalistic",
-  review: "chat-round-dots",
-  rewards: "medal-ribbon",
-  payment: "wallet",
-};
+import type { Notice } from "@mocks/notifications";
 
 const YESTERDAY_ISO = "2026-10-24";
 
@@ -125,16 +117,6 @@ export function NotificationsView({ subject }: { subject: Subject }) {
 function NoticeRow({ notice: n, fresh }: { notice: Notice; fresh: boolean }) {
   const body = (
     <>
-      <span
-        className={cn(
-          "relative grid size-10 shrink-0 place-items-center rounded-box-m",
-          n.group === "payment" ? "bg-accent-soft text-ink-accent" : "bg-surface-subject",
-        )}
-        data-accent={accentOf(n.subject)}
-        data-theme="light"
-      >
-        <Icon name={GROUP_ICON[n.group]} size="2xs" />
-      </span>
       <span className="min-w-0 flex-1">
         <span className="flex items-center gap-2 text-[12px] text-ink-muted">
           <span>{SUBJECTS[n.subject].title.toLowerCase()}</span>
@@ -145,10 +127,10 @@ function NoticeRow({ notice: n, fresh }: { notice: Notice; fresh: boolean }) {
         {n.text && <span className="mt-0.5 block text-sm text-ink-muted">{n.text}</span>}
         {n.action && <span className="mt-1.5 inline-block text-sm font-semibold text-ink-accent">{n.action}</span>}
       </span>
-      {n.href && <Icon name="alt-arrow-right" size="min" className="mt-3 shrink-0 text-ink-subtle" />}
+      {n.href && <Icon name="alt-arrow-right" size="min" className="mt-3 shrink-0" />}
     </>
   );
-  const row = cn("flex items-start gap-3 p-4", fresh && "shadow-[inset_3px_0_0_var(--accent-fill-solid)]");
+  const row = "flex items-start gap-3 p-4";
   return (
     <li>
       {n.href ? (

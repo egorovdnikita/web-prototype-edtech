@@ -106,7 +106,7 @@ export function PaymentView() {
           <p className="mt-1 text-sm text-ink-muted">
             После отчисления оплатить самому уже нельзя — возвращение обсуждается с менеджером: он подберёт месяц и тариф.
           </p>
-          <Button size="l" className="mt-3" startIcon={<Icon name="chat-round-dots" size="min" />}>
+          <Button size="l" className="mt-3">
             Написать менеджеру
           </Button>
         </section>
@@ -123,7 +123,7 @@ export function PaymentView() {
                       key={s}
                       className={cn(
                         "flex flex-1 cursor-pointer items-start gap-3 rounded-box-m border p-3",
-                        on ? "border-accent bg-accent-soft" : "border-line",
+                        on ? "border-accent bg-surface-raised" : "border-line",
                       )}
                     >
                       <input
@@ -155,7 +155,7 @@ export function PaymentView() {
                     key={o.id}
                     className={cn(
                       "flex cursor-pointer items-start gap-3 rounded-box-m border p-3",
-                      option?.id === o.id ? "border-accent bg-accent-soft" : "border-line",
+                      option?.id === o.id ? "border-accent bg-surface-raised" : "border-line",
                     )}
                   >
                     <input
@@ -169,7 +169,7 @@ export function PaymentView() {
                       <span className="block font-semibold">{o.label}</span>
                       {o.note && <span className="block text-[13px] text-ink-muted">{o.note}</span>}
                       {o.warn && option?.id === o.id && (
-                        <span className="mt-1 flex items-start gap-1.5 text-[13px] font-semibold text-ink-accent">
+                        <span data-status="warning" className="mt-1 flex items-start gap-1.5 text-[13px] font-semibold text-status-ink">
                           <Icon name="danger-circle" size="min" className="mt-0.5 shrink-0" /> {o.warn}
                         </span>
                       )}
@@ -291,13 +291,14 @@ function StatusCard({ subject, status, paidUntil, skipped }: { subject: Subject;
   const tone = status === "overdue" || status === "expelled";
   return (
     <div
+      data-status={tone ? "negative" : status === "due" ? "warning" : "positive"}
       className={cn(
         "flex items-start gap-3 rounded-box-l border p-4",
-        tone ? "border-accent-border bg-accent-soft" : "border-line bg-surface-raised",
+        tone ? "border-status-border bg-status-soft" : "border-line bg-surface-raised",
       )}
     >
       <span className="grid size-10 shrink-0 place-items-center rounded-box-m bg-surface-raised">
-        <Icon name={status === "ok" ? "check-circle" : status === "due" ? "wallet" : "danger-circle"} variant={status === "ok" ? "bold" : "linear"} size="2xs" className={tone ? "text-ink-accent" : "text-ink-olive"} />
+        <Icon name={status === "ok" ? "check-circle" : status === "due" ? "wallet" : "danger-circle"} variant={status === "ok" ? "bold" : "linear"} size="2xs" className={status === "due" ? undefined : "text-status-ink"} />
       </span>
       <div className="min-w-0 text-sm">
         <p className="font-bold">
@@ -337,7 +338,7 @@ function Checkout({ total, onClose, onPaid }: { total: number; onClose: () => vo
             ["sbp", "СБП — через приложение банка"],
             ["card", "Банковская карта"],
           ].map(([id, label]) => (
-            <label key={id} className={cn("flex cursor-pointer items-center gap-3 rounded-box-m border p-3", method === id ? "border-accent bg-accent-soft" : "border-line")}>
+            <label key={id} className={cn("flex cursor-pointer items-center gap-3 rounded-box-m border p-3", method === id ? "border-accent bg-surface-raised" : "border-line")}>
               <input type="radio" name="method" checked={method === id} onChange={() => setMethod(id)} className="size-4 accent-[var(--accent-fill-solid)]" />
               {label}
             </label>

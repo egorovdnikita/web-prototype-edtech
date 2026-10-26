@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter_Tight, Raleway } from "next/font/google";
+import { Inter, Raleway } from "next/font/google";
 import { FONT, ICON, RADIUS } from "@/lib/style";
 
 // Порядок важен: Box UI (примитивы → темы → контролы → адаптив → компоненты),
@@ -12,12 +12,12 @@ import "@/vendor/box-ui/css/components.css";
 import "@/styles/enl.css";
 import "./globals.css";
 
-// Inter Tight — мода Brand · Typography «inter-tight». Raleway — шрифт стиля ЕНЛ,
+// Inter — мода Brand · Typography «inter». Raleway — шрифт стиля ЕНЛ,
 // без предзагрузки: нужен, только если вернуть FONT = "enl".
-const interTight = Inter_Tight({
+const inter = Inter({
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-inter-tight",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -51,7 +51,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       data-radius={RADIUS}
       data-font={FONT}
       data-icon-style={ICON}
-      className={`${interTight.variable} ${raleway.variable}`}
+      className={`${inter.variable} ${raleway.variable}`}
     >
       <body className="min-h-dvh antialiased">{children}</body>
     </html>

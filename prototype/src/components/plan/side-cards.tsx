@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Icon } from "@/components/ui/icon";
-import { KIND_ICON, useCalendarEvents } from "@/components/calendar/calendar-view";
+import { useCalendarEvents } from "@/components/calendar/calendar-view";
 import { useBookings } from "@/lib/bookings";
 import { useDistribution } from "@/lib/distribution";
 import { usePayment } from "@/lib/payment";
@@ -47,9 +46,6 @@ export function MeetingsCard({ subject }: { subject: Subject }) {
             return (
               <li key={e.id}>
                 <Link href={`/${subject}/calendar?e=${e.id}`} className="flex items-start gap-3 no-underline">
-                  <span className="grid size-9 shrink-0 place-items-center rounded-box-m bg-surface-subject text-ink">
-                    <Icon name={KIND_ICON[e.kind]} size="2xs" />
-                  </span>
                   <span className="min-w-0">
                     <span className="block text-sm font-semibold">{e.title}</span>
                     <span className="block text-[13px] text-ink-muted">
@@ -122,7 +118,7 @@ export function MentorCard({ subject }: { subject: Subject }) {
         href={`/${subject}/mentor`}
         className="mt-3 flex items-center gap-2 text-sm font-semibold text-ink-accent no-underline"
       >
-        <Icon name="chat-round-dots" size="min" /> Написать
+Написать
       </Link>
     </SideCard>
   );
