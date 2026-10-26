@@ -69,10 +69,10 @@
 Без прямой ссылки (открываются из ячеек ответов в таблице вопросов): гайд по проверке, «Типичные ошибки во второй части», шаблон самопроверки, общее расписание ГК 26/27, графики сборки, ⚠️ сводная таблица, шаблоны и примеры отчётов родителю.
 
 ## Figma и FigJam
-- [Визуальный стиль ЕГЭ НАЛЕГКЕ — оригинал](https://www.figma.com/design/nwGwM8R4LfzHPaTQr7Cy7j/) — только просмотр
+- [Визуальный стиль ЕГЭ НАЛЕГКЕ — оригинал](https://www.figma.com/design/nwGwM8R4LfzHPaTQr7Cy7j/) — только просмотр; содержимое то же, что в копии «ЕГЭ-Налегке», которую читает коннектор
 - [ЕГЭ-Налегке — копия](https://www.figma.com/design/bpQxLjX9khWFv1x6yYoxJb/) — коннектор Figma читает её
 - [FigJam «Модель TOBE»](https://www.figma.com/board/7XFxS0mdWg4dGwvA5wGYDF/) — 4 страницы, читается
-- [FigJam «Проектирование»](https://www.figma.com/board/fPQP2BbT7zlfLBZX753fsI/) — матрица функциональности GetCourse, доступа нет
+- [FigJam «Проектирование»](https://www.figma.com/board/fPQP2BbT7zlfLBZX753fsI/) — аудит текущего GetCourse от FANS (04.10, аккаунт Далера): 92 экрана со скриншотами, 382 функциональных блока. Доступ есть с 26.10
 
 ## Публичные страницы ЕНЛ
 - [egenalegke.ru](https://egenalegke.ru/)
@@ -83,7 +83,7 @@
 - Функциональные ориентиры из мудборда: [smitup.ru/ege-history](https://smitup.ru/ege-history) · [egeturbo.ru/soc](https://egeturbo.ru/soc)
 
 ## Закрыто
-- Онлайн-вайрфреймы [enl.aliyorov.com/wireframes](https://enl.aliyorov.com/wireframes) и сценарии AS IS на [enl.aliyorov.com](https://enl.aliyorov.com/) — доступ у Далера.
+- Онлайн-вайрфреймы [enl.aliyorov.com/wireframes](https://enl.aliyorov.com/wireframes) и сценарии AS IS на [enl.aliyorov.com](https://enl.aliyorov.com/) — закрыты паролем. Онлайн-вайрфреймы — то же, что архив в `refs/wireframes-2026-10-22/`.
 - Уроки в GetCourse (`getcourse.egenalegke.online`) и задания в CloudText (`egenalegke.cloudtext.ru`) — нужен аккаунт.
 
 ## Вне общих материалов
