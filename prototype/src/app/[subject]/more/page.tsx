@@ -9,7 +9,7 @@ import type { Subject } from "@mocks/course";
 const ROWS: { id: string; title: string; text: string; icon: IconName; href?: string }[] = [
   { id: "mentor", title: "Наставник", text: "Сообщения, индивидуальный план, зачёты", icon: "chat-round-dots", href: "/mentor" },
   { id: "calendar", title: "Календарь", text: "Вебинары, зачёты, запись на продлёнки и коворкинги", icon: "calendar", href: "/calendar" },
-  { id: "payment", title: "Оплата", text: "Ноябрь — оплатить до 1 ноября", icon: "wallet" },
+  { id: "payment", title: "Оплата", text: "Оплаченный период, следующий месяц, история платежей", icon: "wallet", href: "/payment" },
   { id: "notifications", title: "Уведомления", text: "2 новых", icon: "bell" },
   { id: "profile", title: "Профиль", text: "Почта, часовой пояс, класс", icon: "user-circle" },
   { id: "support", title: "Техподдержка", text: "Если что-то не открывается", icon: "info-circle" },

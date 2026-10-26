@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
 import { AchievementToast } from "@/components/progress/achievement-toast";
 import { Icon, type IconName } from "@/components/ui/icon";
 import { useMistakes } from "@/lib/mistakes";
+import { usePayment } from "@/lib/payment";
 import { cn } from "@/lib/utils";
 import { SUBJECTS, type Subject } from "@mocks/course";
 import { MENTORS } from "@mocks/mentor";
@@ -25,7 +26,7 @@ function sectionOf(pathname: string, subject: Subject) {
   const rest = pathname.slice(`/${subject}`.length);
   if (rest.startsWith("/lesson")) return "";
   // Наставник, зачёт и календарь открываются из «Ещё».
-  if (/^\/(mentor|exam|calendar)/.test(rest)) return "/more";
+  if (/^\/(mentor|exam|calendar|payment)/.test(rest)) return "/more";
   return NAV.find((n) => n.href && rest.startsWith(n.href))?.href ?? "";
 }
 
@@ -142,7 +143,11 @@ export function AppShell({ subject, children }: { subject: Subject; children: Re
         </div>
       </header>
 
-      <main className="min-w-0 px-4 pb-28 pt-5 sm:px-6 lg:px-10 lg:pb-12 lg:pt-8">{children}</main>
+      <main className="min-w-0 px-4 pb-28 pt-5 sm:px-6 lg:px-10 lg:pb-12 lg:pt-8">
+        <PaymentGate subject={subject} pathname={pathname}>
+          {children}
+        </PaymentGate>
+      </main>
       <AchievementToast key={subject} subject={subject} />
 
       {/* Телефон: вкладки снизу */}
@@ -174,6 +179,50 @@ export function AppShell({ subject, children }: { subject: Subject; children: Re
         })}
       </nav>
     </div>
+  );
+}
+
+/**
+ * Последствия неоплаты по правилу ЕНЛ: при просрочке — баннер на всех экранах
+ * (открытое доступно, новое — после оплаты); после отчисления кабинет закрыт,
+ * кроме оплаты и «Ещё».
+ */
+function PaymentGate({ subject, pathname, children }: { subject: Subject; pathname: string; children: ReactNode }) {
+  const { statusOf } = usePayment();
+  const status = statusOf(subject);
+  const rest = pathname.slice(`/${subject}`.length);
+  const open = /^\/(payment|more)/.test(rest);
+
+  if (status === "expelled" && !open) {
+    return (
+      <section className="mx-auto flex max-w-md flex-col items-center gap-3 rounded-box-l border border-line bg-surface-raised p-8 text-center shadow-raised">
+        <Icon name="lock-keyhole" size="xl" className="text-ink-subtle" />
+        <p className="text-lg font-bold">Вы отчислены с курса</p>
+        <p className="text-sm text-ink-muted">
+          Ноябрь не был оплачен до конца месяца, поэтому с 1 декабря материалы закрыты. Вернуться можно через менеджера.
+        </p>
+        <Link href={`/${subject}/payment`} className="font-semibold text-ink-accent">
+          Подробнее и связаться с менеджером
+        </Link>
+      </section>
+    );
+  }
+  return (
+    <>
+      {status === "overdue" && !open && (
+        <Link
+          href={`/${subject}/payment`}
+          className="mx-auto mb-5 flex max-w-6xl items-start gap-3 rounded-box-l border border-accent-border bg-accent-soft p-3 text-sm no-underline"
+        >
+          <Icon name="danger-circle" size="2xs" className="mt-0.5 shrink-0 text-ink-accent" />
+          <span className="min-w-0 flex-1">
+            <span className="font-bold">Ноябрь не оплачен.</span> Открытое доступно до 30 ноября, новые уроки и проверка — после оплаты.
+          </span>
+          <span className="shrink-0 font-semibold text-ink-accent">Оплатить</span>
+        </Link>
+      )}
+      {children}
+    </>
   );
 }
 

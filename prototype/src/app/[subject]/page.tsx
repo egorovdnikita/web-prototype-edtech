@@ -1,5 +1,5 @@
 import { WithRail } from "@/components/shell/app-shell";
-import { GradebookCard, MentorCard } from "@/components/plan/side-cards";
+import { GradebookCard, MentorCard, PaymentCard } from "@/components/plan/side-cards";
 import { WeekPlanner } from "@/components/plan/week-planner";
 import type { Subject } from "@mocks/course";
 
@@ -11,6 +11,7 @@ export default function WeekPage({ params }: { params: { subject: Subject } }) {
         <>
           <GradebookCard subject={params.subject} />
           <MentorCard subject={params.subject} />
+          <PaymentCard subject={params.subject} />
         </>
       }
     >

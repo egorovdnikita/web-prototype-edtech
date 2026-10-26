@@ -4,6 +4,7 @@ import { AppShell } from "@/components/shell/app-shell";
 import { ProgressProvider } from "@/lib/progress";
 import { BookingsProvider } from "@/lib/bookings";
 import { MistakesProvider } from "@/lib/mistakes";
+import { PaymentProvider } from "@/lib/payment";
 import { WorksProvider } from "@/lib/works";
 import { isSubject } from "@mocks/course";
 
@@ -21,7 +22,9 @@ export default function SubjectLayout({ children, params }: { children: ReactNod
         <WorksProvider>
           <MistakesProvider>
             <BookingsProvider>
-              <AppShell subject={params.subject}>{children}</AppShell>
+              <PaymentProvider>
+                <AppShell subject={params.subject}>{children}</AppShell>
+              </PaymentProvider>
             </BookingsProvider>
           </MistakesProvider>
         </WorksProvider>

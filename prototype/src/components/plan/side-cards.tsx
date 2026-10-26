@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Icon } from "@/components/ui/icon";
 import { KIND_ICON, useCalendarEvents } from "@/components/calendar/calendar-view";
 import { useBookings } from "@/lib/bookings";
+import { usePayment } from "@/lib/payment";
 import { Stamp } from "@/components/progress/progress-ui";
 import { useStats } from "@/lib/stats";
 import { plural } from "@/lib/utils";
@@ -111,6 +112,29 @@ export function MentorCard({ subject }: { subject: Subject }) {
         className="mt-3 flex items-center gap-2 text-sm font-semibold text-ink-accent no-underline"
       >
         <Icon name="chat-round-dots" size="min" /> Написать
+      </Link>
+    </SideCard>
+  );
+}
+
+/** Оплаченный период и кнопка следующего месяца — видно с начала курса (10.08). */
+export function PaymentCard({ subject }: { subject: Subject }) {
+  const { statusOf, paidUntil } = usePayment();
+  const status = statusOf(subject);
+  return (
+    <SideCard title="оплата">
+      <p className="text-sm">
+        {status === "ok" && `Оплачено до ${paidUntil(subject)}.`}
+        {status === "due" && (
+          <>
+            Оплачено до {paidUntil(subject)}. Ноябрь — <span className="enl-marker font-semibold">до 1 ноября</span>.
+          </>
+        )}
+        {status === "overdue" && <span className="font-semibold text-ink-accent">Ноябрь не оплачен — новые уроки не открываются.</span>}
+        {status === "expelled" && <span className="font-semibold text-ink-accent">Отчисление с 1 декабря.</span>}
+      </p>
+      <Link href={`/${subject}/payment`} className="mt-2 inline-block text-sm font-semibold text-ink-accent">
+        {status === "ok" ? "Оплата и история" : "Оплатить"}
       </Link>
     </SideCard>
   );
