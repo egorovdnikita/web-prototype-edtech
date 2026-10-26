@@ -165,7 +165,7 @@ export function ProfileView() {
                 <span className="block font-semibold">{GROUPS[g].title}</span>
                 <span className="block text-[13px] text-ink-muted">{GROUPS[g].text}</span>
               </span>
-              <span className="flex gap-2">
+              <span className="flex flex-wrap gap-2">
                 {(Object.keys(CHANNELS) as Channel[]).map((c) => {
                   const on = profile.channels[g][c];
                   return (
@@ -190,9 +190,13 @@ export function ProfileView() {
             </li>
           ))}
         </ul>
-        {!profile.telegram && Object.values(profile.channels).some((ch) => ch.telegram) && (
-          <p className="rounded-box-m bg-accent-soft p-3 text-sm">Укажите Telegram в контактах — иначе дублировать туда некуда.</p>
-        )}
+        {(["telegram", "vk"] as const)
+          .filter((c) => !profile[c] && Object.values(profile.channels).some((ch) => ch[c]))
+          .map((c) => (
+            <p key={c} className="rounded-box-m bg-accent-soft p-3 text-sm">
+              Укажите {CHANNELS[c]} в контактах — иначе дублировать туда некуда.
+            </p>
+          ))}
         <label className="flex cursor-pointer items-start gap-3 border-t border-line-subtle pt-3">
           <input
             type="checkbox"

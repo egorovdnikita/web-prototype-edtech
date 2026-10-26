@@ -14,7 +14,8 @@ const ROWS: { id: string; title: string; text: string; icon: IconName; href?: st
   { id: "payment", title: "Оплата", text: "Оплаченный период, следующий месяц, история платежей", icon: "wallet", href: "/payment" },
   { id: "notifications", title: "Уведомления", text: "Уроки, дедлайны, проверка, оплата", icon: "bell", href: "/notifications" },
   { id: "profile", title: "Профиль", text: "Имя, часовой пояс, контакты, отчёт родителю, куда присылать уведомления", icon: "user-circle", href: "/profile" },
-  { id: "support", title: "Техподдержка", text: "Если что-то не открывается", icon: "info-circle" },
+  // Как в текущем GetCourse: ВКонтакте, 08:00–21:00 по Москве, ответ до 2 часов.
+  { id: "support", title: "Техподдержка", text: "08:00–21:00 по Москве, ответим в течение 2 часов", icon: "info-circle" },
 ];
 
 export default function MorePage({ params }: { params: { subject: Subject } }) {

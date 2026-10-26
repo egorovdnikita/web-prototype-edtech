@@ -28,10 +28,10 @@ export const INITIAL_PROFILE: Profile = {
   vk: PROFILE.vk,
   parentEmail: PROFILE.parentEmail,
   channels: {
-    study: { telegram: true, email: false },
-    review: { telegram: true, email: false },
-    rewards: { telegram: false, email: false },
-    payment: { telegram: true, email: true },
+    study: { telegram: true, vk: false, email: false },
+    review: { telegram: true, vk: false, email: false },
+    rewards: { telegram: false, vk: false, email: false },
+    payment: { telegram: true, vk: false, email: true },
   },
   // Рекламу — только с согласия: по умолчанию выключено.
   marketing: false,
@@ -44,7 +44,14 @@ export function useProfile() {
   useEffect(() => {
     try {
       const stored = window.localStorage.getItem(KEY);
-      if (stored) setProfile({ ...INITIAL_PROFILE, ...JSON.parse(stored) });
+      if (stored) {
+        const data = JSON.parse(stored);
+        // Старые сохранения — без канала ВК: добираем его из начальных настроек.
+        const channels = Object.fromEntries(
+          Object.entries(INITIAL_PROFILE.channels).map(([g, ch]) => [g, { ...ch, ...data.channels?.[g] }]),
+        ) as Profile["channels"];
+        setProfile({ ...INITIAL_PROFILE, ...data, channels });
+      }
     } catch {
       // без сохранения
     }

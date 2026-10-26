@@ -15,9 +15,11 @@ export const GROUPS: Record<NoticeGroup, { title: string; text: string }> = {
   payment: { title: "Оплата", text: "Напоминание за 3 дня и просрочка" },
 };
 
-export type Channel = "telegram" | "email";
+// Как в GetCourse и вайрфрейме A4: Telegram, ВК, почта. Push в приложении — только если
+// у платформы будет своё приложение (открытый вопрос, у GetCourse оно есть).
+export type Channel = "telegram" | "vk" | "email";
 
-export const CHANNELS: Record<Channel, string> = { telegram: "Telegram", email: "Почта" };
+export const CHANNELS: Record<Channel, string> = { telegram: "Telegram", vk: "ВК", email: "Почта" };
 
 export interface Notice {
   id: string;
