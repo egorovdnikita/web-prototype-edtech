@@ -27,6 +27,7 @@ function sectionOf(pathname: string, subject: Subject) {
   if (rest.startsWith("/lesson")) return "";
   // Наставник, зачёт и календарь открываются из «Ещё».
   if (/^\/(mentor|exam|calendar|payment)/.test(rest)) return "/more";
+  if (rest.startsWith("/training/")) return "/practice";
   return NAV.find((n) => n.href && rest.startsWith(n.href))?.href ?? "";
 }
 
@@ -34,6 +35,7 @@ function sectionOf(pathname: string, subject: Subject) {
  *  Уроки и работы у предметов свои — с них ведём на раздел. */
 function switchTarget(pathname: string, subject: Subject, section: string) {
   const rest = pathname.slice(`/${subject}`.length);
+  if (rest.startsWith("/training/")) return "/practice/trainings";
   return /^\/(lesson|work)\//.test(rest) ? section : rest;
 }
 

@@ -70,6 +70,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       window.localStorage.removeItem("enl-prototype-messages-soc");
       window.localStorage.removeItem("enl-prototype-messages-hist");
       window.localStorage.removeItem("enl-prototype-payment");
+      window.localStorage.removeItem("enl-prototype-trainings");
       window.location.reload();
     } catch {
       // нечего сбрасывать

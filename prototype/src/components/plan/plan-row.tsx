@@ -7,6 +7,7 @@ import { useProgress } from "@/lib/progress";
 import { useWorks } from "@/lib/works";
 import { cn } from "@/lib/utils";
 import type { ItemKind, PlanItem } from "@mocks/course";
+import { trainingByPlanItem } from "@mocks/trainings";
 import { WORKS } from "@mocks/works";
 
 export const KIND: Record<ItemKind, { label: string; icon: IconName; action: string }> = {
@@ -39,9 +40,12 @@ export function PlanRow({ item, href: lessonHref, now }: { item: PlanItem; href?
   const attempts = WORKS[item.id] ? get(item.id).attempts : [];
   const last = attempts[attempts.length - 1];
   const lastScore = done && last ? `${last.score} из ${last.max}` : undefined;
+  const training = trainingByPlanItem(item.id);
   const href = WORKS[item.id]
     ? `/${subject}/work/${item.id}${done || review ? "/result" : ""}`
-    : lessonHref;
+    : training
+      ? `/${subject}/training/${training.id}`
+      : lessonHref;
 
   const mark = item.manual ? (
     <button

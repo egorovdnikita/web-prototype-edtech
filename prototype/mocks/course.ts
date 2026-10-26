@@ -116,6 +116,7 @@ const soc: Course = {
             { id: "soc-15-h", kind: "homework", title: "ДЗ №1 «Задание 25»", required: true, status: "todo", due: "до вт 27.10, 23:55", meta: "2 задания" },
             { id: "soc-15-s", kind: "snack", title: "Урок-снек «Типы политических систем»", required: false, status: "todo", meta: "7 мин" },
             { id: "soc-15-q", kind: "training", title: "Карточки «Политическая система»", required: false, status: "todo", meta: "Quizlet" },
+            { id: "soc-15-x", kind: "training", title: "Тренировка «Найди ошибки: власть в РФ»", required: false, status: "todo", meta: "2 мин" },
           ],
         },
         {
@@ -213,7 +214,7 @@ const hist: Course = {
             { id: "hist-15-t2", kind: "test", title: "Тест по личностям", required: true, status: "todo", meta: "5 вопросов" },
             { id: "hist-15-h", kind: "homework", title: "ДЗ №1 «Регентство Софьи и начало правления Петра I»", required: true, status: "todo", due: "до вт 27.10, 23:55", meta: "2 задания" },
             { id: "hist-15-s", kind: "snack", title: "Урок-снек «Северная война»", required: false, status: "todo", meta: "8 мин" },
-            { id: "hist-15-q", kind: "training", title: "Данетка «Россия в XVII в.»", required: false, status: "todo" },
+            { id: "hist-15-q", kind: "training", title: "Тренировка «Северная война на карте»", required: false, status: "todo", meta: "3 мин" },
           ],
         },
         {

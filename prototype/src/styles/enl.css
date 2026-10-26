@@ -140,3 +140,18 @@
     linear-gradient(90deg, var(--enl-grid-line) 1px, transparent 1px);
   background-size: 20px 20px;
 }
+
+/* Ошибка в тренировке: короткая встряска, ничего не блокирует. */
+@keyframes enl-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+.enl-shake {
+  animation: enl-shake 0.15s ease-in-out 2;
+}
+@media (prefers-reduced-motion: reduce) {
+  .enl-shake {
+    animation: none;
+  }
+}
