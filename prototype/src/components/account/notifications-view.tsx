@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Icon, type IconName } from "@/components/ui/icon";
 import { useNotifications } from "@/lib/notifications";
+import { accentOf } from "@/lib/style";
 import { cn } from "@/lib/utils";
 import { SUBJECTS, type Subject } from "@mocks/course";
 import { TODAY_ISO } from "@mocks/meetings";
@@ -129,7 +130,7 @@ function NoticeRow({ notice: n, fresh }: { notice: Notice; fresh: boolean }) {
           "relative grid size-10 shrink-0 place-items-center rounded-box-m",
           n.group === "payment" ? "bg-accent-soft text-ink-accent" : "bg-surface-subject",
         )}
-        data-accent={n.subject}
+        data-accent={accentOf(n.subject)}
         data-theme="light"
       >
         <Icon name={GROUP_ICON[n.group]} size="2xs" />

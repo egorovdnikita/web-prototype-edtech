@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { AppShell } from "@/components/shell/app-shell";
+import { accentOf } from "@/lib/style";
 import { ProgressProvider } from "@/lib/progress";
 import { BookingsProvider } from "@/lib/bookings";
 import { DistributionProvider } from "@/lib/distribution";
@@ -19,7 +20,7 @@ export function generateStaticParams() {
 export default function SubjectLayout({ children, params }: { children: ReactNode; params: { subject: string } }) {
   if (!isSubject(params.subject)) notFound();
   return (
-    <div data-theme="light" data-accent={params.subject} className="min-h-dvh bg-surface-page text-ink">
+    <div data-theme="light" data-accent={accentOf(params.subject)} className="min-h-dvh bg-surface-page text-ink">
       <DistributionProvider>
         <ProgressProvider>
           <WorksProvider>

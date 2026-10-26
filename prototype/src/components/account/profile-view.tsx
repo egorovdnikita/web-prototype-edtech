@@ -6,6 +6,7 @@ import { Icon } from "@/components/ui/icon";
 import { useDistribution } from "@/lib/distribution";
 import { usePayment } from "@/lib/payment";
 import { useProfile } from "@/lib/profile";
+import { accentOf } from "@/lib/style";
 import { cn } from "@/lib/utils";
 import { COURSES, SUBJECTS, type Subject } from "@mocks/course";
 import { MENTORS } from "@mocks/mentor";
@@ -124,7 +125,7 @@ export function ProfileView() {
           {(["soc", "hist"] as Subject[]).map((s) => (
             <li
               key={s}
-              data-accent={s}
+              data-accent={accentOf(s)}
               data-theme="light"
               className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-box-m bg-surface-subject p-3"
             >

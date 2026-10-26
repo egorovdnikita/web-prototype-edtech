@@ -7,6 +7,7 @@ import { EventSheet, ExamSheet } from "@/components/calendar/event-sheet";
 import { Button } from "@/components/ui/box";
 import { Icon, type IconName } from "@/components/ui/icon";
 import { useBookings } from "@/lib/bookings";
+import { accentOf } from "@/lib/style";
 import { useDistribution } from "@/lib/distribution";
 import { cn } from "@/lib/utils";
 import { COURSES, SUBJECTS, type Subject } from "@mocks/course";
@@ -368,7 +369,7 @@ function EventRow({
     <>
       {!compact && (
         <span
-          data-accent={event.subject === "all" ? undefined : event.subject}
+          data-accent={event.subject === "all" ? undefined : accentOf(event.subject)}
           className={cn(
             "grid shrink-0 place-items-center rounded-box-m",
             compact ? "size-7" : "size-10",
@@ -399,7 +400,8 @@ function EventRow({
           {[
             event.time && event.kind !== "deadline" ? event.time : null,
             MEETING_LABEL[event.kind],
-            compact ? null : subjectTag,
+            // Предмет подписан и в узкой колонке: в монохроме полоса слева его не различает.
+            compact ? (event.subject === "all" ? null : SUBJECTS[event.subject].short) : subjectTag,
           ]
             .filter(Boolean)
             .join(" · ")}
@@ -444,7 +446,7 @@ function EventRow({
   ]
     .filter(Boolean)
     .join(", ");
-  const accent = event.subject === "all" ? undefined : event.subject;
+  const accent = event.subject === "all" ? undefined : accentOf(event.subject);
   if (event.kind === "lesson" || event.kind === "deadline") {
     return (
       <li>

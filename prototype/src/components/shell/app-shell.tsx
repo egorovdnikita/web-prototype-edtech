@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
 import { AchievementToast } from "@/components/progress/achievement-toast";
 import { Icon, type IconName } from "@/components/ui/icon";
 import { useDistribution } from "@/lib/distribution";
+import { accentOf } from "@/lib/style";
 import { useMistakes } from "@/lib/mistakes";
 import { useNotifications } from "@/lib/notifications";
 import { usePayment } from "@/lib/payment";
@@ -47,7 +48,7 @@ function switchTarget(pathname: string, subject: Subject, section: string) {
 
 function Logo() {
   return (
-    <Link href="/" className="enl-display shrink-0 text-[19px] leading-none text-ink no-underline sm:text-[22px]">
+    <Link href="/" className="enl-display enl-wordmark shrink-0 text-[19px] leading-none text-ink no-underline sm:text-[22px]">
       егэ <span className="enl-marker">налегке</span>
     </Link>
   );
@@ -68,7 +69,7 @@ function SubjectSwitch({ subject, section, compact }: { subject: Subject; sectio
             role="tab"
             aria-selected={active}
             href={`/${s}${section}`}
-            data-accent={s}
+            data-accent={accentOf(s)}
             data-theme="light"
             className={cn(
               "flex-1 rounded-full px-3 py-1.5 text-center font-semibold no-underline transition-colors",

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Icon } from "@/components/ui/icon";
 import { cn } from "@/lib/utils";
+import { accentOf } from "@/lib/style";
 import type { Subject } from "@mocks/course";
 
 // Фирменные элементы, которые ученики знают по текущей платформе:
@@ -62,7 +63,7 @@ export function Stamp({
   const earned = state === "earned";
   return (
     <span
-      data-accent={subject}
+      data-accent={accentOf(subject)}
       data-theme="light"
       role="img"
       aria-label={label}

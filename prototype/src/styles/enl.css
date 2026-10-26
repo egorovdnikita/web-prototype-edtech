@@ -7,7 +7,14 @@
  *   — свои токены --enl-* для того, чего в Box UI нет: предметные заливки,
  *     маркер планера, клетка тетради.
  *
- * Контраст (scripts/contrast.mjs): белый на #B01513 — 7.09, на #7C2329 — 9.86,
+ * Стиль переключается модами Box UI (src/lib/style.ts). Сейчас прототип на чистом
+ * Box UI: Brand · Color «monochrome», Brand · Typography «inter-tight», светлая тема
+ * Box UI. Всё ЕНЛ-специфичное (тёплый фон, цвета предметов, маркер, лайм, Raleway)
+ * привязано к модам [data-accent="soc" | "hist"] и [data-font="enl"] и включается,
+ * только если вернуть их в src/lib/style.ts. Для монохрома токены --enl-* ниже
+ * выводятся из токенов Box UI — компоненты не меняются.
+ *
+ * Контраст стиля ЕНЛ (scripts/contrast.mjs): белый на #B01513 — 7.09, на #7C2329 — 9.86,
  * #1F1B16 на фоне — 16.55, #6B6358 на фоне — 5.72. Светлые предметные цвета —
  * только заливки, текст на них всегда --enl-ink или акцент.
  */
@@ -81,7 +88,36 @@
   --brand-color-inverse-static-content-active: var(--brand-color-solid-500);
 }
 
+/* --- Монохром Box UI: токены ЕНЛ из токенов Box UI ---------------------- */
+
+/* Заливка предмета, маркер и «верно» в монохроме: нейтральные ступени акцента
+ * и System · Status «positive». Объявлены на том же элементе, что data-accent,
+ * поэтому разрешаются в монохромные значения (правило переключения поддерева). */
+[data-accent="monochrome"] {
+  --enl-subject-fill: var(--brand-color-alpha-8);
+  --enl-subject-fill-strong: var(--brand-color-alpha-16);
+  --enl-marker: var(--brand-color-alpha-8);
+  --enl-lime: var(--system-color-positive-alpha-16);
+  --enl-olive-ink: var(--system-color-positive-850);
+  --enl-grid-line: var(--system-color-black-alpha-8);
+  --enl-shadow-raised: 0 1px 2px var(--system-color-black-alpha-8);
+}
+
+/* Вторичный текст Box UI (neutral-500, #737373) на фоне страницы (neutral-100,
+ * #F5F5F5) — 4.35, ниже AA для обычного текста. Берём neutral-600 (#525252):
+ * 7.17 на фоне и 7.81 на белом. Правку стоит внести в саму Box UI. */
+[data-theme="light"][data-accent="monochrome"] {
+  --surface-base-content-muted: var(--system-color-neutral-600);
+}
+
 /* --- Гарнитура: Brand · Typography ------------------------------------- */
+
+/* Inter Tight грузит next/font под своим именем — подставляем его в моду Box UI. */
+[data-font="inter-tight"] {
+  --brand-font-family-heading: var(--font-inter-tight), "Inter Tight", var(--font-fallback);
+  --brand-font-family-body: var(--font-inter-tight), "Inter Tight", var(--font-fallback);
+}
+
 
 /* NauryzRedKeds — акцидентный шрифт школы. Лицензия на веб не проверена,
  * поэтому заголовки пока на Raleway, а «рукописный» характер дают строчные
@@ -93,7 +129,9 @@
 
 /* --- Тёплая светлая тема поверх System · Theme ------------------------- */
 
-[data-theme="light"] {
+/* Только вместе с предметами ЕНЛ: в монохроме остаётся светлая тема Box UI. */
+[data-theme="light"][data-accent="soc"],
+[data-theme="light"][data-accent="hist"] {
   --surface-base-fill-page: #fffbef; /* background */
   --surface-base-fill-raised: #ffffff;
   --surface-base-fill-layer-subtle: #fdf6e9; /* background-logo */
@@ -119,9 +157,20 @@
 
 .enl-display {
   font-family: var(--font-family-heading);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+/* Строчные заголовки — замена акцидентному NauryzRedKeds, только в стиле ЕНЛ.
+ * В Box UI заголовок начинается с заглавной (тексты в коде написаны строчными). */
+[data-font="enl"] .enl-display {
   font-weight: 800;
-  text-transform: lowercase;
   letter-spacing: -0.02em;
+  text-transform: lowercase;
+}
+/* Логотип — знак, его регистр не трогаем. */
+[data-font="inter-tight"] .enl-display:not(.enl-wordmark)::first-letter {
+  text-transform: uppercase;
 }
 
 /* Маркерное выделение: нижняя половина строки, как в тетради. */

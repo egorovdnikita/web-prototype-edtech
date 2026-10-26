@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Raleway } from "next/font/google";
+import { Inter_Tight, Raleway } from "next/font/google";
+import { FONT } from "@/lib/style";
 
 // Порядок важен: Box UI (примитивы → темы → контролы → адаптив → компоненты),
 // поверх — бренд-слой ЕНЛ, затем Tailwind.
@@ -11,11 +12,21 @@ import "@/vendor/box-ui/css/components.css";
 import "@/styles/enl.css";
 import "./globals.css";
 
+// Inter Tight — мода Brand · Typography «inter-tight». Raleway — шрифт стиля ЕНЛ,
+// без предзагрузки: нужен, только если вернуть FONT = "enl".
+const interTight = Inter_Tight({
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-inter-tight",
+  display: "swap",
+});
+
 const raleway = Raleway({
   subsets: ["latin", "cyrillic"],
   weight: ["400", "500", "600", "700", "800"],
   variable: "--font-raleway",
   display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -27,7 +38,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#fffbef",
+  themeColor: "#ffffff",
 };
 
 // Моды Box UI для всего документа. Предмет (data-accent) ставит layout предмета,
@@ -38,9 +49,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       lang="ru"
       data-theme="light"
       data-radius="high"
-      data-font="enl"
+      data-font={FONT}
       data-icon-style="linear"
-      className={raleway.variable}
+      className={`${interTight.variable} ${raleway.variable}`}
     >
       <body className="min-h-dvh antialiased">{children}</body>
     </html>
