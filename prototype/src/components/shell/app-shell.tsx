@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { AchievementToast } from "@/components/progress/achievement-toast";
 import { Icon, type IconName } from "@/components/ui/icon";
+import { useDistribution } from "@/lib/distribution";
 import { useMistakes } from "@/lib/mistakes";
 import { useNotifications } from "@/lib/notifications";
 import { usePayment } from "@/lib/payment";
@@ -117,6 +118,7 @@ export function AppShell({ subject, children }: { subject: Subject; children: Re
   const pathname = usePathname();
   const section = sectionOf(pathname, subject);
   const target = switchTarget(pathname, subject, section);
+  const waiting = useDistribution().isWaiting(subject);
 
   return (
     <div className="lg:grid lg:min-h-dvh lg:grid-cols-[248px_minmax(0,1fr)]">
@@ -153,9 +155,11 @@ export function AppShell({ subject, children }: { subject: Subject; children: Re
           href={`/${subject}/mentor`}
           className="mt-auto flex items-center gap-3 rounded-box-l border border-line bg-surface-raised p-3 no-underline"
         >
-          <span className="grid size-10 place-items-center rounded-full bg-surface-subject font-bold text-ink">{MENTORS[subject].initial}</span>
+          <span className="grid size-10 place-items-center rounded-full bg-surface-subject font-bold text-ink">
+            {waiting ? "?" : MENTORS[subject].initial}
+          </span>
           <span className="min-w-0">
-            <span className="block text-sm font-semibold text-ink">{MENTORS[subject].name}</span>
+            <span className="block text-sm font-semibold text-ink">{waiting ? "Подбираем" : MENTORS[subject].name}</span>
             <span className="block text-xs text-ink-muted">ваш наставник</span>
           </span>
           <Icon name="chat-round-dots" size="2xs" className="ml-auto text-ink-accent" />

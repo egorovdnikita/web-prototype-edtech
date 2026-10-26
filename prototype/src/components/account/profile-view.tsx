@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Icon } from "@/components/ui/icon";
+import { useDistribution } from "@/lib/distribution";
 import { usePayment } from "@/lib/payment";
 import { useProfile } from "@/lib/profile";
 import { cn } from "@/lib/utils";
@@ -42,6 +43,7 @@ function Field({ label, hint, children }: { label: string; hint?: string; childr
 export function ProfileView() {
   const { profile, update, saved } = useProfile();
   const { paidUntil } = usePayment();
+  const { isWaiting } = useDistribution();
   const initial = profile.name.trim()[0]?.toUpperCase() ?? "?";
   // Пример пересчёта: практика с АМ — понедельник, 17:00 по Москве.
   const hour = 17 + profile.tz;
@@ -129,7 +131,7 @@ export function ProfileView() {
               <span className="font-bold">{SUBJECTS[s].title}</span>
               <span className="text-sm">«{COURSES[s].tariff}»</span>
               <span className="w-full text-[13px]">
-                Наставник — {MENTORS[s].name} · {REVIEWER[s]} · оплачено до {paidUntil(s)}
+                {isWaiting(s) ? "Наставника подбираем" : `Наставник — ${MENTORS[s].name} · ${REVIEWER[s]}`} · оплачено до {paidUntil(s)}
               </span>
               <Link href={`/${s}/payment`} className="text-[13px] font-semibold text-ink-accent">
                 Оплата

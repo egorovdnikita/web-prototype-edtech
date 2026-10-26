@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { AppShell } from "@/components/shell/app-shell";
 import { ProgressProvider } from "@/lib/progress";
 import { BookingsProvider } from "@/lib/bookings";
+import { DistributionProvider } from "@/lib/distribution";
 import { MistakesProvider } from "@/lib/mistakes";
 import { NotificationsProvider } from "@/lib/notifications";
 import { PaymentProvider } from "@/lib/payment";
@@ -19,19 +20,21 @@ export default function SubjectLayout({ children, params }: { children: ReactNod
   if (!isSubject(params.subject)) notFound();
   return (
     <div data-theme="light" data-accent={params.subject} className="min-h-dvh bg-surface-page text-ink">
-      <ProgressProvider>
-        <WorksProvider>
-          <MistakesProvider>
-            <BookingsProvider>
-              <PaymentProvider>
-                <NotificationsProvider>
-                  <AppShell subject={params.subject}>{children}</AppShell>
-                </NotificationsProvider>
-              </PaymentProvider>
-            </BookingsProvider>
-          </MistakesProvider>
-        </WorksProvider>
-      </ProgressProvider>
+      <DistributionProvider>
+        <ProgressProvider>
+          <WorksProvider>
+            <MistakesProvider>
+              <BookingsProvider>
+                <PaymentProvider>
+                  <NotificationsProvider>
+                    <AppShell subject={params.subject}>{children}</AppShell>
+                  </NotificationsProvider>
+                </PaymentProvider>
+              </BookingsProvider>
+            </MistakesProvider>
+          </WorksProvider>
+        </ProgressProvider>
+      </DistributionProvider>
     </div>
   );
 }

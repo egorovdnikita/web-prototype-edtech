@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { useDistribution } from "@/lib/distribution";
 import { COURSES, type PlanItem, type Subject } from "@mocks/course";
 
 // Состояние «покликать»: что ученик отметил или прошёл в прототипе.
@@ -24,6 +25,7 @@ const ProgressContext = createContext<ProgressState | null>(null);
 
 export function ProgressProvider({ children }: { children: ReactNode }) {
   const [overrides, setOverrides] = useState<Record<string, Override>>({});
+  const { lockedByDistribution } = useDistribution();
 
   useEffect(() => {
     try {
@@ -44,8 +46,14 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const statusOf = useCallback(
-    (item: PlanItem) => (item.status === "locked" ? "locked" : overrides[item.id] ?? item.status),
-    [overrides],
+    (item: PlanItem) => {
+      if (item.status === "locked") return "locked";
+      const status = overrides[item.id] ?? item.status;
+      // До распределения ДЗ закрыто; уже сданное остаётся как есть.
+      if (lockedByDistribution(item) && !["done", "review"].includes(status)) return "locked";
+      return status;
+    },
+    [overrides, lockedByDistribution],
   );
 
   const toggle = useCallback(
@@ -74,6 +82,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       window.localStorage.removeItem("enl-prototype-notifications");
       window.localStorage.removeItem("enl-prototype-profile");
       window.localStorage.removeItem("enl-prototype-materials");
+      window.localStorage.removeItem("enl-prototype-distribution");
       window.location.reload();
     } catch {
       // нечего сбрасывать
@@ -97,9 +106,12 @@ export function useProgress() {
  *  Сданное на проверку уже считается сделанным — ученик свою часть выполнил. */
 export function useWeekProgress(subject: Subject, weekNumber: number) {
   const { statusOf } = useProgress();
+  const { lockedByDistribution } = useDistribution();
   const week = COURSES[subject].weeks.find((w) => w.number === weekNumber);
   const items = week ? [...week.lessons.flatMap((l) => l.items), ...week.events].filter((i) => i.required) : [];
   const open = items.filter((i) => statusOf(i) !== "locked");
   const done = open.filter((i) => ["done", "review"].includes(statusOf(i)));
-  return { done: done.length, open: open.length, total: items.length };
+  // Закрытое до распределения — не «по расписанию», показываем отдельно.
+  const waiting = items.filter((i) => statusOf(i) === "locked" && lockedByDistribution(i)).length;
+  return { done: done.length, open: open.length, total: items.length, waiting };
 }

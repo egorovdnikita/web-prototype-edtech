@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Icon, type IconName } from "@/components/ui/icon";
+import { useDistribution } from "@/lib/distribution";
 import { useProgress } from "@/lib/progress";
 import { useWorks } from "@/lib/works";
 import { cn } from "@/lib/utils";
@@ -28,6 +29,7 @@ export const KIND: Record<ItemKind, { label: string; icon: IconName; action: str
  */
 export function PlanRow({ item, href: lessonHref, now }: { item: PlanItem; href?: string; now?: boolean }) {
   const { statusOf, toggle } = useProgress();
+  const { lockedByDistribution } = useDistribution();
   const { get } = useWorks();
   const subject = usePathname().split("/")[1];
   const status = statusOf(item);
@@ -36,6 +38,7 @@ export function PlanRow({ item, href: lessonHref, now }: { item: PlanItem; href?
   const locked = status === "locked";
   const overdue = status === "overdue";
   const review = status === "review";
+  const waiting = locked && lockedByDistribution(item);
   // Тест и ДЗ ведут прямо в работу: несданное — решать, сданное — к результату.
   const attempts = WORKS[item.id] ? get(item.id).attempts : [];
   const last = attempts[attempts.length - 1];
@@ -99,7 +102,11 @@ export function PlanRow({ item, href: lessonHref, now }: { item: PlanItem; href?
         ) : (
           (lastScore ?? item.meta) && <span>· {lastScore ?? item.meta}</span>
         )}
-        {item.due && !done && !review && <span className={cn(overdue && "font-semibold text-ink-accent")}>· {item.due}</span>}
+        {waiting ? (
+          <span className="font-semibold text-ink-accent">· откроется, когда назначат наставника</span>
+        ) : (
+          item.due && !done && !review && <span className={cn(overdue && "font-semibold text-ink-accent")}>· {item.due}</span>
+        )}
         {item.manual && !done && <span>· отметьте сами</span>}
       </span>
     </span>

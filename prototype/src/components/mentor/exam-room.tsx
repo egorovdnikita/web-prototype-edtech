@@ -6,6 +6,7 @@ import { hasExams } from "@/components/calendar/calendar-view";
 import { Button, ButtonLink } from "@/components/ui/box";
 import { Icon } from "@/components/ui/icon";
 import { useBookings } from "@/lib/bookings";
+import { useDistribution } from "@/lib/distribution";
 import { cn } from "@/lib/utils";
 import type { Subject } from "@mocks/course";
 import { EXAM, dayLabel } from "@mocks/meetings";
@@ -20,6 +21,7 @@ type Stage = "check" | "waiting" | "ticket" | "prep" | "answer" | "done";
 export function ExamRoom({ subject }: { subject: Subject }) {
   const mentor = MENTORS[subject];
   const { exam, examResult, finishExam } = useBookings();
+  const { isWaiting } = useDistribution();
   const [stage, setStage] = useState<Stage>("check");
   const [mic, setMic] = useState(true);
   const [cam, setCam] = useState(true);
@@ -43,6 +45,16 @@ export function ExamRoom({ subject }: { subject: Subject }) {
   useEffect(() => {
     if (stage === "prep" && left === 0) setStage("answer");
   }, [stage, left]);
+
+  if (hasExams(subject) && isWaiting(subject)) {
+    return (
+      <Notice title="Зачёт — после распределения" text="Зачёт принимает наставник, а его ещё подбирают. Запись появится в календаре, когда наставника назначат.">
+        <ButtonLink href={`/${subject}/mentor`} appearance="soft">
+          Как идёт распределение
+        </ButtonLink>
+      </Notice>
+    );
+  }
 
   if (!hasExams(subject)) {
     return (

@@ -124,7 +124,10 @@ export function WeekPlanner({ subject }: { subject: Subject }) {
         </div>
         {progress.total > progress.open && (
           <p className="mt-2 text-[13px] text-ink-muted">
-            Ещё {progress.total - progress.open} откроются по расписанию. Допы «на 100» в план не входят.
+            {progress.total - progress.open - progress.waiting > 0 &&
+              `Ещё ${progress.total - progress.open - progress.waiting} откроются по расписанию. `}
+            {progress.waiting > 0 && `ДЗ (${progress.waiting}) — после распределения к наставнику. `}
+            Допы «на 100» в план не входят.
           </p>
         )}
       </section>

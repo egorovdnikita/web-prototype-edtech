@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { Icon, type IconName } from "@/components/ui/icon";
+import { useDistribution } from "@/lib/distribution";
 import { useNotifications } from "@/lib/notifications";
 import { useProgress } from "@/lib/progress";
 import { plural } from "@/lib/utils";
-import type { Subject } from "@mocks/course";
+import { SUBJECTS, type Subject } from "@mocks/course";
 
 // «Ещё»: всё, что не входит в учебный цикл. Оплата — здесь, а не в главном меню.
 const ROWS: { id: string; title: string; text: string; icon: IconName; href?: string }[] = [
@@ -21,6 +22,8 @@ const ROWS: { id: string; title: string; text: string; icon: IconName; href?: st
 export default function MorePage({ params }: { params: { subject: Subject } }) {
   const { reset } = useProgress();
   const { unread } = useNotifications();
+  const { isWaiting, setWaiting } = useDistribution();
+  const waiting = isWaiting(params.subject);
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-5">
       <h1 className="enl-display text-[28px] leading-tight sm:text-[34px]">ещё</h1>
@@ -34,6 +37,23 @@ export default function MorePage({ params }: { params: { subject: Subject } }) {
           </li>
         ))}
       </ul>
+      <section className="flex flex-col gap-2 rounded-box-l border border-dashed border-line p-4">
+        <h2 className="text-sm font-bold text-ink-muted">Демо-состояния прототипа</h2>
+        <label className="flex cursor-pointer items-start gap-3">
+          <input
+            type="checkbox"
+            checked={waiting}
+            onChange={(e) => setWaiting(params.subject, e.target.checked)}
+            className="mt-1 size-4 accent-[var(--accent-fill-solid)]"
+          />
+          <span>
+            <span className="block font-semibold">Новый ученик: ещё не распределён</span>
+            <span className="block text-[13px] text-ink-muted">
+              {SUBJECTS[params.subject].title}: наставник не назначен, ДЗ закрыто. Назначить — на странице наставника.
+            </span>
+          </span>
+        </label>
+      </section>
       <button type="button" onClick={reset} className="self-start text-sm font-semibold text-ink-muted underline">
         Сбросить отметки прототипа
       </button>

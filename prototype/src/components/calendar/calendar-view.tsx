@@ -7,6 +7,7 @@ import { EventSheet, ExamSheet } from "@/components/calendar/event-sheet";
 import { Button } from "@/components/ui/box";
 import { Icon, type IconName } from "@/components/ui/icon";
 import { useBookings } from "@/lib/bookings";
+import { useDistribution } from "@/lib/distribution";
 import { cn } from "@/lib/utils";
 import { COURSES, SUBJECTS, type Subject } from "@mocks/course";
 import {
@@ -261,6 +262,15 @@ function ExamBanner({
   booked: boolean;
 }) {
   const { exam, examResult } = useBookings();
+  const { isWaiting } = useDistribution();
+  if (hasExams(subject) && isWaiting(subject)) {
+    return (
+      <p className="flex items-start gap-2 rounded-box-m bg-surface-subtle p-3 text-[13px] text-ink-muted">
+        <Icon name="hourglass" size="2xs" className="mt-0.5 shrink-0" />
+        Запись на зачёт откроется, когда назначат наставника: зачёт идёт по его свободным окнам.
+      </p>
+    );
+  }
   if (!hasExams(subject)) {
     return (
       <p className="flex items-start gap-2 rounded-box-m bg-surface-subtle p-3 text-[13px] text-ink-muted">

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Icon } from "@/components/ui/icon";
 import { KIND_ICON, useCalendarEvents } from "@/components/calendar/calendar-view";
 import { useBookings } from "@/lib/bookings";
+import { useDistribution } from "@/lib/distribution";
 import { usePayment } from "@/lib/payment";
 import { Stamp } from "@/components/progress/progress-ui";
 import { useStats } from "@/lib/stats";
@@ -98,6 +99,16 @@ export function GradebookCard({ subject }: { subject: Subject }) {
 
 export function MentorCard({ subject }: { subject: Subject }) {
   const mentor = MENTORS[subject];
+  const { isWaiting } = useDistribution();
+  if (isWaiting(subject))
+    return (
+      <SideCard title="наставник">
+        <p className="text-sm">Подбираем наставника. Он напишет первым — придёт уведомление.</p>
+        <Link href={`/${subject}/mentor`} className="mt-2 inline-block text-sm font-semibold text-ink-accent">
+          Как идёт распределение
+        </Link>
+      </SideCard>
+    );
   return (
     <SideCard title="наставник">
       <div className="flex items-center gap-3">

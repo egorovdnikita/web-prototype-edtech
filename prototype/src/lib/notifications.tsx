@@ -1,8 +1,10 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { useDistribution } from "@/lib/distribution";
 import { usePayment } from "@/lib/payment";
 import { SUBJECTS, type Subject } from "@mocks/course";
+import { MENTORS } from "@mocks/mentor";
 import { NOTICES, type Notice } from "@mocks/notifications";
 
 // Уведомления (A5): список на весь аккаунт и число непрочитанных у колокольчика.
@@ -25,6 +27,7 @@ const NotificationsContext = createContext<NotificationsState | null>(null);
 
 export function NotificationsProvider({ children }: { children: ReactNode }) {
   const { statusOf } = usePayment();
+  const { isWaiting, assignedInDemo } = useDistribution();
   const [read, setRead] = useState<string[]>([]);
   const [ready, setReady] = useState(false);
 
@@ -76,10 +79,43 @@ export function NotificationsProvider({ children }: { children: ReactNode }) {
             action: "Подробнее",
           },
     );
-    const notices = [...payment, ...NOTICES].sort((a, b) => b.at.localeCompare(a.at));
+    // Распределение: пока подбирают — одно уведомление вместо переписки с наставником;
+    // назначили в демо — свежее уведомление со ссылкой на наставника.
+    const distribution: Notice[] = subjects.flatMap((s): Notice[] =>
+      isWaiting(s)
+        ? [
+            {
+              id: `waiting-${s}`,
+              group: "review",
+              subject: s,
+              title: "Подбираем вам наставника",
+              text: "Он напишет первым. Уроки и тесты уже открыты, ДЗ — после распределения.",
+              at: "2026-10-25T08:30",
+              href: "/mentor",
+              action: "Подробнее",
+            },
+          ]
+        : assignedInDemo(s)
+          ? [
+              {
+                id: `assigned-${s}-demo`,
+                group: "review",
+                subject: s,
+                title: `Ваш наставник — ${MENTORS[s].name}`,
+                text: "Сдача ДЗ открыта. Наставник уже написал — загляните в сообщения.",
+                at: "2026-10-25T12:00",
+                href: "/mentor",
+                action: "Познакомиться",
+              },
+            ]
+          : [],
+    );
+    // До распределения переписки с наставником и объявлений группы ещё нет.
+    const base = NOTICES.filter((n) => !(isWaiting(n.subject) && /mentor|group/.test(n.id)));
+    const notices = [...payment, ...distribution, ...base].sort((a, b) => b.at.localeCompare(a.at));
     const isRead = (n: Notice) => Boolean(n.read) || read.includes(n.id);
     return { notices, isRead, unread: ready ? notices.filter((n) => !isRead(n)).length : 0, markRead, ready };
-  }, [statusOf, read, markRead, ready]);
+  }, [statusOf, isWaiting, assignedInDemo, read, markRead, ready]);
 
   return <NotificationsContext.Provider value={value}>{children}</NotificationsContext.Provider>;
 }
