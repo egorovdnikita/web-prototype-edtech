@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { Icon, type IconName } from "@/components/ui/icon";
+import { useNotifications } from "@/lib/notifications";
 import { useProgress } from "@/lib/progress";
+import { plural } from "@/lib/utils";
 import type { Subject } from "@mocks/course";
 
 // «Ещё»: всё, что не входит в учебный цикл. Оплата — здесь, а не в главном меню.
@@ -10,20 +12,24 @@ const ROWS: { id: string; title: string; text: string; icon: IconName; href?: st
   { id: "mentor", title: "Наставник", text: "Сообщения, индивидуальный план, зачёты", icon: "chat-round-dots", href: "/mentor" },
   { id: "calendar", title: "Календарь", text: "Вебинары, зачёты, запись на продлёнки и коворкинги", icon: "calendar", href: "/calendar" },
   { id: "payment", title: "Оплата", text: "Оплаченный период, следующий месяц, история платежей", icon: "wallet", href: "/payment" },
-  { id: "notifications", title: "Уведомления", text: "2 новых", icon: "bell" },
-  { id: "profile", title: "Профиль", text: "Почта, часовой пояс, класс", icon: "user-circle" },
+  { id: "notifications", title: "Уведомления", text: "Уроки, дедлайны, проверка, оплата", icon: "bell", href: "/notifications" },
+  { id: "profile", title: "Профиль", text: "Имя, часовой пояс, контакты, отчёт родителю, куда присылать уведомления", icon: "user-circle", href: "/profile" },
   { id: "support", title: "Техподдержка", text: "Если что-то не открывается", icon: "info-circle" },
 ];
 
 export default function MorePage({ params }: { params: { subject: Subject } }) {
   const { reset } = useProgress();
+  const { unread } = useNotifications();
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-5">
       <h1 className="enl-display text-[28px] leading-tight sm:text-[34px]">ещё</h1>
       <ul className="divide-y divide-line-subtle overflow-hidden rounded-box-l border border-line bg-surface-raised shadow-raised">
         {ROWS.map((r) => (
           <li key={r.id} id={r.id}>
-            <Row row={r} subject={params.subject} />
+            <Row
+              row={r.id === "notifications" && unread ? { ...r, text: `${unread} ${plural(unread, ["новое", "новых", "новых"])}` } : r}
+              subject={params.subject}
+            />
           </li>
         ))}
       </ul>

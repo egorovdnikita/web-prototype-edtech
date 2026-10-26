@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
 import { AchievementToast } from "@/components/progress/achievement-toast";
 import { Icon, type IconName } from "@/components/ui/icon";
 import { useMistakes } from "@/lib/mistakes";
+import { useNotifications } from "@/lib/notifications";
 import { usePayment } from "@/lib/payment";
 import { cn } from "@/lib/utils";
 import { SUBJECTS, type Subject } from "@mocks/course";
@@ -26,7 +27,7 @@ function sectionOf(pathname: string, subject: Subject) {
   const rest = pathname.slice(`/${subject}`.length);
   if (rest.startsWith("/lesson")) return "";
   // Наставник, зачёт и календарь открываются из «Ещё».
-  if (/^\/(mentor|exam|calendar|payment)/.test(rest)) return "/more";
+  if (/^\/(mentor|exam|calendar|payment|profile|notifications)/.test(rest)) return "/more";
   if (rest.startsWith("/training/")) return "/practice";
   return NAV.find((n) => n.href && rest.startsWith(n.href))?.href ?? "";
 }
@@ -41,7 +42,7 @@ function switchTarget(pathname: string, subject: Subject, section: string) {
 
 function Logo() {
   return (
-    <Link href="/" className="enl-display text-[22px] leading-none text-ink no-underline">
+    <Link href="/" className="enl-display shrink-0 text-[19px] leading-none text-ink no-underline sm:text-[22px]">
       егэ <span className="enl-marker">налегке</span>
     </Link>
   );
@@ -77,6 +78,25 @@ function SubjectSwitch({ subject, section, compact }: { subject: Subject; sectio
   );
 }
 
+/** Колокольчик уведомлений с числом непрочитанных (US 10.02). */
+function Bell({ subject }: { subject: Subject }) {
+  const { unread } = useNotifications();
+  return (
+    <Link
+      href={`/${subject}/notifications`}
+      aria-label={unread ? `Уведомления, новых: ${unread}` : "Уведомления"}
+      className="relative grid size-11 shrink-0 place-items-center rounded-full text-ink no-underline hover:bg-surface-raised"
+    >
+      <Icon name="bell" size="2xs" />
+      {unread > 0 && (
+        <span className="absolute right-1 top-1 grid min-w-5 place-items-center rounded-full bg-accent px-1 text-[11px] font-bold leading-5 text-accent-on">
+          {unread}
+        </span>
+      )}
+    </Link>
+  );
+}
+
 /** Счётчик ошибок на вкладке «Практика» — чтобы работа над ошибками не терялась. */
 function NavBadge({ subject, href }: { subject: Subject; href: string }) {
   const { total } = useMistakes(subject);
@@ -100,7 +120,10 @@ export function AppShell({ subject, children }: { subject: Subject; children: Re
     <div className="lg:grid lg:min-h-dvh lg:grid-cols-[248px_minmax(0,1fr)]">
       {/* Десктоп: меню слева */}
       <aside className="sticky top-0 hidden h-dvh flex-col gap-6 border-r border-line bg-surface-subtle px-5 py-6 lg:flex">
-        <Logo />
+        <div className="-my-2 flex items-center justify-between">
+          <Logo />
+          <Bell subject={subject} />
+        </div>
         <SubjectSwitch subject={subject} section={target} compact />
         <nav aria-label="Разделы" className="flex flex-col gap-1">
           {NAV.map((item) => {
@@ -138,9 +161,10 @@ export function AppShell({ subject, children }: { subject: Subject; children: Re
       </aside>
 
       {/* Телефон: шапка */}
-      <header className="sticky top-0 z-20 flex items-center gap-3 border-b border-line bg-surface-page px-4 py-3 lg:hidden">
+      <header className="sticky top-0 z-20 flex items-center gap-1 border-b border-line bg-surface-page py-2 pl-4 pr-3 lg:hidden">
         <Logo />
-        <div className="ml-auto w-[184px]">
+        <Bell subject={subject} />
+        <div className="ml-auto w-[172px]">
           <SubjectSwitch subject={subject} section={target} compact />
         </div>
       </header>
@@ -193,7 +217,7 @@ function PaymentGate({ subject, pathname, children }: { subject: Subject; pathna
   const { statusOf } = usePayment();
   const status = statusOf(subject);
   const rest = pathname.slice(`/${subject}`.length);
-  const open = /^\/(payment|more)/.test(rest);
+  const open = /^\/(payment|more|profile|notifications)/.test(rest);
 
   if (status === "expelled" && !open) {
     return (
