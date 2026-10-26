@@ -2,6 +2,8 @@
 
 Кликабельный прототип «покликать»: без бекенда, данные — моки в `mocks/course.ts`, отметки сохраняются в localStorage браузера (сброс — «Ещё» → «Сбросить отметки прототипа»).
 
+Опубликован: https://enl-prototype.vercel.app (закрыт от поисковиков). Сценарий показа и вопросы к решению — `docs/demo.md`. Обновить публикацию: `npx vercel deploy --prod` из `prototype/`.
+
 ```
 npm install
 npm run dev

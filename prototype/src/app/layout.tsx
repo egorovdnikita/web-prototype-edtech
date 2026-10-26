@@ -21,6 +21,7 @@ const raleway = Raleway({
 export const metadata: Metadata = {
   title: "ЕГЭ налегке — прототип платформы",
   description: "Кликабельный прототип кабинета ученика",
+  robots: { index: false, follow: false },
 };
 
 export const viewport: Viewport = {
