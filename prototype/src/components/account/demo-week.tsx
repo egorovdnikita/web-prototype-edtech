@@ -17,7 +17,7 @@ function Check({ ok, children }: { ok: boolean; children: React.ReactNode }) {
         name={ok ? "check-circle" : "lock-keyhole"}
         variant={ok ? "bold" : "linear"}
         size="2xs"
-        className={cn("mt-0.5 shrink-0", ok ? "text-ink-olive" : "text-ink-subtle")}
+        className={cn("mt-0.5 shrink-0", ok ? "text-status-ink" : "text-ink-subtle")}
       />
       <span className={cn(!ok && "text-ink-muted")}>{children}</span>
     </li>
@@ -25,7 +25,7 @@ function Check({ ok, children }: { ok: boolean; children: React.ReactNode }) {
 }
 
 /**
- * B24, до покупки: демонеделя (US 02.10, 02.11). Открыта текущая неделя курса на её
+ * До покупки: демонеделя. Открыта текущая неделя курса на её
  * даты — уроки, тесты и ДЗ; сданное сохранится и уйдёт на проверку после покупки.
  */
 export function DemoWeek({ subject }: { subject: Subject }) {
@@ -35,9 +35,9 @@ export function DemoWeek({ subject }: { subject: Subject }) {
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-5">
-      <section className="rounded-box-l bg-surface-subject p-5">
+      <section className="rounded-box-l bg-surface-subtle p-5">
         <p className="text-[13px] font-bold uppercase tracking-wide">демонеделя · бесплатно</p>
-        <h1 className="enl-display mt-1 text-[26px] leading-tight sm:text-[32px]">
+        <h1 className="app-display mt-1 text-[26px] leading-tight sm:text-[32px]">
           неделя {week.number} курса — {week.range}
         </h1>
         <p className="mt-2 text-[15px]">
@@ -61,7 +61,7 @@ export function DemoWeek({ subject }: { subject: Subject }) {
           <ul className="mt-2 flex flex-col gap-2">
             <Check ok={false}>Наставник и мини-группа</Check>
             <Check ok={false}>Проверка ДЗ {hasExams(subject) ? "куратором" : "и пробников"}</Check>
-            <Check ok={false}>Счастливая зачётка и ачивки</Check>
+            <Check ok={false}>Зачётка и ачивки</Check>
             <Check ok={false}>Запись на продлёнки и коворкинги</Check>
           </ul>
         </div>
@@ -74,9 +74,9 @@ export function DemoWeek({ subject }: { subject: Subject }) {
             <li key={l.id}>
               <Link
                 href={`/${subject}/lesson/${l.id}`}
-                className="flex items-center gap-3 rounded-box-l border border-line bg-surface-raised p-4 no-underline hover:border-accent-border"
+                className="flex items-center gap-3 rounded-box-l border border-line bg-surface-raised p-4 no-underline hover:border-line-strong"
               >
-                <span className="grid size-10 shrink-0 place-items-center rounded-box-m bg-surface-subject text-sm font-extrabold">{l.number}</span>
+                <span className="grid size-10 shrink-0 place-items-center rounded-box-m bg-surface-subtle text-sm font-extrabold">{l.number}</span>
                 <span className="min-w-0 flex-1 font-semibold text-ink">{l.title}</span>
                 <Icon name="alt-arrow-right" size="min" />
               </Link>
@@ -103,7 +103,7 @@ export function DemoWeek({ subject }: { subject: Subject }) {
 }
 
 /**
- * B24, первый вход после покупки (US 01.07, 02.01, 02.11). Ученик сразу внутри,
+ * Первый вход после покупки. Ученик сразу внутри,
  * видит, что работы демонедели сохранились, и три шага на старт.
  */
 export function Welcome({ subject }: { subject: Subject }) {
@@ -114,7 +114,7 @@ export function Welcome({ subject }: { subject: Subject }) {
   const steps = [
     {
       done: watched,
-      title: "Посмотрите вводный урок от АМ",
+      title: "Посмотрите вводный урок курса",
       text: "Как устроена неделя, что такое обязательный план и допы на 100.",
       action: (
         <button type="button" onClick={() => setWatched(true)} className="text-sm font-semibold text-ink-accent">
@@ -148,11 +148,11 @@ export function Welcome({ subject }: { subject: Subject }) {
     <div className="mx-auto flex max-w-2xl flex-col gap-5">
       <header>
         <p className="text-[13px] font-semibold text-ink-muted">курс оплачен · вы вошли под {PROFILE.email}</p>
-        <h1 className="enl-display text-[28px] normal-case leading-tight sm:text-[34px]">Добро пожаловать, {profile.name}!</h1>
+        <h1 className="app-display text-[28px] normal-case leading-tight sm:text-[34px]">Добро пожаловать, {profile.name}!</h1>
       </header>
 
-      <p className="flex items-start gap-2 rounded-box-l bg-surface-lime p-4 text-[15px]">
-        <Icon name="check-circle" variant="bold" size="2xs" className="mt-0.5 shrink-0 text-ink-olive" />
+      <p className="flex items-start gap-2 rounded-box-l bg-status-soft p-4 text-[15px]">
+        <Icon name="check-circle" variant="bold" size="2xs" className="mt-0.5 shrink-0 text-status-ink" />
         Работы из демонедели сохранились. ДЗ №1 «Задание 25»{" "}
         {curator ? "ушло на проверку куратору — результат в течение 3 дней." : "открыто для самопроверки по критериям."}
       </p>
@@ -165,7 +165,7 @@ export function Welcome({ subject }: { subject: Subject }) {
               <span
                 className={cn(
                   "grid size-8 shrink-0 place-items-center rounded-full text-sm font-bold",
-                  s.done ? "bg-surface-lime text-ink-olive" : "bg-surface-subject",
+                  s.done ? "bg-status-soft text-status-ink" : "bg-surface-subtle",
                 )}
               >
                 {s.done ? <Icon name="check-circle" variant="bold" size="min" /> : i + 1}

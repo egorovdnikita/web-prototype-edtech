@@ -5,8 +5,8 @@ import type { IconName } from "@/components/ui/icon";
 import type { Subject } from "@mocks/course";
 import { TRAININGS } from "@mocks/trainings";
 
-// Практика: свободная тренировка вне недели. Строится от действующего тренажёра
-// (рекомендация разбора), работа над ошибками — фильтр «мои ошибки».
+// Практика: свободная тренировка вне недели. Тренажёр по номерам,
+// работа над ошибками — фильтр «мои ошибки».
 const BLOCKS: { title: string; text: string; icon: IconName; meta: (s: Subject) => string; href?: string }[] = [
   {
     title: "Интерактивные тренировки",
@@ -22,7 +22,7 @@ export default function PracticePage({ params }: { params: { subject: Subject } 
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-5">
       <header>
-        <h1 className="enl-display text-[28px] leading-tight sm:text-[34px]">практика</h1>
+        <h1 className="app-display text-[28px] leading-tight sm:text-[34px]">практика</h1>
         <p className="text-sm text-ink-muted">Тренируйтесь сколько хотите — в план недели и зачётку это не входит.</p>
       </header>
 
@@ -41,7 +41,7 @@ export default function PracticePage({ params }: { params: { subject: Subject } 
           );
           const box = "flex flex-col gap-2 rounded-box-l border border-line bg-surface-raised p-4";
           return b.href ? (
-            <Link key={b.title} href={`/${params.subject}${b.href}`} className={`${box} text-ink no-underline transition-colors hover:border-accent-border`}>
+            <Link key={b.title} href={`/${params.subject}${b.href}`} className={`${box} text-ink no-underline transition-colors hover:border-line-strong`}>
               {body}
             </Link>
           ) : (

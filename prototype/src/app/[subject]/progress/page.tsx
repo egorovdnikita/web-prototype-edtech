@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { WORKS } from "@mocks/works";
 import type { Subject } from "@mocks/course";
 
-// B11 — прогресс. Только по фактам: сданные работы, досмотренные уроки, попытки.
+// Прогресс. Только по фактам: сданные работы, досмотренные уроки, попытки.
 export default function ProgressPage({ params }: { params: { subject: Subject } }) {
   const { subject } = params;
   const stats = useStats(subject);
@@ -21,7 +21,7 @@ export default function ProgressPage({ params }: { params: { subject: Subject } 
     <WithRail rail={<GradebookCard subject={subject} />}>
       <div className="flex flex-col gap-5">
         <header className="flex flex-col gap-3">
-          <h1 className="enl-display text-[28px] leading-tight sm:text-[34px]">прогресс</h1>
+          <h1 className="app-display text-[28px] leading-tight sm:text-[34px]">прогресс</h1>
           <ProgressTabs subject={subject} />
           <p className="text-sm text-ink-muted">Считается по сданным работам и просмотренным урокам, а не по галочкам.</p>
         </header>
@@ -32,16 +32,16 @@ export default function ProgressPage({ params }: { params: { subject: Subject } 
           <Stat title="Допы «на 100»" value={`${pct(ext.done, ext.total)}%`} note={`${ext.done} из ${ext.total} · по желанию`} bar={pct(ext.done, ext.total)} soft />
           <Link
             href={`/${subject}/practice/mistakes`}
-            className="flex flex-col rounded-box-l border border-line bg-surface-raised p-4 no-underline hover:border-accent-border"
+            className="flex flex-col rounded-box-l border border-line bg-surface-raised p-4 no-underline hover:border-line-strong"
           >
             <span className="text-sm font-semibold text-ink-muted">Работа над ошибками</span>
-            <span className="enl-display mt-1 text-[32px] leading-none">{stats.mistakesLeft}</span>
+            <span className="app-display mt-1 text-[32px] leading-none">{stats.mistakesLeft}</span>
             <span className="mt-auto pt-2 text-[13px] font-semibold text-ink-accent">перерешать →</span>
           </Link>
         </section>
 
         {stats.debts.length > 0 && (
-          <section className="rounded-box-l border border-accent-border bg-surface-raised p-4">
+          <section className="rounded-box-l border border-line-strong bg-surface-raised p-4">
             <h2 className="flex items-center gap-2 font-bold">
 Не сдано
             </h2>
@@ -94,7 +94,7 @@ export default function ProgressPage({ params }: { params: { subject: Subject } 
               {stats.ege.map((e) => (
                 <li key={e.number} className="rounded-box-m bg-surface-subtle p-3">
                   <span className="block text-[13px] font-semibold text-ink-muted">№{e.number}</span>
-                  <span className={cn("enl-display text-2xl", e.percent < 60 && "text-ink-accent")}>{e.percent}%</span>
+                  <span className={cn("app-display text-2xl", e.percent < 60 && "text-ink-accent")}>{e.percent}%</span>
                   <span className="block text-[11px] text-ink-muted">заданий: {e.total}</span>
                 </li>
               ))}
@@ -130,7 +130,7 @@ function Stat({ title, value, note, bar, soft }: { title: string; value: string;
   return (
     <section className="flex flex-col rounded-box-l border border-line bg-surface-raised p-4">
       <span className="text-sm font-semibold text-ink-muted">{title}</span>
-      <span className="enl-display mt-1 text-[32px] leading-none">{value}</span>
+      <span className="app-display mt-1 text-[32px] leading-none">{value}</span>
       <span className="mt-2 h-2 rounded-full bg-surface-subtle" aria-hidden>
         <span className={cn("block h-full rounded-full", soft ? "bg-ink-subtle" : "bg-accent")} style={{ width: `${bar}%` }} />
       </span>

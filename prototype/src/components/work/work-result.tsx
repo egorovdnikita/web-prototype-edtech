@@ -48,11 +48,11 @@ export function WorkResult({ subject, id }: { subject: Subject; id: string }) {
 
 function ScoreHeader({ title, score, max, label }: { title: string; score: number | null; max: number; label: string }) {
   return (
-    <header className="rounded-box-l bg-surface-subject p-5">
+    <header className="rounded-box-l bg-surface-subtle p-5">
       <p className="text-sm font-semibold">{title}</p>
       <p className="mt-1 flex items-baseline gap-2">
-        <span className="enl-display text-[44px] leading-none">
-          {score === null ? "—" : <span className="enl-marker">{score}</span>}
+        <span className="app-display text-[44px] leading-none">
+          {score === null ? "—" : <span>{score}</span>}
         </span>
         <span className="text-lg font-bold">из {max}</span>
       </p>
@@ -61,7 +61,7 @@ function ScoreHeader({ title, score, max, label }: { title: string; score: numbe
   );
 }
 
-// --- B5: тест ---------------------------------------------------------------
+// --- Тест ---------------------------------------------------------------
 
 function TestResult({ subject, id, title, work, record }: { subject: Subject; id: string; title: string; work: Work; record: WorkRecord }) {
   const router = useRouter();
@@ -94,7 +94,7 @@ function TestResult({ subject, id, title, work, record }: { subject: Subject; id
           const shown = task.type === "choice" && task.answer.length === 1 && given ? task.options[Number(given) - 1] : given;
           const right = task.type === "choice" && task.answer.length === 1 ? task.options[Number(task.answer) - 1] : task.answer;
           return (
-            <li key={task.id} className={cn("rounded-box-l border bg-surface-raised p-4", ok ? "border-line" : "border-accent-border")}>
+            <li key={task.id} className={cn("rounded-box-l border bg-surface-raised p-4", ok ? "border-line" : "border-line-strong")}>
               <p className="flex items-center gap-2 text-sm font-bold">
                 <Icon
                   name={ok ? "check-circle" : "close-circle"}
@@ -110,7 +110,7 @@ function TestResult({ subject, id, title, work, record }: { subject: Subject; id
                 Ваш ответ: <span className={cn("font-bold", !ok && "line-through decoration-2")}>{shown || "нет ответа"}</span>
                 {!ok && (
                   <>
-                    {" · "}верно: <span className="enl-marker font-bold">{right}</span>
+                    {" · "}верно: <span className="font-bold">{right}</span>
                   </>
                 )}
               </p>
@@ -167,7 +167,7 @@ function Explanation({ text, open: initial }: { text: string; open: boolean }) {
   );
 }
 
-// --- B6: проверяет куратор --------------------------------------------------
+// --- Проверяет куратор --------------------------------------------------
 
 function CuratorResult({ id, subject, title, work, record }: { id: string; subject: Subject; title: string; work: Work; record: WorkRecord }) {
   const { statusOf } = useProgress();
@@ -179,7 +179,7 @@ function CuratorResult({ id, subject, title, work, record }: { id: string; subje
   if (!review) {
     return (
       <>
-        {/* Никаких баллов до проверки: сейчас GetCourse ставит максимум заранее, и ученик видит завышенный результат. */}
+        {/* Никаких баллов до проверки: максимум заранее даёт ученику завышенный результат. */}
         <ScoreHeader title={title} score={null} max={max} label={`Сдано ${record.submitted!.date} · на проверке у куратора`} />
         <section className="flex items-start gap-3 rounded-box-l border border-line bg-surface-raised p-4">
           <div className="text-sm">
@@ -227,8 +227,8 @@ function CuratorResult({ id, subject, title, work, record }: { id: string; subje
                 ))}
               </ul>
               {review.comments[task.id] && (
-                <div className="enl-grid-paper mt-3 rounded-box-m border border-accent-border p-3 text-sm leading-relaxed">
-                  <p className="enl-display text-ink-accent">комментарий куратора</p>
+                <div className="mt-3 rounded-box-m border border-line-strong p-3 text-sm leading-relaxed bg-surface-raised">
+                  <p className="app-display text-ink-accent">комментарий куратора</p>
                   {review.comments[task.id]}
                 </div>
               )}
@@ -271,7 +271,7 @@ function Answers({ tasks, answers }: { tasks: LongTask[]; answers: Record<string
   );
 }
 
-// --- B7: самопроверка -------------------------------------------------------
+// --- Самопроверка -------------------------------------------------------
 
 function SelfCheck({ id, title, work, record }: { id: string; title: string; work: Work; record: WorkRecord }) {
   const { saveSelfScores } = useWorks();
@@ -297,7 +297,7 @@ function SelfCheck({ id, title, work, record }: { id: string; title: string; wor
 
       {/* Явно разводим самопроверку и проверку куратором — сейчас ученики их путают. */}
       <p className="flex items-start gap-2 rounded-box-m bg-surface-subtle p-3 text-sm">
-        На тарифе «Фристайл» ДЗ не проверяет куратор. Сравните свой ответ с ключом и поставьте баллы по критериям — так
+        На тарифе «Базовый» ДЗ не проверяет куратор. Сравните свой ответ с ключом и поставьте баллы по критериям — так
         вы увидите, где теряете баллы на экзамене.
       </p>
 
@@ -317,7 +317,7 @@ function SelfCheck({ id, title, work, record }: { id: string; title: string; wor
               </div>
               <div>
                 <p className="text-[13px] font-semibold text-ink-muted">Ключ</p>
-                <p className="enl-grid-paper mt-1 rounded-box-m border border-line p-3 text-sm leading-relaxed">{task.reference}</p>
+                <p className="mt-1 rounded-box-m border border-line p-3 text-sm leading-relaxed bg-surface-raised">{task.reference}</p>
               </div>
             </div>
             {task.criteria.map((c) => (

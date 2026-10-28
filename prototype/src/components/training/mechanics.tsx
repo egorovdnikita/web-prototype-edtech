@@ -34,15 +34,15 @@ function Chip({
       data-status={state === "wrong" ? "negative" : state === "correct" ? "positive" : undefined}
       className={cn(
         "flex min-h-11 items-center gap-2 rounded-box-m border-2 px-3 py-2 text-left text-[15px] font-semibold leading-snug transition-colors",
-        state === "idle" && "border-line bg-surface-raised hover:border-accent-border",
+        state === "idle" && "border-line bg-surface-raised hover:border-line-strong",
         state === "selected" && "border-accent bg-surface-raised",
-        state === "correct" && "border-transparent bg-surface-lime",
-        state === "wrong" && "enl-shake border-status-border bg-status-soft",
+        state === "correct" && "border-transparent bg-status-soft",
+        state === "wrong" && "app-shake border-status-border bg-status-soft",
         className,
       )}
       {...rest}
     >
-      {state === "correct" && <Icon name="check-circle" variant="bold" size="min" className="shrink-0 text-ink-olive" />}
+      {state === "correct" && <Icon name="check-circle" variant="bold" size="min" className="shrink-0 text-status-ink" />}
       {state === "wrong" && <Icon name="close-circle" size="min" className="shrink-0 text-status-ink" />}
       <span className="min-w-0">{children}</span>
     </button>
@@ -235,7 +235,7 @@ export function Slots({ data, seed, onMistake, onDone }: MechanicProps<Extract<T
           const value = filled[i];
           if (value)
             return (
-              <span key={k} className="rounded-box-xs bg-surface-lime px-1.5 py-0.5 font-semibold">
+              <span key={k} className="rounded-box-xs bg-status-soft px-1.5 py-0.5 font-semibold">
                 {value}
               </span>
             );
@@ -310,7 +310,7 @@ export function Order({ data, seed, onMistake, onDone }: MechanicProps<Extract<T
             key={i}
             className={cn(
               "flex min-h-11 items-center gap-3 rounded-box-m border-2 px-3 py-2 text-[15px] leading-snug",
-              i < placed ? "border-transparent bg-surface-lime font-semibold" : "border-dashed border-line",
+              i < placed ? "border-transparent bg-status-soft font-semibold" : "border-dashed border-line",
               i === placed && "border-accent",
             )}
           >
@@ -318,7 +318,7 @@ export function Order({ data, seed, onMistake, onDone }: MechanicProps<Extract<T
             {i < placed ? (
               <span className="flex flex-1 flex-wrap items-baseline justify-between gap-x-2">
                 {item}
-                {data.notes && <span className="text-[13px] font-bold text-ink-olive">{data.notes[i]}</span>}
+                {data.notes && <span className="text-[13px] font-bold text-status-ink">{data.notes[i]}</span>}
               </span>
             ) : (
               <span className="text-sm text-ink-subtle">что дальше?</span>
@@ -441,7 +441,7 @@ export function Fragments({ data, onMistake, onDone }: MechanicProps<Extract<Tra
             return (
               <span key={k}>
                 <s className="decoration-accent decoration-2">{part.text}</s>{" "}
-                <span className="enl-marker font-semibold">{part.fix}</span>
+                <span className="font-semibold">{part.fix}</span>
               </span>
             );
           return (
@@ -461,7 +461,7 @@ export function Fragments({ data, onMistake, onDone }: MechanicProps<Extract<Tra
               data-status={flashKey === String(k) ? "negative" : undefined}
               className={cn(
                 "rounded-box-xs px-0.5 py-1 underline decoration-dotted decoration-2 underline-offset-[6px] transition-colors",
-                flashKey === String(k) ? "enl-shake bg-status-soft decoration-[var(--status-border-default)]" : "decoration-line-strong hover:bg-surface-subtle",
+                flashKey === String(k) ? "app-shake bg-status-soft decoration-[var(--status-border-default)]" : "decoration-line-strong hover:bg-surface-subtle",
               )}
             >
               {part.text}
@@ -500,14 +500,14 @@ export function MapPlace({ data, seed, onMistake, onDone }: MechanicProps<Extrac
 
   return (
     <div className="grid gap-4 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
-      <div className="enl-grid-paper relative aspect-[320/300] w-full overflow-hidden rounded-box-l border border-line bg-surface-raised">
+      <div className="relative aspect-[320/300] w-full overflow-hidden rounded-box-l border border-line bg-surface-raised">
         <svg viewBox="0 0 320 300" className="absolute inset-0 size-full" aria-hidden>
           {/* Финский залив и Балтика, Азовское и Чёрное море — схема без масштаба. */}
           <path
             d="M0 0 L0 160 L22 120 L28 80 L30 42 L45 32 L80 38 L120 34 L150 27 L160 20 L150 14 L90 14 L40 18 L0 0 Z"
-            className="fill-surface-subject"
+            className="fill-surface-subtle"
           />
-          <path d="M190 300 L225 284 L262 288 L276 280 L300 285 L320 280 L320 300 Z" className="fill-surface-subject" />
+          <path d="M190 300 L225 284 L262 288 L276 280 L300 285 L320 280 L320 300 Z" className="fill-surface-subtle" />
           <text x="8" y="120" className="fill-ink-muted text-[9px] italic">Балтийское</text>
           <text x="8" y="131" className="fill-ink-muted text-[9px] italic">море</text>
           {data.landmarks.map((l) => (
@@ -540,15 +540,15 @@ export function MapPlace({ data, seed, onMistake, onDone }: MechanicProps<Extrac
                   className={cn(
                     "grid size-7 place-items-center rounded-full border-2 text-sm font-bold transition-colors",
                     placed
-                      ? "border-transparent bg-surface-lime"
+                      ? "border-transparent bg-status-soft"
                       : flashKey === `p-${i}`
-                        ? "enl-shake border-status-border bg-status-soft"
+                        ? "app-shake border-status-border bg-status-soft"
                         : sel !== null
                           ? "border-accent bg-accent text-accent-on"
                           : "border-ink bg-surface-raised",
                   )}
                 >
-                  {placed ? <Icon name="check-circle" variant="bold" size="min" className="text-ink-olive" /> : i + 1}
+                  {placed ? <Icon name="check-circle" variant="bold" size="min" className="text-status-ink" /> : i + 1}
                 </span>
               </button>
               {placed && (

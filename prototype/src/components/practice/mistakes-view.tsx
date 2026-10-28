@@ -10,7 +10,7 @@ import { cn, plural } from "@/lib/utils";
 import type { Subject } from "@mocks/course";
 import { FORMATS, unitLabel } from "@mocks/trainings";
 
-// B8 — работа над ошибками. Все ошибки тестов в одном месте, фильтр по номеру
+// Работа над ошибками. Все ошибки тестов в одном месте, фильтр по номеру
 // ЕГЭ и по теме, перерешивание прямо в карточке. Верно — задание уходит из списка.
 // Ошибки тренировок — отдельным блоком: их перерешивают в той же механике,
 // только на элементах с ошибками.
@@ -77,7 +77,7 @@ export function MistakesView({ subject }: { subject: Subject }) {
       </nav>
 
       <header>
-        <h1 className="enl-display text-[28px] leading-tight sm:text-[34px]">
+        <h1 className="app-display text-[28px] leading-tight sm:text-[34px]">
           работа над ошибками
         </h1>
         <p className="text-sm text-ink-muted">
@@ -86,14 +86,14 @@ export function MistakesView({ subject }: { subject: Subject }) {
               Осталось{" "}
               {left > 0 && (
                 <>
-                  <span className="enl-marker font-bold text-ink">{left}</span>{" "}
+                  <span className="font-bold text-ink">{left}</span>{" "}
                   {plural(left, ["задание", "задания", "заданий"])} из тестов и тренажёра
                 </>
               )}
               {left > 0 && trainings.length > 0 && " и "}
               {trainings.length > 0 && (
                 <>
-                  <span className="enl-marker font-bold text-ink">
+                  <span className="font-bold text-ink">
                     {trainings.length}
                   </span>{" "}
                   {plural(trainings.length, [
@@ -294,14 +294,14 @@ function MistakeCard({
       className={cn(
         "rounded-box-l border bg-surface-raised transition-colors",
         solved
-          ? "border-ink-olive"
+          ? "border-status-ink"
           : open
-            ? "border-accent-border"
+            ? "border-line-strong"
             : "border-line",
       )}
     >
       <div className="flex flex-wrap items-start gap-3 p-4 sm:flex-nowrap">
-        <span className="grid size-10 shrink-0 place-items-center rounded-box-m bg-surface-subject text-sm font-extrabold">
+        <span className="grid size-10 shrink-0 place-items-center rounded-box-m bg-surface-subtle text-sm font-extrabold">
           №{task.ege}
         </span>
         <div className="min-w-0 flex-1 basis-[calc(100%-52px)] sm:basis-auto">
@@ -375,7 +375,7 @@ function MistakeCard({
             >
               <p>
                 Правильный ответ:{" "}
-                <span className="enl-marker font-bold">{right}</span>
+                <span className="font-bold">{right}</span>
               </p>
               <p className="mt-1">{task.explanation}</p>
               <p className="mt-2 text-ink-muted">
@@ -412,7 +412,7 @@ function MistakeCard({
 
       {solved && (
         <div role="status" className="border-t border-line-subtle p-4 pt-3">
-          <p className="flex items-center gap-2 font-bold text-ink-olive">
+          <p className="flex items-center gap-2 font-bold text-status-ink">
             <Icon name="check-circle" variant="bold" size="2xs" /> Верно!
             Задание уходит из списка
           </p>

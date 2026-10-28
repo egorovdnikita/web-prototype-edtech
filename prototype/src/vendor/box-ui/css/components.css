@@ -152,7 +152,7 @@
 .box-control--accent {
   --box-ctl-fill: var(--control-accent-fill);
   --box-ctl-content: var(--control-accent-content);
-  --box-ctl-border: var(--control-accent-border);
+  --box-ctl-border: var(--control-line-strong);
 }
 .box-control--status {
   --box-ctl-fill: var(--control-status-fill);
@@ -230,7 +230,7 @@
 }
 
 .box-button:focus-visible {
-  outline: 2px solid var(--accent-border-default);
+  outline: 2px solid var(--line-strong-default);
   outline-offset: 2px;
 }
 
@@ -299,7 +299,7 @@
   border-color: var(--surface-base-border-strong);
 }
 .box-input:focus-visible {
-  outline: 2px solid var(--accent-border-default);
+  outline: 2px solid var(--line-strong-default);
   outline-offset: 1px;
   border-color: var(--accent-fill-solid);
 }

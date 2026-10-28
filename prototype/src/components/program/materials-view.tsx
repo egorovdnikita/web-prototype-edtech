@@ -15,9 +15,9 @@ import {
   type MaterialSection,
 } from "@mocks/materials";
 
-const KEY = "enl-prototype-materials";
+const KEY = "proto-materials";
 
-/** Просмотренное — как статус «просмотрено» в B9; хранится в браузере. */
+/** Просмотренное — статус «просмотрено»; хранится в браузере. */
 function useViewed() {
   const [viewed, setViewed] = useState<string[]>([]);
   useEffect(() => {
@@ -43,8 +43,8 @@ function useViewed() {
 }
 
 /**
- * Материалы курса. В GetCourse это девять папок с вложенностью до четырёх уровней
- * (курс → библиотека → учебники → группа → файл). Здесь — один экран: поиск по всему,
+ * Материалы курса. Вместо дерева папок (курс → библиотека → учебники → группа →
+ * файл) — один экран: поиск по всему,
  * разделы фильтром, группы по темам; закрытые группы видны со сроком открытия.
  */
 export function MaterialsView({ subject }: { subject: Subject }) {
@@ -79,7 +79,7 @@ export function MaterialsView({ subject }: { subject: Subject }) {
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder={subject === "soc" ? "Поиск: демоверсия, Боголюбов, задание 25…" : "Поиск: демоверсия, Артасов, карты…"}
+          placeholder={subject === "soc" ? "Поиск: демоверсия, учебник, задание 25…" : "Поиск: демоверсия, сборник, карты…"}
           className="w-full rounded-full border border-line-strong bg-surface-raised px-4 py-2.5 text-[15px] focus:border-accent"
         />
       </label>
@@ -115,8 +115,8 @@ export function MaterialsView({ subject }: { subject: Subject }) {
           </div>
 
           {section === "all" && now.length > 0 && (
-            <section className="rounded-box-l bg-surface-subject p-4">
-              <h2 className="enl-display text-lg">сейчас по программе</h2>
+            <section className="rounded-box-l bg-surface-subtle p-4">
+              <h2 className="app-display text-lg">сейчас по программе</h2>
               <p className="text-[13px]">К урокам этой недели и ближайшей сессии.</p>
               <ul className="mt-3 divide-y divide-line-subtle overflow-hidden rounded-box-m bg-surface-raised">
                 {now.map(({ item, group }) => row(item, `${SECTIONS[group.section].title} · ${group.title}`))}
@@ -160,7 +160,7 @@ export function MaterialsView({ subject }: { subject: Subject }) {
 
           <Link
             href={`/${subject}/practice`}
-            className="flex items-center gap-3 rounded-box-l border border-line bg-surface-raised p-4 text-sm no-underline hover:border-accent-border"
+            className="flex items-center gap-3 rounded-box-l border border-line bg-surface-raised p-4 text-sm no-underline hover:border-line-strong"
           >
             <span className="flex-1 text-ink">
               Тренировки, квизлеты и тренажёр — в <span className="font-semibold">Практике</span>
@@ -196,7 +196,7 @@ function MaterialRow({
       {item.soon ? (
         <Icon name="lock-keyhole" size="xs" className="shrink-0" />
       ) : viewed ? (
-        <span className="flex shrink-0 items-center gap-1 text-[13px] font-semibold text-ink-olive">
+        <span className="flex shrink-0 items-center gap-1 text-[13px] font-semibold text-status-ink">
           <Icon name="check-circle" variant="bold" size="min" />
           <span className="hidden sm:inline">просмотрено</span>
         </span>

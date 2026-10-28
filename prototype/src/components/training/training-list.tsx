@@ -7,7 +7,7 @@ import { plural } from "@/lib/utils";
 import type { Subject } from "@mocks/course";
 import { FORMATS, TRAININGS } from "@mocks/trainings";
 
-/** Каталог тренировок по темам — доступен вне недели (требование ЕНЛ). */
+/** Каталог тренировок по темам — доступен вне недели. */
 export function TrainingList({ subject }: { subject: Subject }) {
   const { results } = useTrainingResults();
   const list = TRAININGS.filter((t) => t.subject === subject);
@@ -27,7 +27,7 @@ export function TrainingList({ subject }: { subject: Subject }) {
                   <li key={t.id}>
                     <Link
                       href={`/${subject}/training/${t.id}`}
-                      className="flex h-full items-center gap-3 rounded-box-l border border-line bg-surface-raised p-4 no-underline transition-colors hover:border-accent-border"
+                      className="flex h-full items-center gap-3 rounded-box-l border border-line bg-surface-raised p-4 no-underline transition-colors hover:border-line-strong"
                     >
                       <span className="min-w-0 flex-1">
                         <span className="block font-semibold leading-snug">{t.title}</span>

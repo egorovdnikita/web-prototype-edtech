@@ -18,7 +18,7 @@ import { WORKS, isCorrect } from "@mocks/works";
 
 // Прогресс, зачётка и ачивки считаются из того, что ученик сделал в прототипе:
 // отметки, сданные работы, попытки тестов, работа над ошибками, записи на встречи.
-// Ничего не опирается на кнопку «я выполнил» — только на факты (разбор, раздел 2).
+// Ничего не опирается на кнопку «я выполнил» — только на факты.
 
 const isDone = (s: PlanItem["status"]) => s === "done" || s === "review";
 
@@ -32,7 +32,7 @@ export function useStats(subject: Subject) {
   const lessonItems = course.weeks.flatMap((w) => w.lessons.flatMap((l) => l.items));
   const all = [...lessonItems, ...course.weeks.flatMap((w) => w.events)];
 
-  // --- Материалы (B11): обязательное и «на 100» отдельно
+  // --- Материалы: обязательное и «на 100» отдельно
   const open = all.filter((i) => statusOf(i) !== "locked");
   const required = open.filter((i) => i.required);
   const extra = open.filter((i) => !i.required);
@@ -56,7 +56,7 @@ export function useStats(subject: Subject) {
     };
   });
 
-  // --- Зачётка (B12): баллы октября
+  // --- Зачётка: баллы октября
   const history = GRADEBOOK_HISTORY[subject];
   const octoberItems = course.weeks
     .filter((w) => OCTOBER_WEEKS.includes(w.number))
@@ -69,7 +69,7 @@ export function useStats(subject: Subject) {
   const percent = Math.round((points / max) * 100);
   // «Больше 60%» — строго больше.
   const needTasks = Math.max(0, Math.floor((max * STAMP_THRESHOLD) / 100 / POINTS_PER_TASK) + 1 - octDone);
-  const drawAllowed = course.tariff !== "Флай";
+  const drawAllowed = course.tariff !== "Лайт";
   const stamps = [
     { month: "сентябрь", percent: history.september, stamp: history.september > STAMP_THRESHOLD, final: true },
     { month: "октябрь", percent, stamp: percent > STAMP_THRESHOLD, final: false },
@@ -115,7 +115,7 @@ export function useStats(subject: Subject) {
 
   const debts = lessonItems.filter((i) => i.required && statusOf(i) === "overdue");
 
-  // --- Ачивки (B13): выдаются сами за учебные действия
+  // --- Ачивки: выдаются сами за учебные действия
   const current = weeks.find((w) => w.current)!;
   const earned: Partial<Record<AchievementTrigger, boolean>> = {
     welcome: true,

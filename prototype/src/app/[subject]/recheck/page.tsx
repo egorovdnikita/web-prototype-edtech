@@ -1,7 +1,7 @@
 import { RecheckView } from "@/components/account/recheck-view";
 import type { Subject } from "@mocks/course";
 
-// B22 — перепроверка бланков ЕГЭ.
+// Перепроверка бланков ЕГЭ.
 export default function RecheckPage({ params }: { params: { subject: Subject } }) {
   return <RecheckView subject={params.subject} />;
 }

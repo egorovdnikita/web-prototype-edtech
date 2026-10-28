@@ -17,8 +17,7 @@ const ROWS: { id: string; title: string; text: string; icon: IconName; href?: st
   { id: "notifications", title: "Уведомления", text: "Уроки, дедлайны, проверка, оплата", icon: "bell", href: "/notifications" },
   { id: "profile", title: "Профиль", text: "Имя, часовой пояс, контакты, отчёт родителю, куда присылать уведомления", icon: "user-circle", href: "/profile" },
   { id: "recheck", title: "Перепроверка бланков ЕГЭ", text: "После экзамена: стоит ли идти на апелляцию", icon: "shield-user", href: "/recheck" },
-  // Как в текущем GetCourse: ВКонтакте, 08:00–21:00 по Москве, ответ до 2 часов.
-  { id: "support", title: "Техподдержка", text: "08:00–21:00 по Москве, ответим в течение 2 часов", icon: "info-circle", href: "/support" },
+  { id: "support", title: "Техподдержка", text: "Каждый день 09:00–21:00, ответим в течение 2 часов", icon: "info-circle", href: "/support" },
 ];
 
 export default function MorePage({ params }: { params: { subject: Subject } }) {
@@ -28,7 +27,7 @@ export default function MorePage({ params }: { params: { subject: Subject } }) {
   const waiting = isWaiting(params.subject);
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-5">
-      <h1 className="enl-display text-[28px] leading-tight sm:text-[34px]">ещё</h1>
+      <h1 className="app-display text-[28px] leading-tight sm:text-[34px]">ещё</h1>
       <ul className="divide-y divide-line-subtle overflow-hidden rounded-box-l border border-line bg-surface-raised">
         {ROWS.map((r) => (
           <li key={r.id} id={r.id}>

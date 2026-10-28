@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss";
 
-// Цвета и радиусы — только через токены Box UI и --enl-*. Теней нет: слои делят обводки.
+// Цвета и радиусы — только семантические токены Box UI. Теней нет: слои делят обводки.
 // В компонентах никаких hex: surface / accent / ink.
 const config: Config = {
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
@@ -11,15 +11,10 @@ const config: Config = {
           page: "var(--surface-base-fill-page)",
           raised: "var(--surface-base-fill-raised)",
           subtle: "var(--surface-base-fill-layer-subtle)",
-          subject: "var(--enl-subject-fill)",
-          "subject-strong": "var(--enl-subject-fill-strong)",
-          marker: "var(--enl-marker)",
-          lime: "var(--enl-lime)",
         },
         accent: {
           DEFAULT: "var(--accent-fill-solid)",
           soft: "var(--accent-fill-soft)",
-          border: "var(--enl-accent-border, var(--accent-border-default))",
           on: "var(--accent-content-on-solid-default)",
         },
         ink: {
@@ -27,7 +22,6 @@ const config: Config = {
           muted: "var(--surface-base-content-muted)",
           subtle: "var(--surface-base-content-subtle)",
           accent: "var(--accent-content-on-soft-default)",
-          olive: "var(--enl-olive-ink)",
           disabled: "var(--interaction-disabled-content)",
         },
         // System · Status: тон задаёт data-status на самом элементе (positive / warning / negative).
@@ -43,10 +37,10 @@ const config: Config = {
           subtle: "var(--surface-base-border-subtle)",
         },
       },
-      // Насыщенность через моду гарнитуры: в Inter Tight bold — 600, extrabold — 700.
+      // Inter на полступени легче: bold — 600, extrabold — 700.
       fontWeight: {
-        bold: "var(--enl-weight-bold, 700)",
-        extrabold: "var(--enl-weight-extrabold, 800)",
+        bold: "600",
+        extrabold: "700",
       },
       borderRadius: {
         // box-*: у Tailwind уже есть rounded-s / rounded-l (логические стороны)

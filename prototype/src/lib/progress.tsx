@@ -7,7 +7,7 @@ import { COURSES, type PlanItem, type Subject } from "@mocks/course";
 // Состояние «покликать»: что ученик отметил или прошёл в прототипе.
 // Хранится в localStorage, сбрасывается кнопкой в «Ещё».
 
-const KEY = "enl-prototype-progress";
+const KEY = "proto-progress";
 
 type Override = "done" | "todo" | "review";
 
@@ -70,23 +70,23 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
   const reset = useCallback(() => {
     save({});
     try {
-      window.localStorage.removeItem("enl-prototype-works");
-      window.localStorage.removeItem("enl-prototype-mistakes");
-      window.localStorage.removeItem("enl-prototype-bookings");
-      window.localStorage.removeItem("enl-prototype-achievements-seen-soc");
-      window.localStorage.removeItem("enl-prototype-achievements-seen-hist");
-      window.localStorage.removeItem("enl-prototype-messages-soc");
-      window.localStorage.removeItem("enl-prototype-messages-hist");
-      window.localStorage.removeItem("enl-prototype-payment");
-      window.localStorage.removeItem("enl-prototype-trainings");
-      window.localStorage.removeItem("enl-prototype-notifications");
-      window.localStorage.removeItem("enl-prototype-profile");
-      window.localStorage.removeItem("enl-prototype-materials");
-      window.localStorage.removeItem("enl-prototype-distribution");
-      window.localStorage.removeItem("enl-prototype-chats");
-      window.localStorage.removeItem("enl-prototype-surveys");
-      window.localStorage.removeItem("enl-prototype-recheck");
-      window.localStorage.removeItem("enl-prototype-support");
+      window.localStorage.removeItem("proto-works");
+      window.localStorage.removeItem("proto-mistakes");
+      window.localStorage.removeItem("proto-bookings");
+      window.localStorage.removeItem("proto-achievements-seen-soc");
+      window.localStorage.removeItem("proto-achievements-seen-hist");
+      window.localStorage.removeItem("proto-messages-soc");
+      window.localStorage.removeItem("proto-messages-hist");
+      window.localStorage.removeItem("proto-payment");
+      window.localStorage.removeItem("proto-trainings");
+      window.localStorage.removeItem("proto-notifications");
+      window.localStorage.removeItem("proto-profile");
+      window.localStorage.removeItem("proto-materials");
+      window.localStorage.removeItem("proto-distribution");
+      window.localStorage.removeItem("proto-chats");
+      window.localStorage.removeItem("proto-surveys");
+      window.localStorage.removeItem("proto-recheck");
+      window.localStorage.removeItem("proto-support");
       window.location.reload();
     } catch {
       // нечего сбрасывать

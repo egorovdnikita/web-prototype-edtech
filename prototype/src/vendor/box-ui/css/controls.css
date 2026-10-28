@@ -17,7 +17,7 @@
     --control-selection-content: var(--interaction-selection-neutral-content-default);
     --control-accent-fill: var(--control-appearance-accent-fill-hover);
     --control-accent-content: var(--control-appearance-accent-content-default);
-    --control-accent-border: var(--control-appearance-accent-border-hover);
+    --control-line-strong: var(--control-appearance-line-strong-hover);
     --control-status-fill: var(--control-appearance-status-fill-hover);
     --control-status-content: var(--control-appearance-status-content-default);
     --control-status-border: var(--control-appearance-status-border-hover);
@@ -36,7 +36,7 @@
   --control-selection-content: var(--interaction-selection-neutral-content-default);
   --control-accent-fill: var(--control-appearance-accent-fill-active);
   --control-accent-content: var(--control-appearance-accent-content-default);
-  --control-accent-border: var(--control-appearance-accent-border-active);
+  --control-line-strong: var(--control-appearance-line-strong-active);
   --control-status-fill: var(--control-appearance-status-fill-active);
   --control-status-content: var(--control-appearance-status-content-default);
   --control-status-border: var(--control-appearance-status-border-active);
@@ -55,7 +55,7 @@
   --control-selection-content: var(--interaction-disabled-content);
   --control-accent-fill: var(--control-appearance-disabled-fill);
   --control-accent-content: var(--control-appearance-disabled-content);
-  --control-accent-border: var(--control-appearance-disabled-border);
+  --control-line-strong: var(--control-appearance-disabled-border);
   --control-status-fill: var(--control-appearance-disabled-fill);
   --control-status-content: var(--control-appearance-disabled-content);
   --control-status-border: var(--control-appearance-disabled-border);

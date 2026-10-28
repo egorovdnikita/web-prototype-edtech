@@ -17,7 +17,7 @@ import {
 } from "@mocks/meetings";
 import { RECORDINGS } from "@mocks/recordings";
 
-// B15 — запись на встречу. Модальное окно из календаря: на телефоне — шторка снизу.
+// Запись на встречу. Модальное окно из календаря: на телефоне — шторка снизу.
 
 function Sheet({
   title,

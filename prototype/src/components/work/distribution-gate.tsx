@@ -10,8 +10,8 @@ import { useProgress } from "@/lib/progress";
 import { findItem, type Subject } from "@mocks/course";
 
 /**
- * ДЗ до распределения: экран объясняет, почему закрыто, и что делать сейчас.
- * В GetCourse на этом месте — пустая панель CloudText с одной фразой.
+ * ДЗ до распределения: экран объясняет, почему закрыто, и что делать сейчас,
+ * а не показывает пустую панель с одной фразой.
  */
 export function DistributionGate({ subject, id, children }: { subject: Subject; id: string; children: ReactNode }) {
   const { lockedByDistribution } = useDistribution();
@@ -34,11 +34,11 @@ export function DistributionGate({ subject, id, children }: { subject: Subject; 
       </div>
       <ul className="flex flex-col gap-2 text-sm">
         <li className="flex gap-2">
-          <Icon name="check-circle" variant="bold" size="min" className="mt-0.5 shrink-0 text-ink-olive" />
+          <Icon name="check-circle" variant="bold" size="min" className="mt-0.5 shrink-0 text-status-ink" />
           Пока можно смотреть уроки, решать тесты и тренировки — это засчитается в план недели.
         </li>
         <li className="flex gap-2">
-          <Icon name="check-circle" variant="bold" size="min" className="mt-0.5 shrink-0 text-ink-olive" />
+          <Icon name="check-circle" variant="bold" size="min" className="mt-0.5 shrink-0 text-status-ink" />
           Если дедлайн пройдёт раньше — ДЗ можно сдать ещё 2 недели после него.
         </li>
       </ul>

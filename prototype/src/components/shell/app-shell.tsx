@@ -14,8 +14,7 @@ import { cn } from "@/lib/utils";
 import { SUBJECTS, type Subject } from "@mocks/course";
 import { MENTORS } from "@mocks/mentor";
 
-// Каркас кабинета ученика. Рабочая область отделена от боковых (принцип из Figma
-// клиента): на десктопе — меню слева, на телефоне — 5 вкладок снизу.
+// Каркас кабинета ученика. Рабочая область отделена от боковых: на десктопе — меню слева, на телефоне — 5 вкладок снизу.
 
 const NAV: { href: string; label: string; icon: IconName }[] = [
   { href: "", label: "Неделя", icon: "home-smile" },
@@ -48,8 +47,8 @@ function switchTarget(pathname: string, subject: Subject, section: string) {
 
 function Logo() {
   return (
-    <Link href="/" className="enl-display enl-wordmark shrink-0 text-[19px] leading-none text-ink no-underline sm:text-[22px]">
-      егэ <span className="enl-marker">налегке</span>
+    <Link href="/" className="app-display app-wordmark shrink-0 text-[19px] leading-none text-ink no-underline sm:text-[22px]">
+      онлайн-школа
     </Link>
   );
 }
@@ -84,7 +83,7 @@ function SubjectSwitch({ subject, section, compact }: { subject: Subject; sectio
   );
 }
 
-/** Колокольчик уведомлений с числом непрочитанных (US 10.02). */
+/** Колокольчик уведомлений с числом непрочитанных. */
 function Bell({ subject }: { subject: Subject }) {
   const { unread } = useNotifications();
   return (
@@ -158,7 +157,7 @@ export function AppShell({ subject, children }: { subject: Subject; children: Re
           href={`/${subject}/mentor`}
           className="-mx-2 mt-auto flex items-center gap-3 rounded-box-m p-2 no-underline transition-colors hover:bg-surface-subtle"
         >
-          <span className="grid size-10 place-items-center rounded-full bg-surface-subject font-bold text-ink">
+          <span className="grid size-10 place-items-center rounded-full bg-surface-subtle font-bold text-ink">
             {waiting ? "?" : MENTORS[subject].initial}
           </span>
           <span className="min-w-0">
@@ -217,7 +216,7 @@ export function AppShell({ subject, children }: { subject: Subject; children: Re
 }
 
 /**
- * Последствия неоплаты по правилу ЕНЛ: при просрочке — баннер на всех экранах
+ * Последствия неоплаты: при просрочке — баннер на всех экранах
  * (открытое доступно, новое — после оплаты); после отчисления кабинет закрыт,
  * кроме оплаты и «Ещё».
  */

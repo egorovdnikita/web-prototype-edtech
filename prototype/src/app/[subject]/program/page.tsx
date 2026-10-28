@@ -9,7 +9,7 @@ import { Icon } from "@/components/ui/icon";
 import { cn } from "@/lib/utils";
 import { COURSES, SUBJECTS, type Subject } from "@mocks/course";
 
-// B2 — программа курса: недели и уроки по таймлайну, только материалы своего тарифа.
+// Программа курса: недели и уроки по таймлайну, только материалы своего тарифа.
 export default function ProgramPage({ params }: { params: { subject: Subject } }) {
   const course = COURSES[params.subject];
   const [openWeek, setOpenWeek] = useState(course.currentWeek);
@@ -18,7 +18,7 @@ export default function ProgramPage({ params }: { params: { subject: Subject } }
     <WithRail rail={<MeetingsCard subject={params.subject} />}>
       <div className="flex flex-col gap-5">
         <header>
-          <h1 className="enl-display text-[28px] leading-tight sm:text-[34px]">программа курса</h1>
+          <h1 className="app-display text-[28px] leading-tight sm:text-[34px]">программа курса</h1>
           <p className="text-sm text-ink-muted">
             {SUBJECTS[params.subject].title} · {course.product} · тариф «{course.tariff}» · {course.period}
           </p>
@@ -41,7 +41,7 @@ export default function ProgramPage({ params }: { params: { subject: Subject } }
                 key={week.number}
                 className={cn(
                   "rounded-box-l border bg-surface-raised",
-                  current ? "border-accent-border" : "border-line",
+                  current ? "border-line-strong" : "border-line",
                 )}
               >
                 <button
@@ -53,14 +53,14 @@ export default function ProgramPage({ params }: { params: { subject: Subject } }
                   <span
                     className={cn(
                       "grid size-11 shrink-0 place-items-center rounded-box-m text-sm font-extrabold",
-                      current ? "bg-accent text-accent-on" : past ? "bg-surface-subject" : "bg-surface-subtle text-ink-muted",
+                      current ? "bg-accent text-accent-on" : past ? "bg-surface-subtle" : "bg-surface-subtle text-ink-muted",
                     )}
                   >
                     {week.number}
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block font-bold">
-                      Неделя {week.number} {current && <span className="enl-marker">· сейчас</span>}
+                      Неделя {week.number} {current && <span>· сейчас</span>}
                     </span>
                     <span className="block text-[13px] text-ink-muted">
                       {week.range} · {week.lessons.length} {week.lessons.length === 1 ? "урок" : "урока"}

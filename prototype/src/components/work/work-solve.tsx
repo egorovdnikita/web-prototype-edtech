@@ -17,7 +17,7 @@ export const CHECK_LABEL = {
   self: { title: "Самопроверка", text: "После сдачи откроются ключ и критерии — оцените себя сами." },
 } as const;
 
-// B4 — решение работы. Одно задание на экране, навигатор номеров, автосохранение,
+// Решение работы. Одно задание на экране, навигатор номеров, автосохранение,
 // таймер по желанию: запускает сам ученик, по истечении работа сдаётся сама.
 export function WorkSolve({ subject, id }: { subject: Subject; id: string }) {
   const router = useRouter();
@@ -100,7 +100,7 @@ export function WorkSolve({ subject, id }: { subject: Subject; id: string }) {
               aria-live="off"
               className={cn(
                 "flex items-center gap-1.5 rounded-full px-3 py-1.5 font-bold tabular-nums",
-                timerLeft < 60_000 ? "bg-accent text-accent-on" : "bg-surface-marker",
+                timerLeft < 60_000 ? "bg-accent text-accent-on" : "bg-accent-soft",
               )}
             >
 {mmss(timerLeft)}
@@ -124,7 +124,7 @@ export function WorkSolve({ subject, id }: { subject: Subject; id: string }) {
                 aria-label={`Задание ${i + 1}${has ? ", есть ответ" : ""}`}
                 className={cn(
                   "grid size-10 place-items-center rounded-box-m border text-sm font-bold transition-colors",
-                  i === index ? "border-accent bg-accent text-accent-on" : has ? "border-accent-border bg-accent-soft" : "border-line bg-surface-raised",
+                  i === index ? "border-accent bg-accent text-accent-on" : has ? "border-line-strong bg-accent-soft" : "border-line bg-surface-raised",
                 )}
               >
                 {i + 1}

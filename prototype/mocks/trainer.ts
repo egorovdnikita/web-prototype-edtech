@@ -1,8 +1,7 @@
 import type { Subject } from "./course";
 import type { ChoiceTask, ShortTask } from "./works";
 
-// Тренажёр по номерам ЕГЭ — от действующего test-soc.egenalegke.ru (1832 задания
-// по обществознанию, разделы «практика» и «статистика»). В тренажёре только
+// Тренажёр по номерам ЕГЭ: разделы «практика» и «статистика». В тренажёре только
 // 1 часть: короткий ответ, автопроверка. Вторая часть — в ДЗ и пробниках.
 //
 // В прототипе — небольшой банк для №1–6. Какой тип задания стоит за каким номером
@@ -10,11 +9,11 @@ import type { ChoiceTask, ShortTask } from "./works";
 
 export type TrainerTask = (ChoiceTask | ShortTask) & { topic: string };
 
-/** Сколько номеров в 1 части и сколько заданий в действующем тренажёре. */
+/** Сколько номеров в 1 части и сколько заданий в банке (условно). */
 export const TRAINER: Partial<Record<Subject, { part1: number; bankTotal: number; tasks: TrainerTask[] }>> = {
   soc: {
     part1: 16,
-    bankTotal: 1832,
+    bankTotal: 1500,
     tasks: [
       {
         id: "t1-1",

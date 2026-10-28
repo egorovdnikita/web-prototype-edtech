@@ -329,7 +329,7 @@
   --interaction-accent-soft-fill-hover: var(--brand-color-alpha-24);
   --interaction-accent-soft-fill-active: var(--brand-color-alpha-48);
   --interaction-accent-soft-content-default: var(--accent-content-on-soft-default);
-  --interaction-accent-outline-border-default: var(--accent-border-default);
+  --interaction-accent-outline-border-default: var(--line-strong-default);
   --interaction-accent-outline-border-hover: var(--brand-color-alpha-64);
   --interaction-accent-outline-border-active: var(--brand-color-alpha-80);
   --interaction-accent-outline-content-default: var(--accent-content-on-soft-default);
@@ -366,7 +366,7 @@
   --interaction-selection-neutral-fill-hover: var(--system-color-neutral-100);
   --interaction-selection-neutral-fill-active: var(--system-color-neutral-200);
   --interaction-selection-neutral-content-default: var(--system-color-neutral-900);
-  --accent-border-default: var(--brand-color-alpha-48);
+  --line-strong-default: var(--brand-color-alpha-48);
   --status-content-on-solid-muted: var(--system-color-white-alpha-88);
   --status-border-default: var(--status-color-alpha-48);
   --interaction-on-accent-control-alpha-24: var(--brand-color-on-solid-alpha-24);
@@ -427,7 +427,7 @@
   --interaction-accent-soft-fill-hover: var(--brand-color-inverse-alpha-24);
   --interaction-accent-soft-fill-active: var(--brand-color-inverse-alpha-48);
   --interaction-accent-soft-content-default: var(--accent-content-on-soft-default);
-  --interaction-accent-outline-border-default: var(--accent-border-default);
+  --interaction-accent-outline-border-default: var(--line-strong-default);
   --interaction-accent-outline-border-hover: var(--brand-color-inverse-alpha-64);
   --interaction-accent-outline-border-active: var(--brand-color-inverse-alpha-80);
   --interaction-accent-outline-content-default: var(--accent-content-on-soft-default);
@@ -464,7 +464,7 @@
   --interaction-selection-neutral-fill-hover: var(--system-color-neutral-600);
   --interaction-selection-neutral-fill-active: var(--system-color-neutral-500);
   --interaction-selection-neutral-content-default: var(--system-color-neutral-50);
-  --accent-border-default: var(--brand-color-inverse-alpha-48);
+  --line-strong-default: var(--brand-color-inverse-alpha-48);
   --status-content-on-solid-muted: var(--system-color-white-alpha-88);
   --status-border-default: var(--status-color-alpha-48);
   --interaction-on-accent-control-alpha-24: var(--brand-color-inverse-on-solid-alpha-24);
@@ -643,9 +643,9 @@
   --control-appearance-accent-fill-hover: var(--interaction-accent-solid-fill-hover);
   --control-appearance-accent-fill-active: var(--interaction-accent-solid-fill-active);
   --control-appearance-accent-content-default: var(--interaction-accent-solid-content-default);
-  --control-appearance-accent-border-default: var(--system-color-transparent);
-  --control-appearance-accent-border-hover: var(--system-color-transparent);
-  --control-appearance-accent-border-active: var(--system-color-transparent);
+  --control-appearance-line-strong-default: var(--system-color-transparent);
+  --control-appearance-line-strong-hover: var(--system-color-transparent);
+  --control-appearance-line-strong-active: var(--system-color-transparent);
   --control-appearance-status-fill-default: var(--interaction-status-solid-fill-default);
   --control-appearance-status-fill-hover: var(--interaction-status-solid-fill-hover);
   --control-appearance-status-fill-active: var(--interaction-status-solid-fill-active);
@@ -681,9 +681,9 @@
   --control-appearance-accent-fill-hover: var(--interaction-accent-soft-fill-hover);
   --control-appearance-accent-fill-active: var(--interaction-accent-soft-fill-active);
   --control-appearance-accent-content-default: var(--interaction-accent-soft-content-default);
-  --control-appearance-accent-border-default: var(--system-color-transparent);
-  --control-appearance-accent-border-hover: var(--system-color-transparent);
-  --control-appearance-accent-border-active: var(--system-color-transparent);
+  --control-appearance-line-strong-default: var(--system-color-transparent);
+  --control-appearance-line-strong-hover: var(--system-color-transparent);
+  --control-appearance-line-strong-active: var(--system-color-transparent);
   --control-appearance-status-fill-default: var(--interaction-status-soft-fill-default);
   --control-appearance-status-fill-hover: var(--interaction-status-soft-fill-hover);
   --control-appearance-status-fill-active: var(--interaction-status-soft-fill-active);
@@ -719,9 +719,9 @@
   --control-appearance-accent-fill-hover: var(--system-color-transparent);
   --control-appearance-accent-fill-active: var(--system-color-transparent);
   --control-appearance-accent-content-default: var(--interaction-accent-outline-content-default);
-  --control-appearance-accent-border-default: var(--interaction-accent-outline-border-default);
-  --control-appearance-accent-border-hover: var(--interaction-accent-outline-border-hover);
-  --control-appearance-accent-border-active: var(--interaction-accent-outline-border-active);
+  --control-appearance-line-strong-default: var(--interaction-accent-outline-border-default);
+  --control-appearance-line-strong-hover: var(--interaction-accent-outline-border-hover);
+  --control-appearance-line-strong-active: var(--interaction-accent-outline-border-active);
   --control-appearance-status-fill-default: var(--system-color-transparent);
   --control-appearance-status-fill-hover: var(--system-color-transparent);
   --control-appearance-status-fill-active: var(--system-color-transparent);
@@ -761,7 +761,7 @@
   --control-selection-content: var(--interaction-selection-neutral-content-default);
   --control-accent-fill: var(--control-appearance-accent-fill-default);
   --control-accent-content: var(--control-appearance-accent-content-default);
-  --control-accent-border: var(--control-appearance-accent-border-default);
+  --control-line-strong: var(--control-appearance-line-strong-default);
   --control-status-fill: var(--control-appearance-status-fill-default);
   --control-status-content: var(--control-appearance-status-content-default);
   --control-status-border: var(--control-appearance-status-border-default);
@@ -779,7 +779,7 @@
   --control-selection-content: var(--interaction-selection-neutral-content-default);
   --control-accent-fill: var(--control-appearance-accent-fill-hover);
   --control-accent-content: var(--control-appearance-accent-content-default);
-  --control-accent-border: var(--control-appearance-accent-border-hover);
+  --control-line-strong: var(--control-appearance-line-strong-hover);
   --control-status-fill: var(--control-appearance-status-fill-hover);
   --control-status-content: var(--control-appearance-status-content-default);
   --control-status-border: var(--control-appearance-status-border-hover);
@@ -797,7 +797,7 @@
   --control-selection-content: var(--interaction-selection-neutral-content-default);
   --control-accent-fill: var(--control-appearance-accent-fill-active);
   --control-accent-content: var(--control-appearance-accent-content-default);
-  --control-accent-border: var(--control-appearance-accent-border-active);
+  --control-line-strong: var(--control-appearance-line-strong-active);
   --control-status-fill: var(--control-appearance-status-fill-active);
   --control-status-content: var(--control-appearance-status-content-default);
   --control-status-border: var(--control-appearance-status-border-active);
@@ -815,7 +815,7 @@
   --control-selection-content: var(--interaction-disabled-content);
   --control-accent-fill: var(--control-appearance-disabled-fill);
   --control-accent-content: var(--control-appearance-disabled-content);
-  --control-accent-border: var(--control-appearance-disabled-border);
+  --control-line-strong: var(--control-appearance-disabled-border);
   --control-status-fill: var(--control-appearance-disabled-fill);
   --control-status-content: var(--control-appearance-disabled-content);
   --control-status-border: var(--control-appearance-disabled-border);

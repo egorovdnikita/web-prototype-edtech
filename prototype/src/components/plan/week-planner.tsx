@@ -34,7 +34,7 @@ export function WeekPlanner({ subject }: { subject: Subject }) {
   const weekIndex = course.weeks.findIndex((w) => w.number === weekNumber);
   const week = course.weeks[weekIndex];
 
-  // Встречи недели: вебинары курса + то, на что ученик записан сам (история 19.18).
+  // Встречи недели: вебинары курса + то, на что ученик записан сам.
   const { isBooked } = useBookings();
   const calendar = useCalendarEvents();
   const days = CAL_WEEKS.find((w) => w.number === weekNumber)?.days ?? [];
@@ -92,7 +92,7 @@ export function WeekPlanner({ subject }: { subject: Subject }) {
           <Icon name="alt-arrow-left" size="2xs" className="text-current" />
         </button>
         <div className="min-w-0 flex-1 text-center sm:text-left">
-          <h1 className="enl-display text-[28px] leading-tight sm:text-[34px]">
+          <h1 className="app-display text-[28px] leading-tight sm:text-[34px]">
             {isCurrent ? "задачи на неделю" : `неделя ${week.number}`}
           </h1>
           <p className="text-sm text-ink-muted">
@@ -115,7 +115,7 @@ export function WeekPlanner({ subject }: { subject: Subject }) {
       <section className="rounded-box-l border border-line bg-surface-raised p-4">
         <div className="flex items-baseline justify-between gap-3">
           <p className="font-semibold">
-            Обязательный план: <span className="enl-marker">{progress.done} из {progress.open}</span>
+            Обязательный план: <span>{progress.done} из {progress.open}</span>
           </p>
           <span className="text-sm text-ink-muted">{percent}%</span>
         </div>
@@ -134,8 +134,8 @@ export function WeekPlanner({ subject }: { subject: Subject }) {
 
       {/* Прямо сейчас */}
       {now && (
-        <section className="rounded-box-l bg-surface-subject p-4">
-          <p className="enl-display text-sm">продолжить с</p>
+        <section className="rounded-box-l bg-surface-subtle p-4">
+          <p className="app-display text-sm">продолжить с</p>
           <p className="mt-1 text-lg font-bold leading-snug">{now.item.title}</p>
           <p className="text-sm text-ink-muted">
             {now.lesson ? `Урок ${now.lesson.number}. ${now.lesson.title}` : "Встреча недели"}
@@ -174,7 +174,7 @@ export function WeekPlanner({ subject }: { subject: Subject }) {
       </div>
 
       {debts.length > 0 && filter !== "extra" && (
-        <section className="rounded-box-l border border-accent-border bg-surface-raised p-2">
+        <section className="rounded-box-l border border-line-strong bg-surface-raised p-2">
           <h2 className="flex items-center gap-2 px-3 pb-1 pt-2 font-bold">
             Не сдано с прошлых недель
           </h2>
@@ -252,7 +252,7 @@ function LessonGroup({
         <span
           className={cn(
             "grid size-10 shrink-0 place-items-center rounded-box-m text-sm font-extrabold",
-            locked ? "bg-surface-page text-ink-subtle" : "bg-surface-subject text-ink",
+            locked ? "bg-surface-page text-ink-subtle" : "bg-surface-subtle text-ink",
           )}
         >
           {locked ? <Icon name="lock-keyhole" size="2xs" /> : lesson.number}

@@ -10,7 +10,7 @@ export function generateStaticParams({ params }: { params: { subject: Subject } 
     .map((id) => ({ id }));
 }
 
-// B4 — решение работы.
+// Решение работы.
 export default function WorkPage({ params }: { params: { subject: Subject; id: string } }) {
   if (!WORKS[params.id] || !findItem(params.subject, params.id)) notFound();
   return (

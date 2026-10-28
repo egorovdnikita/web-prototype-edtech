@@ -7,11 +7,11 @@ import { Icon } from "@/components/ui/icon";
 import { useStats } from "@/lib/stats";
 import type { Subject } from "@mocks/course";
 
-// «Новая ачивка!» — всплывает поверх любого экрана (история 07.06).
+// «Новая ачивка!» — всплывает поверх любого экрана.
 // На телефоне — сверху: снизу шторки и кнопки действий.
 
 /** Свой набор на предмет: ачивки и их условия у предметов разные. */
-const KEY = "enl-prototype-achievements-seen";
+const KEY = "proto-achievements-seen";
 /** Состояние из localStorage подгружается после первого рендера — до этого не сравниваем. */
 const SETTLE_MS = 800;
 
@@ -68,7 +68,7 @@ export function AchievementToast({ subject }: { subject: Subject }) {
     >
       <Medal earned size={48} />
       <Link href={`/${subject}/progress/achievements`} className="min-w-0 flex-1 no-underline" onClick={() => setShown(null)}>
-        <span className="enl-display block text-sm text-ink-accent">новая ачивка!</span>
+        <span className="app-display block text-sm text-ink-accent">новая ачивка!</span>
         <span className="block font-bold leading-snug">«{shown.title}»</span>
         <span className="block text-[13px] text-ink-muted">{shown.why}</span>
       </Link>

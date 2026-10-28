@@ -83,7 +83,7 @@ export function TrainerSession({ subject, set }: { subject: Subject; set: Traine
       </nav>
 
       <header className="flex flex-col gap-2">
-        <h1 className="enl-display text-[26px] normal-case leading-tight sm:text-[32px]">{setTitle(set)}</h1>
+        <h1 className="app-display text-[26px] normal-case leading-tight sm:text-[32px]">{setTitle(set)}</h1>
         <div className="flex items-center gap-3 text-sm">
           <span className="shrink-0 font-semibold">{done ? "Итоги" : `${index + 1} из ${queue.length}`}</span>
           <span className="flex h-2 flex-1 overflow-hidden rounded-full bg-surface-subtle" aria-hidden>
@@ -96,7 +96,7 @@ export function TrainerSession({ subject, set }: { subject: Subject; set: Traine
       {!done ? (
         <section className="rounded-box-l border border-line bg-surface-raised p-4 sm:p-5">
           <p className="flex items-center gap-2 text-[13px] font-semibold text-ink-muted">
-            <span className="rounded-full bg-surface-subject px-2 py-0.5 font-extrabold text-ink">№{task.ege}</span>
+            <span className="rounded-full bg-surface-subtle px-2 py-0.5 font-extrabold text-ink">№{task.ege}</span>
             {task.topic}
           </p>
           <p className="mt-2 font-semibold leading-relaxed">{task.prompt}</p>
@@ -168,7 +168,7 @@ function Feedback({ item }: { item: Answered }) {
       {!ok && (
         <p className="mt-1">
           Ваш ответ: <span className="font-bold line-through decoration-2">{answer}</span> · верно:{" "}
-          <span className="enl-marker font-bold">{task.answer}</span>
+          <span className="font-bold">{task.answer}</span>
         </p>
       )}
       {task.type === "choice" && (
@@ -204,10 +204,10 @@ function Summary({
   const skipped = total - log.length;
   return (
     <section className="flex flex-col gap-4">
-      <div className="rounded-box-l bg-surface-subject p-5">
+      <div className="rounded-box-l bg-surface-subtle p-5">
         <p className="flex items-baseline gap-2">
-          <span className="enl-display text-[44px] leading-none">
-            <span className="enl-marker">{right}</span>
+          <span className="app-display text-[44px] leading-none">
+            <span>{right}</span>
           </span>
           <span className="text-lg font-bold">из {total}</span>
         </p>

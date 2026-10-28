@@ -1,10 +1,9 @@
 import type { Subject } from "@mocks/course";
 
 // Стиль прототипа — набор мод Box UI в одном месте.
-// Сейчас: Box UI · Brand Color «monochrome» · Brand Typography «inter» ·
-// Brand Icon «bold» · радиусы «medium», без теней.
-// Вернуть стиль ЕНЛ: ACCENT → { soc: "soc", hist: "hist" }, FONT → "enl" —
-// тёплая тема, цвета предметов и Raleway включатся сами (src/styles/enl.css).
+// Сейчас: Brand · Color «monochrome» · Brand · Typography «inter» ·
+// Brand · Icon «bold» · радиусы «medium», без теней.
+// Предмету можно дать свою моду Brand · Color — одной строкой в ACCENT.
 
 const ACCENT: Record<Subject, string> = { soc: "monochrome", hist: "monochrome" };
 

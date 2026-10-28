@@ -7,7 +7,7 @@ export function generateStaticParams({ params }: { params: { subject: Subject } 
   return TRAININGS.filter((t) => t.subject === params.subject).map((t) => ({ id: t.id }));
 }
 
-// B8 + B10 — перерешивание тренировки: только элементы, где были ошибки.
+// Перерешивание тренировки: только элементы, где были ошибки.
 export default function TrainingMistakesPage({ params }: { params: { subject: Subject; id: string } }) {
   const training = findTraining(params.id);
   if (!training || training.subject !== params.subject) notFound();

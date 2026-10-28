@@ -1,12 +1,11 @@
 import type { Subject } from "./course";
 
-// Материалы курса — справочные разделы годового курса. Названия разделов и групп —
-// из аудита текущего GetCourse (FANS, 04.10): там это девять папок с вложенностью
-// до четырёх уровней. Здесь — один экран: поиск, разделы, группы по темам.
+// Материалы курса — справочные разделы годового курса. Вместо девяти папок
+// с вложенностью до четырёх уровней — один экран: поиск, разделы, группы по темам.
 // Тренировки и квизлеты — в «Практике», архив недель — в планере и программе.
 //
-// Сами файлы и видео в прототипе не открываются. Названия групп и примеров — как в
-// GetCourse; содержимое групп, длительности и «к уроку» — условные.
+// Сами файлы и видео в прототипе не открываются. Названия, содержимое групп,
+// длительности и «к уроку» — условные.
 
 export type MaterialSection = "library" | "notes" | "cheatsheets" | "breakdowns" | "minicourses" | "sessions";
 
@@ -39,7 +38,7 @@ export interface Material {
 export interface MaterialGroup {
   section: MaterialSection;
   title: string;
-  /** Группы открываются по ходу курса, как в GetCourse. */
+  /** Группы открываются по ходу курса. */
   locked?: string;
   items: Material[];
 }
@@ -76,8 +75,8 @@ const minicourses = (s: Subject, extra: MaterialGroup[]): MaterialGroup[] => [
     section: "minicourses",
     title: "SOS-уроки",
     items: [
-      { id: `${s}-mc-sos1`, title: "3 замкнутых круга 11-классника", kind: "video", meta: "15 мин" },
-      { id: `${s}-mc-sos2`, title: "Тайм-менеджмент, когда всё вокруг горит", kind: "video", meta: "14 мин" },
+      { id: `${s}-mc-sos1`, title: "Как не застрять в одной теме", kind: "video", meta: "15 мин" },
+      { id: `${s}-mc-sos2`, title: "Если всё горит: план на неделю", kind: "video", meta: "14 мин" },
       { id: `${s}-mc-sos3`, title: "Что делать, если не хватает концентрации", kind: "video", meta: "11 мин" },
     ],
   },
@@ -90,7 +89,7 @@ const minicourses = (s: Subject, extra: MaterialGroup[]): MaterialGroup[] => [
 
 /**
  * Сессионная неделя раз в месяц: итоговый тест, пробник и зачёт. Зачёт — только
- * на тарифах с инструктором: на «Фристайле» билетов нет.
+ * На тарифах с куратором: на «Базовом» билетов нет.
  */
 const sessions = (s: Subject): MaterialGroup[] => [
   {
@@ -123,16 +122,16 @@ export const MATERIALS: Record<Subject, MaterialGroup[]> = {
       section: "library",
       title: "Учебники и сборники",
       items: [
-        { id: "soc-lib-bog10", title: "Учебник Л. Н. Боголюбова, 10 класс", kind: "pdf", meta: "PDF" },
-        { id: "soc-lib-bog11", title: "Учебник Л. Н. Боголюбова, 11 класс", kind: "pdf", meta: "PDF" },
-        { id: "soc-lib-kl", title: "Сборник О. А. Котовой и Т. Е. Лисковой 2026", kind: "pdf", meta: "PDF · варианты — в «Практике»" },
+        { id: "soc-lib-bog10", title: "Школьный учебник, 10 класс", kind: "pdf", meta: "PDF" },
+        { id: "soc-lib-bog11", title: "Школьный учебник, 11 класс", kind: "pdf", meta: "PDF" },
+        { id: "soc-lib-kl", title: "Сборник типовых вариантов 2026", kind: "pdf", meta: "PDF · варианты — в «Практике»" },
       ],
     },
     {
       section: "library",
       title: "Дополнительные файлы",
       items: [
-        { id: "soc-lib-planner", title: "Планеры ЕНЛ", kind: "pdf", meta: "PDF для печати" },
+        { id: "soc-lib-planner", title: "Планеры недели", kind: "pdf", meta: "PDF для печати" },
         { id: "soc-lib-check", title: "Чек-лист для изучения блока", kind: "pdf", meta: "PDF" },
       ],
     },
@@ -219,9 +218,9 @@ export const MATERIALS: Record<Subject, MaterialGroup[]> = {
       section: "library",
       title: "Учебники и сборники",
       items: [
-        { id: "hist-lib-art30", title: "Сборник Артасова «30 вариантов ЕГЭ 2026»", kind: "pdf", meta: "PDF · варианты — в «Практике»" },
-        { id: "hist-lib-artmaps", title: "Артасов. «Трудные задания. Работа с картами»", kind: "pdf", meta: "PDF" },
-        { id: "hist-lib-artcult", title: "Артасов. Учебная тетрадь «Культура России»", kind: "pdf", meta: "PDF" },
+        { id: "hist-lib-art30", title: "Сборник «30 вариантов ЕГЭ 2026»", kind: "pdf", meta: "PDF · варианты — в «Практике»" },
+        { id: "hist-lib-artmaps", title: "Трудные задания: работа с картами", kind: "pdf", meta: "PDF" },
+        { id: "hist-lib-artcult", title: "Рабочая тетрадь «Культура России»", kind: "pdf", meta: "PDF" },
       ],
     },
     {
@@ -302,7 +301,7 @@ export const MATERIALS: Record<Subject, MaterialGroup[]> = {
         { id: "hist-b-text", title: "Работа с историческим источником", kind: "video", meta: "20 мин" },
       ],
     },
-    { section: "breakdowns", title: "Разборы заданий из сборника Артасова", locked: "откроется в ноябре", items: [] },
+    { section: "breakdowns", title: "Разборы заданий из сборника вариантов", locked: "откроется в ноябре", items: [] },
 
     ...minicourses("hist", [
       {

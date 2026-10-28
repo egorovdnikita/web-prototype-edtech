@@ -1,0 +1,85 @@
+/* Слой прототипа поверх Box UI.
+ *
+ * Стиль — моды Box UI (src/lib/style.ts): Brand · Color «monochrome»,
+ * Brand · Typography «inter», Brand · Icon «bold», радиусы «medium», светлая тема.
+ * Здесь — только то, чего в Box UI нет, и всегда через его семантические токены.
+ *
+ * Контраст (scripts/contrast.mjs): основной текст на белом — 17.93, вторичный
+ * (neutral-600) — 7.81, статусный текст: positive 8.05, warning 7.09, negative 10.02.
+ */
+
+/* --- Монохром: плоский слой ------------------------------------------- */
+
+/* Вторичный текст Box UI (neutral-500, #737373) на сером слое (neutral-100) — 4.35,
+ * ниже AA. Берём neutral-600 (#525252): 7.81 на белом, 7.17 на сером.
+ * Страница белая: карточки отделяют тонкие обводки, теней нет. */
+[data-theme="light"][data-accent="monochrome"] {
+  --surface-base-content-muted: var(--system-color-neutral-600);
+  --surface-base-fill-page: var(--system-color-white-base);
+}
+
+/* --- System · Status на любом элементе ------------------------------- */
+
+/* Box UI переобъявляет статусные токены темы только на контролах; так же делаем
+ * для плашек и иконок, чтобы data-status на элементе менял тон:
+ * positive — верно и сделано, warning — долг и просрочка, negative — ошибка. */
+[data-theme="light"] [data-status],
+[data-theme="light"][data-status] {
+  --status-fill-solid: var(--status-color-solid-base);
+  --status-fill-soft: var(--status-color-alpha-16);
+  --status-content-on-surface-default: var(--status-color-content-on-light);
+  --status-border-default: var(--status-color-alpha-48);
+}
+
+/* --- Иконки ------------------------------------------------------------ */
+
+/* По умолчанию — третичный цвет текста (content-subtle), как подписи.
+ * Внутри кнопок, выбранных элементов и на акцентной заливке наследуют цвет
+ * контрола; у статусных иконок цвет задаёт класс (text-status-ink). */
+:where([data-icon]) {
+  color: var(--surface-base-content-subtle);
+}
+:where(.box-button, [data-box-control], .bg-accent, [aria-current="page"], [aria-pressed="true"], [role="tab"][aria-selected="true"]) :where([data-icon]) {
+  color: currentColor;
+}
+
+/* --- Гарнитура: Brand · Typography ------------------------------------- */
+
+/* Inter грузит next/font под своим именем — подставляем его в моду Box UI. */
+[data-font="inter"] {
+  --brand-font-family-heading: var(--font-inter), "Inter", var(--font-fallback);
+  --brand-font-family-body: var(--font-inter), "Inter", var(--font-fallback);
+}
+
+/* --- Утилиты ------------------------------------------------------------ */
+
+.app-display {
+  font-family: var(--font-family-heading);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+/* Заголовки начинаются с заглавной (тексты в коде написаны строчными);
+ * логотип — знак, его регистр не трогаем. */
+.app-display:not(.app-wordmark)::first-letter {
+  text-transform: uppercase;
+}
+
+/* Плашка «на заметку»: спокойная серая подложка без рамки. */
+.app-note {
+  background: var(--surface-base-fill-layer-subtle);
+}
+
+/* Ошибка в тренировке: короткая встряска, ничего не блокирует. */
+@keyframes app-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+.app-shake {
+  animation: app-shake 0.15s ease-in-out 2;
+}
+@media (prefers-reduced-motion: reduce) {
+  .app-shake {
+    animation: none;
+  }
+}

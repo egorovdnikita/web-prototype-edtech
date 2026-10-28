@@ -26,8 +26,8 @@ function timeOf(at: string) {
 }
 
 /**
- * A5 — уведомления. Новые выделены, пока ученик на экране; прочитанными они
- * становятся сразу при открытии (US 10.03), поэтому счётчик у колокольчика гаснет.
+ * Уведомления. Новые выделены, пока ученик на экране; прочитанными они
+ * Становятся сразу при открытии, поэтому счётчик у колокольчика гаснет.
  */
 export function NotificationsView({ subject }: { subject: Subject }) {
   const { notices, isRead, markRead, ready } = useNotifications();
@@ -61,7 +61,7 @@ export function NotificationsView({ subject }: { subject: Subject }) {
     <div className="mx-auto flex max-w-3xl flex-col gap-5">
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="enl-display text-[28px] leading-tight sm:text-[34px]">уведомления</h1>
+          <h1 className="app-display text-[28px] leading-tight sm:text-[34px]">уведомления</h1>
           <p className="text-sm text-ink-muted">
             {newCount ? `Новых: ${newCount}. ` : "Новых нет. "}
             Открыли список — они прочитаны, отмечать не нужно.
@@ -121,7 +121,7 @@ function NoticeRow({ notice: n, fresh }: { notice: Notice; fresh: boolean }) {
         <span className="flex items-center gap-2 text-[12px] text-ink-muted">
           <span>{SUBJECTS[n.subject].title.toLowerCase()}</span>
           <span>· {timeOf(n.at)}</span>
-          {fresh && <span className="rounded-full bg-surface-marker px-1.5 font-bold text-ink">новое</span>}
+          {fresh && <span className="rounded-full bg-accent-soft px-1.5 font-bold text-ink">новое</span>}
         </span>
         <span className={cn("mt-0.5 block leading-snug", fresh ? "font-bold" : "font-semibold")}>{n.title}</span>
         {n.text && <span className="mt-0.5 block text-sm text-ink-muted">{n.text}</span>}

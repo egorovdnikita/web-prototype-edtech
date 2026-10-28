@@ -11,12 +11,12 @@ import { WEAK_BELOW } from "@mocks/trainer";
 function tone(r: NumberStat) {
   if (r.percent === null) return "border-line bg-surface-page";
   if (r.percent < WEAK_BELOW) return "border-accent bg-surface-raised";
-  return "border-transparent bg-surface-lime";
+  return "border-transparent bg-status-soft";
 }
 
 /**
  * Тренажёр в «Практике»: номера 1 части с решаемостью — выбрал номер и решаешь.
- * Это раздел «практика» действующего test-soc; «статистика» — отдельным экраном.
+ * «Статистика» — отдельным экраном.
  */
 export function TrainerGrid({ subject }: { subject: Subject }) {
   const stats = useTrainerStats(subject);
@@ -26,8 +26,7 @@ export function TrainerGrid({ subject }: { subject: Subject }) {
       <section className="rounded-box-l border border-line bg-surface-raised p-4">
         <h2 className="font-bold">Тренажёр по номерам ЕГЭ</h2>
         <p className="mt-1 text-sm text-ink-muted">
-          В прототипе тренажёр только по обществознанию — как действующий test-soc. Есть ли аналог по истории, уточняем у
-          школы. Пока — тесты уроков и тренировки, ошибки соберутся в работе над ошибками.
+          В прототипе тренажёр только по обществознанию. По истории пока — тесты уроков и тренировки, ошибки соберутся в работе над ошибками.
         </p>
       </section>
     );
@@ -99,7 +98,7 @@ export function TrainerGrid({ subject }: { subject: Subject }) {
   );
 }
 
-/** «Статистика» test-soc: решаемость по номерам, сильные и слабые. */
+/** Статистика тренажёра: решаемость по номерам, сильные и слабые. */
 export function TrainerStats({ subject }: { subject: Subject }) {
   const stats = useTrainerStats(subject);
   if (!stats) return <p className="text-sm text-ink-muted">В прототипе тренажёр только по обществознанию.</p>;
@@ -114,7 +113,7 @@ export function TrainerStats({ subject }: { subject: Subject }) {
           { label: "слабых номеров", value: stats.weak.length },
         ].map((s) => (
           <div key={s.label} className="rounded-box-l border border-line bg-surface-raised p-3">
-            <p className="enl-display text-2xl">{s.value}</p>
+            <p className="app-display text-2xl">{s.value}</p>
             <p className="text-[12px] leading-tight text-ink-muted">{s.label}</p>
           </div>
         ))}
@@ -129,7 +128,7 @@ export function TrainerStats({ subject }: { subject: Subject }) {
               <span className="relative h-3 rounded-full bg-surface-subtle" aria-hidden>
                 {r.percent !== null && (
                   <span
-                    className={cn("absolute inset-y-0 left-0 rounded-full", r.percent < WEAK_BELOW ? "bg-accent" : "bg-ink-olive")}
+                    className={cn("absolute inset-y-0 left-0 rounded-full", r.percent < WEAK_BELOW ? "bg-accent" : "bg-status-ink")}
                     style={{ width: `${Math.max(r.percent, 4)}%` }}
                   />
                 )}

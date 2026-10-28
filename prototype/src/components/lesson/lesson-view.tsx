@@ -39,7 +39,7 @@ export function LessonView({ subject, lessonId }: { subject: Subject; lessonId: 
 
       <header>
         {/* normal-case: в названиях уроков бывают римские цифры и имена собственные */}
-        <h1 className="enl-display text-[28px] normal-case leading-tight sm:text-[36px]">{lesson.title}</h1>
+        <h1 className="app-display text-[28px] normal-case leading-tight sm:text-[36px]">{lesson.title}</h1>
         <p className="mt-1 text-sm text-ink-muted">
           Урок {lesson.number} · {locked ? `откроется ${lesson.opens}` : `открыт ${lesson.opens} · ≈ ${lesson.minutes} мин`}
         </p>
@@ -60,8 +60,7 @@ export function LessonView({ subject, lessonId }: { subject: Subject; lessonId: 
         <>
           {video && (
             <section className="overflow-hidden rounded-box-l border border-line bg-surface-raised">
-              <div className="relative grid aspect-video place-items-center bg-surface-subject">
-                <div className="enl-display absolute left-4 top-3 text-sm opacity-70">егэ налегке</div>
+              <div className="relative grid aspect-video place-items-center bg-surface-subtle">
                 <button
                   type="button"
                   onClick={() => complete(video.id)}
@@ -95,8 +94,8 @@ export function LessonView({ subject, lessonId }: { subject: Subject; lessonId: 
           )}
 
           {lesson.important && (
-            <aside className="enl-note rounded-box-l p-4">
-              <p className="enl-display text-ink-accent">важно!</p>
+            <aside className="app-note rounded-box-l p-4">
+              <p className="app-display text-ink-accent">важно!</p>
               <p className="mt-1 font-medium">{lesson.important}</p>
             </aside>
           )}

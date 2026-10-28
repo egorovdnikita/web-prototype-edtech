@@ -3,7 +3,7 @@ import { GradebookCard, MentorCard, PaymentCard } from "@/components/plan/side-c
 import { WeekPlanner } from "@/components/plan/week-planner";
 import type { Subject } from "@mocks/course";
 
-// B1 — главная ученика = планер недели (рекомендация разбора, раздел 5).
+// Главная ученика = планер недели.
 export default function WeekPage({ params }: { params: { subject: Subject } }) {
   return (
     <WithRail

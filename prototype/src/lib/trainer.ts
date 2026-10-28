@@ -18,7 +18,7 @@ export interface NumberStat {
 
 /**
  * Решаемость по номерам 1 части: тренажёр (последний ответ на задание) плюс
- * последние попытки тестов курса. Это раздел «статистика» действующего test-soc.
+ * последние попытки тестов курса.
  */
 export function useTrainerStats(subject: Subject) {
   const { ege } = useStats(subject);

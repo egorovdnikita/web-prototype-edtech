@@ -9,7 +9,7 @@ export function generateStaticParams() {
   return Object.keys(PROBES).map((id) => ({ id }));
 }
 
-// B21 — анкета после пробника.
+// Анкета после пробника.
 export default function SurveyPage({ params }: { params: { subject: Subject; id: string } }) {
   const probe = PROBES[params.id];
   if (!probe) notFound();

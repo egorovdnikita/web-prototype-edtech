@@ -1,24 +1,18 @@
 #!/usr/bin/env node
 // WCAG 2.x contrast ratio.
 // Usage:
-//   node scripts/contrast.mjs B01513 FFFBEF        — one pair
-//   node scripts/contrast.mjs --palette            — whole platform palette vs background, black and white
+//   node scripts/contrast.mjs 525252 FFFFFF        — one pair
+//   node scripts/contrast.mjs --palette            — prototype roles (Box UI, monochrome) vs page, black and white
 
 const palette = {
-  background: 'FFFBEF',
-  'logo-bg': 'FDF6E9',
-  'soc-light-pink': 'FCCBD1',
-  'soc-dark-pink': 'FFA8B9',
-  'soc-red': 'B01513',
-  'hist-light-blue': 'D9EBFF',
-  'hist-blue': 'C2D4E8',
-  'hist-red': '7C2329',
-  yellow: 'FFF7BD',
-  'light-green': 'D9DC6A',
-  'dark-green': '8F9134',
-  'grey-variable': 'E1E1E1',
-  grey: 'E0D8CA',
-  'dark-grey-variable': '9F9F9F',
+  background: 'FFFFFF', // surface-base-fill-page (прототип)
+  'layer-subtle': 'F5F5F5', // surface-base-fill-layer-subtle
+  'content-strong': '171717',
+  'content-muted': '525252', // neutral-600, поднят в app.css
+  'content-subtle': 'A3A3A3', // иконки
+  'positive-ink': '155C31',
+  'warning-ink': '92400E',
+  'negative-ink': '7F1D1D',
   black: '000000',
   white: 'FFFFFF',
 };

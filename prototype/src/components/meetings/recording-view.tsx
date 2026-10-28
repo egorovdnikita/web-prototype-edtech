@@ -13,7 +13,7 @@ function seconds(at: string) {
 }
 
 /**
- * B16 — запись встречи. Видео, таймкоды, чат и задачник в одном месте (US 19.01).
+ * Запись встречи. Видео, таймкоды, чат и задачник в одном месте.
  * Чат идёт вместе с записью: нажал таймкод — видно, что спрашивали в этот момент.
  */
 export function RecordingView({ subject, recording: r }: { subject: Subject; recording: Recording }) {
@@ -44,8 +44,7 @@ export function RecordingView({ subject, recording: r }: { subject: Subject; rec
 
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_320px]">
         <section className="overflow-hidden rounded-box-l border border-line bg-surface-raised">
-          <div className="relative grid aspect-video place-items-center bg-surface-subject">
-            <div className="enl-display absolute left-4 top-3 text-sm opacity-70">егэ налегке</div>
+          <div className="relative grid aspect-video place-items-center bg-surface-subtle">
             <button
               type="button"
               onClick={() => setPosition(position ?? r.timecodes[0].at)}
@@ -66,7 +65,7 @@ export function RecordingView({ subject, recording: r }: { subject: Subject; rec
                 onClick={() => setPosition(t.at)}
                 className={cn(
                   "shrink-0 rounded-full border px-3 py-1.5 text-[13px] transition-colors",
-                  position === t.at ? "border-accent bg-surface-raised text-ink" : "border-line text-ink-muted hover:border-accent-border",
+                  position === t.at ? "border-accent bg-surface-raised text-ink" : "border-line text-ink-muted hover:border-line-strong",
                 )}
               >
                 <span className="font-bold text-ink">{t.at}</span> {t.title}
@@ -101,7 +100,7 @@ export function RecordingView({ subject, recording: r }: { subject: Subject; rec
           <button
             type="button"
             onClick={() => setWorkbook(true)}
-            className="flex items-center gap-3 rounded-box-l border border-line bg-surface-raised p-4 text-left hover:border-accent-border"
+            className="flex items-center gap-3 rounded-box-l border border-line bg-surface-raised p-4 text-left hover:border-line-strong"
           >
             <span className="min-w-0 flex-1">
               <span className="block font-semibold">Задачник</span>

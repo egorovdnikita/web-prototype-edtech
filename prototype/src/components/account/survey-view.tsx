@@ -5,7 +5,7 @@ import { Button, ButtonLink } from "@/components/ui/box";
 import { cn } from "@/lib/utils";
 import type { Subject } from "@mocks/course";
 
-const KEY = "enl-prototype-surveys";
+const KEY = "proto-surveys";
 
 const LEVELS = ["легко", "нормально", "сложно"] as const;
 const HARD = ["не хватило времени", "задания 1 части", "задания 2 части", "оформление ответа", "теория", "ничего"];
@@ -17,7 +17,7 @@ interface Answer {
 }
 
 /**
- * B21 — анкета после пробника (US 03.31). Сейчас это Google Forms, результаты
+ * Анкета после пробника. Сейчас это Google Forms, результаты
  * которых никто не смотрит. Здесь — две минуты нажатий, текст по желанию.
  */
 export function SurveyView({ subject, probe }: { subject: Subject; probe: { id: string; title: string } }) {
@@ -65,7 +65,7 @@ export function SurveyView({ subject, probe }: { subject: Subject; probe: { id: 
     <div className="mx-auto flex max-w-xl flex-col gap-5">
       <header>
         <p className="text-[13px] font-semibold text-ink-muted">2 минуты · текст — по желанию</p>
-        <h1 className="enl-display text-[26px] normal-case leading-tight sm:text-[32px]">Как прошёл {probe.title.toLowerCase()}?</h1>
+        <h1 className="app-display text-[26px] normal-case leading-tight sm:text-[32px]">Как прошёл {probe.title.toLowerCase()}?</h1>
       </header>
 
       <fieldset className="flex flex-col gap-2">

@@ -4,9 +4,9 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 import { PAST, WORKS, isCorrect, maxScore, type Work } from "@mocks/works";
 
 // Ответы, попытки и самооценка по работам. Ответы сохраняются на каждом вводе —
-// к работе можно вернуться (история 04.04).
+// К работе можно вернуться.
 
-const KEY = "enl-prototype-works";
+const KEY = "proto-works";
 /** «Сегодня» в прототипе — совпадает с текущей неделей в моках. */
 export const TODAY = "25.10";
 

@@ -3,10 +3,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { PROFILE, type Channel, type NoticeGroup } from "@mocks/notifications";
 
-// Профиль и настройки уведомлений (A4). Сохраняются сами при изменении —
-// кнопка «Сохранить» из вайрфрейма лишняя: на телефоне её легко не дожать.
+// Профиль и настройки уведомлений. Сохраняются сами при изменении —
+// отдельная кнопка «Сохранить» не нужна: на телефоне её легко не дожать.
 
-const KEY = "enl-prototype-profile";
+const KEY = "proto-profile";
 
 export interface Profile {
   name: string;

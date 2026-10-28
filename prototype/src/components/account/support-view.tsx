@@ -7,10 +7,10 @@ import { Icon } from "@/components/ui/icon";
 import { cn } from "@/lib/utils";
 import type { Subject } from "@mocks/course";
 
-const KEY = "enl-prototype-support";
+const KEY = "proto-support";
 
-// Темы — из того, с чем сейчас приходят в поддержку ЕНЛ: доступ, оплата, смена
-// тарифа, переводы, возвраты, восстановления (Basecamp, аудит GetCourse).
+// Типовые темы обращений в поддержку онлайн-школы: доступ, оплата, смена тарифа,
+// переводы, возвраты.
 const TOPICS = ["не открывается урок или видео", "доступ и оплата", "сменить тариф", "перевод или возврат", "другое"];
 
 const FAQ: { q: string; a: string; href?: { label: string; to: string } }[] = [
@@ -52,7 +52,7 @@ interface Ticket {
 }
 
 /**
- * B23 — техподдержка (US 10.04). Сначала частые вопросы, если ответа нет — короткая
+ * Техподдержка. Сначала частые вопросы, если ответа нет — короткая
  * форма с темой и скриншотом. Срок ответа виден заранее.
  */
 export function SupportView({ subject }: { subject: Subject }) {
@@ -87,7 +87,7 @@ export function SupportView({ subject }: { subject: Subject }) {
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-5">
       <header>
-        <h1 className="enl-display text-[28px] leading-tight sm:text-[34px]">техподдержка</h1>
+        <h1 className="app-display text-[28px] leading-tight sm:text-[34px]">техподдержка</h1>
         <p className="text-sm text-ink-muted">08:00–21:00 по Москве · отвечаем в течение 2 часов</p>
       </header>
 

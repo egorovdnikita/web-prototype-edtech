@@ -7,12 +7,12 @@ import { SUBJECTS, type Subject } from "@mocks/course";
 import { MENTORS } from "@mocks/mentor";
 import { NOTICES, type Notice } from "@mocks/notifications";
 
-// Уведомления (A5): список на весь аккаунт и число непрочитанных у колокольчика.
-// Прочитанным уведомление становится само, когда ученик открыл список (US 10.03), —
+// Уведомления: список на весь аккаунт и число непрочитанных у колокольчика.
+// Прочитанным уведомление становится само, когда ученик открыл список, —
 // отмечать руками не нужно. Оплата — живая: появляется, если в демо-сценарии
 // оплаты включена просрочка или отчисление.
 
-const KEY = "enl-prototype-notifications";
+const KEY = "proto-notifications";
 
 interface NotificationsState {
   notices: Notice[];

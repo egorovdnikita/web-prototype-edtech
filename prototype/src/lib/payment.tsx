@@ -7,9 +7,9 @@ import { HISTORY, INITIAL_PAID, MONTHS, SCENARIOS, type PaymentScenario } from "
 export type Payment = (typeof HISTORY)[number];
 
 // Оплаченные месяцы и сценарий показа (сейчас / просрочка / отчисление).
-// Правило — ЕНЛ, подробно в mocks/payment.ts.
+// Правило оплаты — в mocks/payment.ts.
 
-const KEY = "enl-prototype-payment";
+const KEY = "proto-payment";
 /** Месяц, вокруг которого строятся сценарии: его оплата — до 1 ноября. */
 export const DUE_MONTH = "2026-11";
 

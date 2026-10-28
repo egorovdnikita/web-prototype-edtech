@@ -46,7 +46,7 @@
     --interaction-accent-soft-fill-hover: var(--brand-color-inverse-alpha-24);
     --interaction-accent-soft-fill-active: var(--brand-color-inverse-alpha-48);
     --interaction-accent-soft-content-default: var(--accent-content-on-soft-default);
-    --interaction-accent-outline-border-default: var(--accent-border-default);
+    --interaction-accent-outline-border-default: var(--line-strong-default);
     --interaction-accent-outline-border-hover: var(--brand-color-inverse-alpha-64);
     --interaction-accent-outline-border-active: var(--brand-color-inverse-alpha-80);
     --interaction-accent-outline-content-default: var(--accent-content-on-soft-default);
@@ -83,7 +83,7 @@
     --interaction-selection-neutral-fill-hover: var(--system-color-neutral-600);
     --interaction-selection-neutral-fill-active: var(--system-color-neutral-500);
     --interaction-selection-neutral-content-default: var(--system-color-neutral-50);
-    --accent-border-default: var(--brand-color-inverse-alpha-48);
+    --line-strong-default: var(--brand-color-inverse-alpha-48);
     --status-content-on-solid-muted: var(--system-color-white-alpha-88);
     --status-border-default: var(--status-color-alpha-48);
     --interaction-on-accent-control-alpha-24: var(--brand-color-inverse-on-solid-alpha-24);

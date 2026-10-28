@@ -8,8 +8,8 @@ import { cn, plural } from "@/lib/utils";
 import { COURSES, SUBJECTS, type Subject } from "@mocks/course";
 import { DISCOUNTS, MONTHS, MONTH_PRICE, SCENARIOS, restOfMonth, rub, type PaymentScenario } from "@mocks/payment";
 
-// B20 — оплата обучения: оплаченный период и кнопка следующего месяца с начала
-// курса (10.08), оплата нескольких месяцев (14.14), просрочка (02.06, 02.07),
+// Оплата обучения: оплаченный период и кнопка следующего месяца с начала
+// Курса, оплата нескольких месяцев, просрочка,
 // отчисление. Два предмета — одним платежом: то, что школа называет корзиной.
 
 type Option = { id: string; label: string; note?: string; months: string[]; partial?: boolean; warn?: string; whole?: boolean };
@@ -75,7 +75,7 @@ export function PaymentView() {
     return { subject: s, sum };
   });
   const base = lines.reduce((a, l) => a + l.sum, 0);
-  // Как суммируются скидки, у ЕНЛ не описано — в прототипе применяем по очереди.
+  // Скидки в прототипе применяем по очереди.
   const both = subjects.length === 2 ? Math.round((base * DISCOUNTS.bothSubjects) / 100) : 0;
   const whole = option?.whole ? Math.round(((base - both) * DISCOUNTS.wholeCourse) / 100) : 0;
   const total = base - both - whole;
@@ -83,7 +83,7 @@ export function PaymentView() {
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-5">
       <header>
-        <h1 className="enl-display text-[28px] leading-tight sm:text-[34px]">оплата обучения</h1>
+        <h1 className="app-display text-[28px] leading-tight sm:text-[34px]">оплата обучения</h1>
         <p className="text-sm text-ink-muted">Единый день оплаты — 1-е число. Цена зафиксирована на весь учебный год.</p>
       </header>
 
@@ -95,7 +95,7 @@ export function PaymentView() {
       </section>
 
       {done && (
-        <p role="status" className="flex items-center gap-2 rounded-box-m bg-surface-lime p-3 font-semibold text-ink-olive">
+        <p role="status" className="flex items-center gap-2 rounded-box-m bg-status-soft p-3 font-semibold text-status-ink">
           <Icon name="check-circle" variant="bold" size="2xs" /> {done}
         </p>
       )}
@@ -187,20 +187,20 @@ export function PaymentView() {
                 </div>
               ))}
               {both > 0 && (
-                <div className="flex justify-between text-ink-olive">
+                <div className="flex justify-between text-status-ink">
                   <dt>Два предмета −{DISCOUNTS.bothSubjects}%</dt>
                   <dd>−{rub(both)}</dd>
                 </div>
               )}
               {whole > 0 && (
-                <div className="flex justify-between text-ink-olive">
+                <div className="flex justify-between text-status-ink">
                   <dt>До конца курса −{DISCOUNTS.wholeCourse}%</dt>
                   <dd>−{rub(whole)}</dd>
                 </div>
               )}
               <div className="mt-1 flex items-baseline justify-between">
                 <dt className="font-bold">Итого</dt>
-                <dd className="enl-display text-[28px]">{rub(total)}</dd>
+                <dd className="app-display text-[28px]">{rub(total)}</dd>
               </div>
             </dl>
 
@@ -215,7 +215,7 @@ export function PaymentView() {
             {link && (
               <div className="rounded-box-m bg-surface-subtle p-3 text-sm">
                 <p className="font-semibold">Ссылка на оплату — {rub(total)}</p>
-                <p className="mt-1 break-all font-mono text-[13px] text-ink-muted">pay.egenalegke.ru/o/7Q2K-{total}</p>
+                <p className="mt-1 break-all font-mono text-[13px] text-ink-muted">pay.example.com/o/7Q2K-{total}</p>
                 <p className="mt-1 text-[13px] text-ink-muted">Платить может кто угодно — доступ получите вы. Чек придёт на почту плательщика.</p>
               </div>
             )}
@@ -307,7 +307,7 @@ function StatusCard({ subject, status, paidUntil, skipped }: { subject: Subject;
         {status === "ok" && <p>Оплачено до {paidUntil}.{skipped && ` ${skipped[0].toUpperCase()}${skipped.slice(1)} пропущен и закрыт.`}</p>}
         {status === "due" && (
           <p>
-            Оплачено до {paidUntil}. Ноябрь — оплатить до 1 ноября, <span className="enl-marker font-semibold">осталось 7 дней</span>.
+            Оплачено до {paidUntil}. Ноябрь — оплатить до 1 ноября, <span className="font-semibold">осталось 7 дней</span>.
           </p>
         )}
         {status === "overdue" && (

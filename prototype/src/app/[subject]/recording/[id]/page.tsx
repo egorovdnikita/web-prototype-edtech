@@ -10,7 +10,7 @@ export function generateStaticParams({ params }: { params: { subject: Subject } 
     .map((id) => ({ id }));
 }
 
-// B16 — запись встречи: видео, таймкоды, чат, задачник.
+// Запись встречи: видео, таймкоды, чат, задачник.
 export default function RecordingPage({ params }: { params: { subject: Subject; id: string } }) {
   const recording = RECORDINGS[params.id];
   if (!recording || EVENTS.find((e) => e.id === params.id)?.subject !== params.subject) notFound();

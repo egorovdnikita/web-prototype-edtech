@@ -3,9 +3,9 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { EXAM, INITIAL_BOOKINGS } from "@mocks/meetings";
 
-// Записи ученика на встречи (история 19.02) и на зачёт к наставнику (08.04).
+// Записи ученика на встречи и на зачёт к наставнику.
 
-const KEY = "enl-prototype-bookings";
+const KEY = "proto-bookings";
 
 export interface ExamResult {
   date: string;
@@ -18,7 +18,7 @@ interface Store {
   booked: string[];
   /** id окна зачёта из EXAM.slots. */
   exam?: string;
-  /** Итог зачёта, сданного в прототипе (B18 → 08.16). */
+  /** Итог зачёта, сданного в прототипе. */
   examResult?: ExamResult;
 }
 

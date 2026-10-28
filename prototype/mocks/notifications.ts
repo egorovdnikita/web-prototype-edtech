@@ -1,6 +1,6 @@
 import type { Subject } from "./course";
 
-// Уведомления (A5) и настройки профиля (A4). Люди и контакты вымышленные.
+// Уведомления и настройки профиля. Люди и контакты вымышленные.
 //
 // Уведомления общие для аккаунта: ученик на двух предметах видит всё в одном
 // списке, у каждого — метка предмета. Ссылка ведёт в нужный предмет.
@@ -15,8 +15,7 @@ export const GROUPS: Record<NoticeGroup, { title: string; text: string }> = {
   payment: { title: "Оплата", text: "Напоминание за 3 дня и просрочка" },
 };
 
-// Как в GetCourse и вайрфрейме A4: Telegram, ВК, почта. Push в приложении — только если
-// у платформы будет своё приложение (открытый вопрос, у GetCourse оно есть).
+// Каналы: Telegram, ВК, почта. Push — только если у платформы будет своё приложение.
 export type Channel = "telegram" | "vk" | "email";
 
 export const CHANNELS: Record<Channel, string> = { telegram: "Telegram", vk: "ВК", email: "Почта" };
@@ -41,7 +40,7 @@ export const NOTICES: Notice[] = [
     id: "soc-web-w8",
     group: "study",
     subject: "soc",
-    title: "Завтра в 17:00 — «Практика с АМ: задание 25»",
+    title: "Завтра в 17:00 — «Практика с преподавателем: задание 25»",
     text: "Задачник появится в уроке 15 утром, его можно распечатать.",
     at: "2026-10-25T10:00",
     href: "/calendar?e=soc-w8-web",
@@ -171,7 +170,7 @@ export const PROFILE = {
   name: "Ксюша",
   email: "ksusha@example.com",
   grade: "11",
-  /** Часовой пояс как в форме записи ЕНЛ: разница с Москвой, от −2 до +9. */
+  /** Часовой пояс: разница с Москвой, от −2 до +9. */
   tz: 2,
   telegram: "@ksusha_ege",
   vk: "",

@@ -12,7 +12,7 @@ import { COURSES, SUBJECTS, type Subject } from "@mocks/course";
 import { MENTORS } from "@mocks/mentor";
 import { CHANNELS, GROUPS, PROFILE, TZ_OPTIONS, tzLabel, type Channel, type NoticeGroup } from "@mocks/notifications";
 
-/** Проверяющий по тарифу: на «Фристайле» ДЗ ученик проверяет сам. Только ник — анонимность. */
+/** Проверяющий по тарифу: на «Базовом» ДЗ ученик проверяет сам. Только ник — анонимность. */
 const REVIEWER: Record<Subject, string> = { soc: "куратор Сова", hist: "самопроверка ДЗ" };
 
 const field =
@@ -40,13 +40,13 @@ function Field({ label, hint, children }: { label: string; hint?: string; childr
   );
 }
 
-/** A4 — профиль. Сохраняется сам при каждом изменении. */
+/** Профиль. Сохраняется сам при каждом изменении. */
 export function ProfileView() {
   const { profile, update, saved } = useProfile();
   const { paidUntil } = usePayment();
   const { isWaiting } = useDistribution();
   const initial = profile.name.trim()[0]?.toUpperCase() ?? "?";
-  // Пример пересчёта: практика с АМ — понедельник, 17:00 по Москве.
+  // Пример пересчёта: практика с преподавателем — понедельник, 17:00 по Москве.
   const hour = 17 + profile.tz;
   const local = `${String(hour % 24).padStart(2, "0")}:00${hour >= 24 ? " следующего дня" : ""}`;
 
@@ -56,16 +56,16 @@ export function ProfileView() {
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-4">
       <header className="flex items-center gap-4">
-        <span className="grid size-16 shrink-0 place-items-center rounded-full bg-surface-subject text-2xl font-extrabold">
+        <span className="grid size-16 shrink-0 place-items-center rounded-full bg-surface-subtle text-2xl font-extrabold">
           {initial}
         </span>
         <div className="min-w-0 flex-1">
-          <h1 className="enl-display truncate text-[28px] normal-case leading-tight sm:text-[34px]">{profile.name || "Без имени"}</h1>
+          <h1 className="app-display truncate text-[28px] normal-case leading-tight sm:text-[34px]">{profile.name || "Без имени"}</h1>
           <p className="text-sm text-ink-muted">
             {profile.grade} класс · {tzLabel(profile.tz)}
           </p>
         </div>
-        <p role="status" className={cn("text-sm font-semibold text-ink-olive transition-opacity", saved ? "opacity-100" : "opacity-0")}>
+        <p role="status" className={cn("text-sm font-semibold text-status-ink transition-opacity", saved ? "opacity-100" : "opacity-0")}>
           Сохранено
         </p>
       </header>
@@ -94,7 +94,7 @@ export function ProfileView() {
               ))}
             </div>
           </Field>
-          <Field label="Часовой пояс" hint={`Практика с АМ в понедельник в 17:00 по Москве — у вас в ${local}.`}>
+          <Field label="Часовой пояс" hint={`Практика с преподавателем в понедельник в 17:00 по Москве — у вас в ${local}.`}>
             <select value={profile.tz} onChange={(e) => update({ tz: Number(e.target.value) })} className={field}>
               {TZ_OPTIONS.map((tz) => (
                 <option key={tz} value={tz}>
@@ -127,7 +127,7 @@ export function ProfileView() {
               key={s}
               data-accent={accentOf(s)}
               data-theme="light"
-              className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-box-m bg-surface-subject p-3"
+              className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-box-m bg-surface-subtle p-3"
             >
               <span className="font-bold">{SUBJECTS[s].title}</span>
               <span className="text-sm">«{COURSES[s].tariff}»</span>

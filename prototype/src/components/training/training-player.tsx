@@ -13,8 +13,8 @@ import { FORMATS, focusData, unitLabel, type Training } from "@mocks/trainings";
 import { Fragments, MapPlace, Match, Order, Pick, Slots, Sort } from "./mechanics";
 
 /**
- * Оболочка тренировки — одинаковая для всех форматов (обязательные элементы
- * из разбора): фраза-действие, сигнал ошибки без блокировки, блок пояснения.
+ * Оболочка тренировки — одинаковая для всех форматов (обязательные элементы):
+ * фраза-действие, сигнал ошибки без блокировки, блок пояснения.
  * mode="mistakes" — перерешивание из работы над ошибками: только элементы с ошибками.
  */
 export function TrainingPlayer({
@@ -111,11 +111,11 @@ export function TrainingPlayer({
 
       <header className="flex flex-col gap-2">
         <p className="flex flex-wrap items-center gap-x-2 text-[13px] font-semibold text-ink-muted">
-          <span className="rounded-full bg-surface-subject px-2 py-0.5 text-ink">{format.title}</span>
+          <span className="rounded-full bg-surface-subtle px-2 py-0.5 text-ink">{format.title}</span>
           <span>{training.topic}</span>
           {!fixing && <span>· {training.minutes} мин</span>}
         </p>
-        <h1 className="enl-display text-[26px] normal-case leading-tight sm:text-[32px]">{training.title}</h1>
+        <h1 className="app-display text-[26px] normal-case leading-tight sm:text-[32px]">{training.title}</h1>
         <p className="flex items-start gap-2 font-semibold">
           {training.action}
         </p>
@@ -137,8 +137,8 @@ export function TrainingPlayer({
       <div key={attempt}>{mechanic}</div>
 
       {done && (
-        <section ref={resultRef} className="flex scroll-mt-20 flex-col gap-3 rounded-box-l bg-surface-marker p-5" aria-live="polite">
-          <p className="enl-display text-xl">
+        <section ref={resultRef} className="flex scroll-mt-20 flex-col gap-3 rounded-box-l bg-accent-soft p-5" aria-live="polite">
+          <p className="app-display text-xl">
             {fixing && errors === 0
               ? "исправлено!"
               : errors === 0

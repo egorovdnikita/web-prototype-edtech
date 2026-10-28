@@ -13,12 +13,12 @@ import { MENTORS } from "@mocks/mentor";
 import { STAMP_THRESHOLD } from "@mocks/gradebook";
 import { CAL_WEEKS, dayLabel, isPast } from "@mocks/meetings";
 
-// Карточки правой колонки: «дополнительная область» из принципов Figma клиента.
+// Карточки правой колонки — дополнительная область рядом с рабочей.
 
 function SideCard({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="rounded-box-l border border-line bg-surface-raised p-4">
-      <h2 className="enl-display mb-3 text-lg">{title}</h2>
+      <h2 className="app-display mb-3 text-lg">{title}</h2>
       {children}
     </section>
   );
@@ -65,12 +65,12 @@ export function MeetingsCard({ subject }: { subject: Subject }) {
   );
 }
 
-/** Счастливая зачётка: печать за месяц, если обязательный план выполнен больше чем на 60%. */
+/** Зачётка: печать за месяц, если обязательный план выполнен больше чем на 60%. */
 export function GradebookCard({ subject }: { subject: Subject }) {
   const { gradebook: g } = useStats(subject);
   const october = g.stamps[1];
   return (
-    <SideCard title="счастливая зачётка">
+    <SideCard title="зачётка">
       <div className="flex items-center gap-3">
         <Stamp subject={subject} state={october.stamp ? "earned" : "pending"} size={48} label="Печать за октябрь" />
         <p className="text-sm text-ink-muted">
@@ -108,7 +108,7 @@ export function MentorCard({ subject }: { subject: Subject }) {
   return (
     <SideCard title="наставник">
       <div className="flex items-center gap-3">
-        <span className="grid size-11 place-items-center rounded-full bg-surface-subject text-lg font-bold">{mentor.initial}</span>
+        <span className="grid size-11 place-items-center rounded-full bg-surface-subtle text-lg font-bold">{mentor.initial}</span>
         <span>
           <span className="block font-semibold">{mentor.name}</span>
           <span className="block text-[13px] text-ink-muted">{mentor.reply}</span>
@@ -124,7 +124,7 @@ export function MentorCard({ subject }: { subject: Subject }) {
   );
 }
 
-/** Оплаченный период и кнопка следующего месяца — видно с начала курса (10.08). */
+/** Оплаченный период и кнопка следующего месяца — видно с начала курса. */
 export function PaymentCard({ subject }: { subject: Subject }) {
   const { statusOf, paidUntil } = usePayment();
   const status = statusOf(subject);
@@ -134,7 +134,7 @@ export function PaymentCard({ subject }: { subject: Subject }) {
         {status === "ok" && `Оплачено до ${paidUntil(subject)}.`}
         {status === "due" && (
           <>
-            Оплачено до {paidUntil(subject)}. Ноябрь — <span className="enl-marker font-semibold">до 1 ноября</span>.
+            Оплачено до {paidUntil(subject)}. Ноябрь — <span className="font-semibold">до 1 ноября</span>.
           </>
         )}
         {status === "overdue" && <span className="font-semibold text-ink-accent">Ноябрь не оплачен — новые уроки не открываются.</span>}

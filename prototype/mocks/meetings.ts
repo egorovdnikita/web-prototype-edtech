@@ -1,12 +1,12 @@
-// Календарь (B14) и встречи по записи (B15). Ученик учится на двух предметах —
-// календарь общий для всех его курсов (история 19.22).
+// Календарь и встречи по записи. Ученик учится на двух предметах —
+// Календарь общий для всех его курсов.
 //
-// Форматы — из FigJam «Иерархия» и сводного разбора:
+// Форматы встреч:
 //   вебинар — для всего курса, без записи и лимита, ведёт преподаватель;
 //   продлёнка — разбор ДЗ, до 30 учеников, ведёт проверяющий (под ником — он анонимен);
 //   воркшоп — тема второй части, до 100, ведёт ведущий проверяющих;
 //   коворкинг — свободная тема, до 30, ведёт наставник, без видеозаписи;
-//   зачёт — один на один с наставником, по билетам, на «С инструктором» и VIP, не чаще раза в месяц.
+//   зачёт — один на один с наставником, по билетам, на «Стандарт» и «Премиум», не чаще раза в месяц.
 
 import type { Subject } from "./course";
 
@@ -57,13 +57,13 @@ export const EVENTS: CalendarEvent[] = [
   // --- неделя 7 (прошла)
   { id: "soc-l13", kind: "lesson", subject: "soc", title: "Урок 13 открыт", date: "2026-10-17", href: "/soc/lesson/soc-13" },
   { id: "hist-l13", kind: "lesson", subject: "hist", title: "Урок 13 открыт", date: "2026-10-17", href: "/hist/lesson/hist-13" },
-  { id: "soc-w7-web", kind: "webinar", subject: "soc", title: "Практика с АМ: задание 24", date: "2026-10-19", time: "17:00", end: "18:30", host: "АМ", about: "Запись и задачник — в уроке 13." },
+  { id: "soc-w7-web", kind: "webinar", subject: "soc", title: "Практика с преподавателем: задание 24", date: "2026-10-19", time: "17:00", end: "18:30", host: "Преподаватель", about: "Запись и задачник — в уроке 13." },
   { id: "soc-w7-ext", kind: "extension", subject: "soc", title: "Продлёнка: ДЗ «Задание 25: государство»", date: "2026-10-22", time: "18:00", end: "19:00", host: "куратор Сова", capacity: 30, taken: 24, about: "Запись разбора — в уроке 13.", href: "/soc/lesson/soc-13" },
 
   // --- неделя 8 (текущая)
   { id: "soc-l15", kind: "lesson", subject: "soc", title: "Урок 15 открыт", date: "2026-10-24", href: "/soc/lesson/soc-15" },
   { id: "hist-l15", kind: "lesson", subject: "hist", title: "Урок 15 открыт", date: "2026-10-24", href: "/hist/lesson/hist-15" },
-  { id: "soc-w8-web", kind: "webinar", subject: "soc", title: "Практика с АМ: задание 25", date: "2026-10-26", time: "17:00", end: "18:30", host: "АМ", about: "Задачник можно распечатать заранее — он появится в уроке 15 утром." },
+  { id: "soc-w8-web", kind: "webinar", subject: "soc", title: "Практика с преподавателем: задание 25", date: "2026-10-26", time: "17:00", end: "18:30", host: "Преподаватель", about: "Задачник можно распечатать заранее — он появится в уроке 15 утром." },
   { id: "soc-l16", kind: "lesson", subject: "soc", title: "Урок 16 откроется", date: "2026-10-27", href: "/soc/lesson/soc-16" },
   { id: "hist-l16", kind: "lesson", subject: "hist", title: "Урок 16 откроется", date: "2026-10-27", href: "/hist/lesson/hist-16" },
   { id: "soc-d1", kind: "deadline", subject: "soc", title: "ДЗ №1 «Задание 25»", date: "2026-10-27", time: "23:55", href: "/soc/work/soc-15-h" },
@@ -81,14 +81,14 @@ export const EVENTS: CalendarEvent[] = [
   { id: "hist-l17", kind: "lesson", subject: "hist", title: "Урок 17 откроется", date: "2026-10-31", href: "/hist/lesson/hist-17" },
   { id: "soc-w9-ws", kind: "workshop", subject: "soc", title: "Воркшоп: примеры из разных сфер в задании 25", date: "2026-10-31", time: "12:00", end: "14:00", host: "ведущий куратор Филин", capacity: 100, taken: 64, about: "Запись появится в базе заданий и материалов." },
   { id: "hist-w9-ws", kind: "workshop", subject: "hist", title: "Воркшоп: задание 21 — причины и следствия", date: "2026-11-01", time: "12:00", end: "14:00", host: "ведущий куратор Филин", capacity: 100, taken: 41 },
-  { id: "soc-w9-web", kind: "webinar", subject: "soc", title: "Практика с АМ: задание 23", date: "2026-11-02", time: "17:00", end: "18:30", host: "АМ" },
+  { id: "soc-w9-web", kind: "webinar", subject: "soc", title: "Практика с преподавателем: задание 23", date: "2026-11-02", time: "17:00", end: "18:30", host: "Преподаватель" },
   { id: "soc-w9-ext", kind: "extension", subject: "soc", title: "Продлёнка: ДЗ №1 «Задание 23»", date: "2026-11-03", time: "18:00", end: "19:00", host: "куратор Сова", capacity: 30, taken: 9 },
 ];
 
 /** Встречи, на которые ученик записан с самого начала. */
 export const INITIAL_BOOKINGS = ["soc-w8-cow", "soc-w7-ext"];
 
-/** Зачёт: свободные окна наставника вместо стороннего календаря. Только обществознание — там тариф «С инструктором». */
+/** Зачёт: свободные окна наставника вместо стороннего календаря. Только обществознание — там тариф «Стандарт». */
 export const EXAM = {
   subject: "soc" as Subject,
   title: "Зачёт за октябрь",

@@ -10,13 +10,13 @@ import { cn } from "@/lib/utils";
 import { COURSES, type Subject } from "@mocks/course";
 import { CHATS, type Chat, type ChatMessage } from "@mocks/chats";
 
-const KEY = "enl-prototype-chats";
+const KEY = "proto-chats";
 
 /** На «Флае» наставник только в общем чате — мини-группы нет. */
-const hasGroup = (subject: Subject) => COURSES[subject].tariff !== "Флай";
+const hasGroup = (subject: Subject) => COURSES[subject].tariff !== "Лайт";
 
 /**
- * B19 — чаты: мини-группа с наставником и общий чат курса с дежурным.
+ * Чаты: мини-группа с наставником и общий чат курса с дежурным.
  * Телефон: список → переписка. Десктоп: список слева, переписка справа.
  */
 export function ChatsView({ subject }: { subject: Subject }) {
@@ -55,7 +55,7 @@ export function ChatsView({ subject }: { subject: Subject }) {
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-4">
       <header className={cn(open && "hidden lg:block")}>
-        <h1 className="enl-display text-[28px] leading-tight sm:text-[34px]">чаты</h1>
+        <h1 className="app-display text-[28px] leading-tight sm:text-[34px]">чаты</h1>
         <p className="text-sm text-ink-muted">Вопросы по курсу, поддержка наставника и группы.</p>
       </header>
 
@@ -70,8 +70,8 @@ export function ChatsView({ subject }: { subject: Subject }) {
                 aria-current={desktopOpen?.id === c.id ? "true" : undefined}
                 className={cn(
                   "flex w-full items-center gap-3 rounded-box-l border bg-surface-raised p-3 text-left transition-colors",
-                  desktopOpen?.id === c.id ? "lg:border-accent-border" : "border-line",
-                  locked(c) ? "opacity-70" : "hover:border-accent-border",
+                  desktopOpen?.id === c.id ? "lg:border-line-strong" : "border-line",
+                  locked(c) ? "opacity-70" : "hover:border-line-strong",
                 )}
               >
                 <span className="min-w-0 flex-1">
@@ -90,7 +90,7 @@ export function ChatsView({ subject }: { subject: Subject }) {
             </li>
           )}
           <li className="mt-2 rounded-box-m border border-dashed border-line p-3 text-[12px] text-ink-muted">
-            Прототип: сейчас чаты ЕНЛ в Telegram, переносить ли их в платформу — не решено. Здесь — как это выглядело бы внутри.
+            Прототип: переносить ли чаты из мессенджера в платформу — открытый вопрос. Здесь — как это выглядело бы внутри.
           </li>
         </ul>
 
@@ -150,7 +150,7 @@ function Conversation({
         </span>
       </header>
       {chat.pinned && (
-        <p className="flex items-start gap-2 border-b border-line-subtle bg-surface-marker px-4 py-2 text-[13px]">
+        <p className="flex items-start gap-2 border-b border-line-subtle bg-accent-soft px-4 py-2 text-[13px]">
           <Icon name="paperclip" size="min" className="mt-0.5 shrink-0 text-current" />
           {chat.pinned}
         </p>

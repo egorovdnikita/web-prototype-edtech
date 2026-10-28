@@ -12,7 +12,7 @@ import type { Subject } from "@mocks/course";
 import { EXAM, dayLabel } from "@mocks/meetings";
 import { EXAM_PREP_MINUTES, MENTORS, TICKETS, type Ticket } from "@mocks/mentor";
 
-// B18 — зачёт по видеосвязи один на один с наставником (08.06): проверить
+// Зачёт по видеосвязи один на один с наставником: проверить
 // камеру и микрофон, дождаться наставника, вытянуть билет, подготовиться и ответить.
 // Видео в прототипе — заглушки: доступ к камере не запрашиваем.
 
@@ -58,7 +58,7 @@ export function ExamRoom({ subject }: { subject: Subject }) {
 
   if (!hasExams(subject)) {
     return (
-      <Notice title="Зачётов на вашем тарифе нет" text="Зачёты с наставником — на тарифах «С инструктором» и VIP.">
+      <Notice title="Зачётов на вашем тарифе нет" text="Зачёты с наставником — на тарифах «Стандарт» и «Премиум».">
         <ButtonLink href={`/${subject}/mentor`} appearance="soft">
           К наставнику
         </ButtonLink>
@@ -70,14 +70,14 @@ export function ExamRoom({ subject }: { subject: Subject }) {
     const r = examResult!;
     return (
       <div className="mx-auto flex max-w-xl flex-col gap-4">
-        <section className="rounded-box-l bg-surface-subject p-5 text-center">
-          <p className="enl-display mt-2 text-[28px]">{r.passed ? "зачёт!" : "не зачтено"}</p>
+        <section className="rounded-box-l bg-surface-subtle p-5 text-center">
+          <p className="app-display mt-2 text-[28px]">{r.passed ? "зачёт!" : "не зачтено"}</p>
           <p className="text-sm text-ink-muted">
             Билет №{r.ticket} · {r.date} · {mentor.name}
           </p>
         </section>
-        <section className="enl-grid-paper rounded-box-l border border-accent-border p-4">
-          <p className="enl-display text-ink-accent">обратная связь</p>
+        <section className="rounded-box-l border border-line-strong p-4 bg-surface-raised">
+          <p className="app-display text-ink-accent">обратная связь</p>
           <p className="mt-1 leading-relaxed">{r.feedback}</p>
         </section>
         <p className="text-[13px] text-ink-muted">
@@ -138,7 +138,7 @@ export function ExamRoom({ subject }: { subject: Subject }) {
               </span>
             ) : (
               <span className="flex flex-col items-center gap-2">
-                <span className="grid size-24 place-items-center rounded-full bg-surface-subject text-4xl font-extrabold text-ink">
+                <span className="grid size-24 place-items-center rounded-full bg-surface-subtle text-4xl font-extrabold text-ink">
                   {mentor.initial}
                 </span>
                 <span className="text-sm opacity-80">{mentor.name}</span>
@@ -193,8 +193,8 @@ export function ExamRoom({ subject }: { subject: Subject }) {
 
           {(stage === "ticket" || stage === "prep" || stage === "answer") && (
             <>
-              <p className="flex items-center gap-2 text-sm font-semibold text-ink-olive" role="status">
-                <span className="size-2 rounded-full bg-surface-lime" /> {mentor.name} на связи
+              <p className="flex items-center gap-2 text-sm font-semibold text-status-ink" role="status">
+                <span className="size-2 rounded-full bg-status-soft" /> {mentor.name} на связи
               </p>
               {!ticket ? (
                 <>
@@ -207,7 +207,7 @@ export function ExamRoom({ subject }: { subject: Subject }) {
               ) : (
                 <>
                   <div className="rounded-box-m border-2 border-accent bg-surface-page p-3">
-                    <p className="enl-display text-ink-accent">билет №{ticket.number}</p>
+                    <p className="app-display text-ink-accent">билет №{ticket.number}</p>
                     <p className="font-bold">{ticket.title}</p>
                     <ol className="mt-2 list-decimal pl-5 text-sm leading-relaxed">
                       {ticket.questions.map((q) => (
@@ -222,7 +222,7 @@ export function ExamRoom({ subject }: { subject: Subject }) {
                   )}
                   {stage === "prep" && (
                     <>
-                      <p className="flex items-center justify-between rounded-box-m bg-surface-marker px-3 py-2 font-bold" role="timer">
+                      <p className="flex items-center justify-between rounded-box-m bg-accent-soft px-3 py-2 font-bold" role="timer">
                         Подготовка <span className="tabular-nums">{mmss}</span>
                       </p>
                       <Button size="l" onClick={() => setStage("answer")}>

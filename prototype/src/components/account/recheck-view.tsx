@@ -6,7 +6,7 @@ import { Icon } from "@/components/ui/icon";
 import { cn } from "@/lib/utils";
 import type { Subject } from "@mocks/course";
 
-const KEY = "enl-prototype-recheck";
+const KEY = "proto-recheck";
 
 type Kind = "appeal" | "simple";
 type Stage = "form" | "sent" | "result" | "appeal" | "closed";
@@ -34,7 +34,7 @@ const SLOTS = [
 ];
 
 /**
- * B22 — перепроверка бланков ЕГЭ (US 05.22, 05.26, 05.27). Ученик присылает бланки
+ * Перепроверка бланков ЕГЭ. Ученик присылает бланки
  * и разбалловку, проверяющий куратор отвечает, стоит ли идти на апелляцию.
  * Пройти можно после результатов ЕГЭ; в прототипе — заранее, с демо-ответом.
  */
@@ -65,7 +65,7 @@ export function RecheckView({ subject }: { subject: Subject }) {
   return (
     <div className="mx-auto flex max-w-xl flex-col gap-5">
       <header>
-        <h1 className="enl-display text-[28px] leading-tight sm:text-[34px]">перепроверка бланков</h1>
+        <h1 className="app-display text-[28px] leading-tight sm:text-[34px]">перепроверка бланков</h1>
         <p className="text-sm text-ink-muted">После ЕГЭ: проверяющий куратор посмотрит бланки и скажет, стоит ли идти на апелляцию.</p>
       </header>
 
@@ -104,7 +104,7 @@ export function RecheckView({ subject }: { subject: Subject }) {
                   key={slot.id}
                   className={cn(
                     "flex cursor-pointer items-center gap-3 rounded-box-l border-2 border-dashed p-4 transition-colors",
-                    files.length ? "border-transparent bg-surface-lime" : "border-line-strong bg-surface-raised hover:border-accent",
+                    files.length ? "border-transparent bg-status-soft" : "border-line-strong bg-surface-raised hover:border-accent",
                   )}
                 >
                   <Icon name={files.length ? "check-circle" : "paperclip"} variant={files.length ? "bold" : "linear"} size="xs" className="shrink-0" />
@@ -160,7 +160,7 @@ export function RecheckView({ subject }: { subject: Subject }) {
             В задании 25 можно претендовать на +1 балл: пример из сферы экономики раскрыт, а засчитан не был. В задании 21
             баллы сняты обоснованно — ответ не по условию.
           </p>
-          <p className="rounded-box-m bg-surface-marker p-3 text-sm font-semibold">Вывод: на апелляцию идти стоит, шанс +1 балл.</p>
+          <p className="rounded-box-m bg-accent-soft p-3 text-sm font-semibold">Вывод: на апелляцию идти стоит, шанс +1 балл.</p>
         </section>
       )}
 
@@ -202,7 +202,7 @@ export function RecheckView({ subject }: { subject: Subject }) {
 
 function Status({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section role="status" className="flex flex-col rounded-box-l bg-surface-subject p-4">
+    <section role="status" className="flex flex-col rounded-box-l bg-surface-subtle p-4">
       <p className="flex items-center gap-2 font-bold">
         {title}
       </p>

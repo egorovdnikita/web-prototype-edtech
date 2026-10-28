@@ -5,7 +5,7 @@ import { useStats } from "@/lib/stats";
 import { cn } from "@/lib/utils";
 import type { Subject } from "@mocks/course";
 
-// B13 — ачивки. Выдаются сами за учебные действия (история 07.02) — в прототипе
+// Ачивки. Выдаются сами за учебные действия — в прототипе
 // их можно получить: решить тест на максимум, исправить ошибку, записаться на встречу.
 export default function AchievementsPage({ params }: { params: { subject: Subject } }) {
   const { subject } = params;
@@ -15,10 +15,10 @@ export default function AchievementsPage({ params }: { params: { subject: Subjec
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-5">
       <header className="flex flex-col gap-3">
-        <h1 className="enl-display text-[28px] leading-tight sm:text-[34px]">ачивки</h1>
+        <h1 className="app-display text-[28px] leading-tight sm:text-[34px]">ачивки</h1>
         <ProgressTabs subject={subject} />
         <p className="text-sm text-ink-muted">
-          Собрано <span className="enl-marker font-bold text-ink">{earned}</span> из {achievements.length}. Выдаются сами — за учебные
+          Собрано <span className="font-bold text-ink">{earned}</span> из {achievements.length}. Выдаются сами — за учебные
           действия, в том числе за то, что не сдались после неудачи.
         </p>
       </header>
@@ -33,7 +33,7 @@ export default function AchievementsPage({ params }: { params: { subject: Subjec
             )}
           >
             <Medal earned={a.earned} />
-            <span className={cn("enl-display text-base leading-tight", !a.earned && "text-ink-muted")}>{a.title}</span>
+            <span className={cn("app-display text-base leading-tight", !a.earned && "text-ink-muted")}>{a.title}</span>
             <span className="text-[13px] leading-snug text-ink-muted">{a.why}</span>
             <span className={cn("mt-auto text-[11px] font-bold", a.earned ? "text-ink-accent" : "text-ink-subtle")}>
               {a.earned ? `получена ${a.date}` : "ещё не получена"}

@@ -7,7 +7,7 @@ import { plural } from "@/lib/utils";
 import { SUBJECTS, type Subject } from "@mocks/course";
 import { DRAW, POINTS_PER_TASK, SEASON, STAMP, STAMP_THRESHOLD } from "@mocks/gradebook";
 
-// B12 — счастливая зачётка. Механика — по ответу ЕНЛ №23 (см. mocks/gradebook.ts).
+// Зачётка. Механика — в mocks/gradebook.ts.
 export default function GradebookPage({ params }: { params: { subject: Subject } }) {
   const { subject } = params;
   const soc = useStats("soc");
@@ -19,18 +19,18 @@ export default function GradebookPage({ params }: { params: { subject: Subject }
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-5">
       <header className="flex flex-col gap-3">
-        <h1 className="enl-display text-[28px] leading-tight sm:text-[34px]">счастливая зачётка</h1>
+        <h1 className="app-display text-[28px] leading-tight sm:text-[34px]">зачётка</h1>
         <ProgressTabs subject={subject} />
       </header>
 
       {/* Текущий месяц */}
-      <section className="rounded-box-l bg-surface-subject p-5">
+      <section className="rounded-box-l bg-surface-subtle p-5">
         <div className="flex items-center gap-4">
           <Stamp subject={subject} state={g.stamps[1].stamp ? "earned" : "pending"} size={72} label={`Печать за октябрь: ${STAMP[subject].name}`} />
           <div className="min-w-0">
             <p className="text-sm font-semibold">Октябрь · {SUBJECTS[subject].title.toLowerCase()}</p>
-            <p className="enl-display text-[32px] leading-tight">
-              <span className="enl-marker">{g.points}</span> из {g.max}
+            <p className="app-display text-[32px] leading-tight">
+              <span>{g.points}</span> из {g.max}
             </p>
             <p className="text-sm text-ink-muted">баллов обязательного плана · {g.percent}%</p>
           </div>
@@ -91,20 +91,20 @@ export default function GradebookPage({ params }: { params: { subject: Subject }
           <>
             <p className="mt-2 text-sm">
               Каждая печать — билет. Сейчас у вас{" "}
-              <span className="enl-marker font-bold">
+              <span className="font-bold">
                 {tickets} {plural(tickets, ["билет", "билета", "билетов"])}
               </span>{" "}
               за оба предмета. Следующий розыгрыш — {DRAW.next}.
             </p>
             <p className="mt-1 text-[13px] text-ink-muted">Призы: {DRAW.prizes.join(", ")}.</p>
-            <div className="enl-grid-paper mt-4 rounded-box-m border border-accent-border p-4">
-              <p className="enl-display text-ink-accent">итоги · {DRAW.last.month}</p>
+            <div className="mt-4 rounded-box-m border border-line-strong p-4 bg-surface-raised">
+              <p className="app-display text-ink-accent">итоги · {DRAW.last.month}</p>
               <p className="mt-1 font-bold">Вы выиграли: {DRAW.last.prize}</p>
               <p className="mt-1 text-sm text-ink-muted">{DRAW.last.how}</p>
             </div>
           </>
         ) : (
-          <p className="mt-2 text-sm text-ink-muted">На тарифе «Флай» розыгрыша нет — печати копятся для себя.</p>
+          <p className="mt-2 text-sm text-ink-muted">На тарифе «Лайт» розыгрыша нет — печати копятся для себя.</p>
         )}
       </section>
     </div>

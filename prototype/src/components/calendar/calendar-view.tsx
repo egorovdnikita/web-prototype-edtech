@@ -25,7 +25,7 @@ import {
   type MeetingKind,
 } from "@mocks/meetings";
 
-// B14 — календарь всех курсов ученика: таймлайн уроков, дедлайны, вебинары,
+// Календарь всех курсов ученика: таймлайн уроков, дедлайны, вебинары,
 // встречи по записи и зачёт. Неделя — как у потока, с субботы.
 
 export const KIND_ICON: Record<EventKind, IconName> = {
@@ -40,9 +40,9 @@ export const KIND_ICON: Record<EventKind, IconName> = {
 
 type Filter = "all" | Subject;
 
-/** Есть ли зачёты на тарифе — «С инструктором» и VIP. */
+/** Есть ли зачёты на тарифе — «Стандарт» и «Премиум». */
 export function hasExams(subject: Subject) {
-  return ["С инструктором", "VIP"].includes(COURSES[subject].tariff);
+  return ["Стандарт", "Премиум"].includes(COURSES[subject].tariff);
 }
 
 export function useCalendarEvents() {
@@ -99,7 +99,7 @@ export function CalendarView({ subject }: { subject: Subject }) {
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-5">
       <header>
-        <h1 className="enl-display text-[28px] leading-tight sm:text-[34px]">
+        <h1 className="app-display text-[28px] leading-tight sm:text-[34px]">
           календарь
         </h1>
         <p className="text-sm text-ink-muted">
@@ -178,7 +178,7 @@ export function CalendarView({ subject }: { subject: Subject }) {
               >
                 <span>{`${weekday[0].toUpperCase()}${weekday.slice(1)}, ${d} ${month}`}</span>
                 {today && (
-                  <span className="enl-marker text-sm text-ink">сегодня</span>
+                  <span className="text-sm text-ink">сегодня</span>
                 )}
               </h2>
               {list.length === 0 ? (
@@ -274,7 +274,7 @@ function ExamBanner({
   if (!hasExams(subject)) {
     return (
       <p className="flex items-start gap-2 rounded-box-m bg-surface-subtle p-3 text-[13px] text-ink-muted">
-        Зачёты с наставником — на тарифах «С инструктором» и VIP. На вашем
+        Зачёты с наставником — на тарифах «Стандарт» и «Премиум». На вашем
         тарифе по {SUBJECTS[subject].title.toLowerCase()} их нет.
       </p>
     );
@@ -282,7 +282,7 @@ function ExamBanner({
   if (examResult) {
     return (
       <p className="flex items-center gap-2 rounded-box-m bg-surface-subtle p-3 text-sm">
-        <Icon name="check-circle" variant="bold" size="2xs" className="shrink-0 text-ink-olive" />
+        <Icon name="check-circle" variant="bold" size="2xs" className="shrink-0 text-status-ink" />
         {EXAM.title} {examResult.passed ? "сдан" : "не сдан"}, билет №{examResult.ticket}.
         <Link href={`/${subject}/mentor`} className="font-semibold text-ink-accent">
           Обратная связь
@@ -292,7 +292,7 @@ function ExamBanner({
   }
   const when = exam && dayLabel(exam.date);
   return (
-    <section className="flex flex-col gap-3 rounded-box-l bg-surface-subject p-4 sm:flex-row sm:items-center">
+    <section className="flex flex-col gap-3 rounded-box-l bg-surface-subtle p-4 sm:flex-row sm:items-center">
       <div className="min-w-0 flex-1">
         <p className="font-bold">{EXAM.title}</p>
         <p className="text-sm text-ink-muted">
@@ -414,9 +414,9 @@ function EventRow({
     "flex w-full items-start gap-3 rounded-box-m border text-left transition-colors hover:border-line-strong",
     // На десктопе предмет — полоса слева: иконка съедала ширину узкой колонки.
     compact ? "gap-2 border-l-4 p-2" : "bg-surface-raised p-3",
-    booked && !past ? "border-accent-border" : "border-line",
+    booked && !past ? "border-line-strong" : "border-line",
     // Последним: twMerge иначе перекроет цвет полосы общим цветом рамки.
-    compact && (event.subject === "all" ? "border-l-surface-lime" : "border-l-surface-subject-strong"),
+    compact && (event.subject === "all" ? "border-l-status-soft" : "border-l-accent-soft"),
   );
   const label = [
     event.title,

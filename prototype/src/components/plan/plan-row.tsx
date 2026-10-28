@@ -85,11 +85,11 @@ export function PlanRow({ item, href: lessonHref, now }: { item: PlanItem; href?
   const body = (
     <span className="min-w-0 flex-1">
       <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
-        <span className={cn("font-semibold leading-snug", done && "enl-marker", locked && "text-ink-muted")}>
+        <span className={cn("font-semibold leading-snug", locked && "text-ink-muted")}>
           {item.title}
         </span>
         {now && (
-          <span className="enl-sticker rotate-[-2deg] rounded-box-s bg-surface-marker px-1.5 py-0.5 text-[11px] font-extrabold uppercase tracking-wide text-ink">
+          <span className="rounded-full bg-accent-soft px-2 py-0.5 text-[11px] font-semibold text-ink">
             прямо сейчас!
           </span>
         )}
@@ -118,7 +118,7 @@ export function PlanRow({ item, href: lessonHref, now }: { item: PlanItem; href?
 
   const row = cn(
     "flex items-center gap-3 rounded-box-m px-3 py-3 text-left",
-    now && "bg-surface-subject",
+    now && "bg-surface-subtle",
   );
 
   if (href && !locked && !item.manual) {

@@ -13,7 +13,7 @@ import { tzLabel } from "@mocks/notifications";
 
 /**
  * «Мой наставник» до распределения. Ученик понимает, что происходит, что от него
- * не нужно ничего делать и чем заняться сейчас. Критерии подбора — как у ЕНЛ:
+ * не нужно ничего делать и чем заняться сейчас. Критерии подбора:
  * часовой пояс (разница до 2 часов), опыт наставника, пожелания из анкеты.
  */
 export function MentorWaiting({ subject }: { subject: Subject }) {
@@ -54,7 +54,7 @@ export function MentorWaiting({ subject }: { subject: Subject }) {
               <span
                 className={cn(
                   "grid size-8 shrink-0 place-items-center rounded-full text-sm font-bold",
-                  s.state === "done" && "bg-surface-lime text-ink-olive",
+                  s.state === "done" && "bg-status-soft text-status-ink",
                   s.state === "now" && "bg-accent text-accent-on",
                   s.state === "next" && "border-2 border-line bg-surface-page text-ink-muted",
                 )}
@@ -66,7 +66,7 @@ export function MentorWaiting({ subject }: { subject: Subject }) {
             <span className={cn("pb-4", i === steps.length - 1 && "pb-0")}>
               <span className={cn("block font-bold", s.state === "next" && "text-ink-muted")}>
                 {s.title}
-                {s.state === "now" && <span className="ml-2 rounded-full bg-surface-marker px-1.5 text-[12px] font-extrabold">сейчас</span>}
+                {s.state === "now" && <span className="ml-2 rounded-full bg-accent-soft px-1.5 text-[12px] font-extrabold">сейчас</span>}
               </span>
               <span className="block text-sm text-ink-muted">{s.text}</span>
             </span>
@@ -74,8 +74,8 @@ export function MentorWaiting({ subject }: { subject: Subject }) {
         ))}
       </ol>
 
-      <section className="rounded-box-l bg-surface-subject p-4">
-        <h2 className="enl-display text-lg">пока ждёте</h2>
+      <section className="rounded-box-l bg-surface-subtle p-4">
+        <h2 className="app-display text-lg">пока ждёте</h2>
         <ul className="mt-2 flex flex-col gap-1.5 text-[15px]">
           <li>
             Уроки, тесты и тренировки уже открыты —{" "}

@@ -13,12 +13,12 @@ import { dayLabel } from "@mocks/meetings";
 import { INDIVIDUAL_PLAN, MENTORS, PAST_EXAMS, THREADS, TICKETS, type Message } from "@mocks/mentor";
 import { WORKS } from "@mocks/works";
 
-// B17 — мой наставник: профиль (08.01), переписка с голосовыми (08.02),
-// индивидуальный план (08.15), зачёты и обратная связь (08.04, 08.16, 08.34).
+// Мой наставник: профиль, переписка с голосовыми,
+// Индивидуальный план, зачёты и обратная связь.
 
 type Tab = "chat" | "plan" | "exams";
 
-const KEY = "enl-prototype-messages";
+const KEY = "proto-messages";
 const NOW = "25.10";
 
 export function MentorView({ subject }: { subject: Subject }) {
@@ -28,7 +28,7 @@ export function MentorView({ subject }: { subject: Subject }) {
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-5">
       <header className="flex items-center gap-4">
-        <span className="grid size-16 shrink-0 place-items-center rounded-full bg-surface-subject text-2xl font-extrabold">
+        <span className="grid size-16 shrink-0 place-items-center rounded-full bg-surface-subtle text-2xl font-extrabold">
           {mentor.initial}
         </span>
         <div className="min-w-0">
@@ -272,10 +272,10 @@ function IndividualPlan({ subject }: { subject: Subject }) {
 
   return (
     <section className="rounded-box-l border border-line bg-surface-raised p-4">
-      <p className="enl-display text-sm text-ink-accent">план от наставника</p>
+      <p className="app-display text-sm text-ink-accent">план от наставника</p>
       <h2 className="font-bold">{plan.note}</h2>
       <p className="mt-1 text-sm text-ink-muted">
-        Сделано <span className="enl-marker font-bold text-ink">{done} из {rows.length}</span> · эти пункты есть и в задачах недели
+        Сделано <span className="font-bold text-ink">{done} из {rows.length}</span> · эти пункты есть и в задачах недели
       </p>
       <ol className="mt-3 flex flex-col gap-2">
         {rows.map(({ id, why, due, found }, i) => {
@@ -288,13 +288,13 @@ function IndividualPlan({ subject }: { subject: Subject }) {
                 <span
                   className={cn(
                     "grid size-7 shrink-0 place-items-center rounded-full text-sm font-extrabold",
-                    finished ? "bg-accent text-accent-on" : "bg-surface-subject",
+                    finished ? "bg-accent text-accent-on" : "bg-surface-subtle",
                   )}
                 >
                   {finished ? <Icon name="check-circle" variant="bold" size="min" /> : i + 1}
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className={cn("block font-semibold leading-snug", finished && "enl-marker")}>{found.item.title}</span>
+                  <span className={cn("block font-semibold leading-snug")}>{found.item.title}</span>
                   <span className="block text-[13px] text-ink-muted">{why}</span>
                   <span className={cn("block text-[12px] font-semibold", status === "overdue" ? "text-ink-accent" : "text-ink-muted")}>
                     {finished ? (status === "review" ? "сдано, на проверке" : "сделано") : due}
@@ -317,7 +317,7 @@ function Exams({ subject }: { subject: Subject }) {
     return (
       <section className="rounded-box-l border border-line bg-surface-raised p-4">
         <h2 className="font-bold">Зачёты</h2>
-        <p className="mt-1 text-sm text-ink-muted">Зачёты с наставником — на тарифах «С инструктором» и VIP. На вашем тарифе их нет.</p>
+        <p className="mt-1 text-sm text-ink-muted">Зачёты с наставником — на тарифах «Стандарт» и «Премиум». На вашем тарифе их нет.</p>
       </section>
     );
   }
@@ -331,7 +331,7 @@ function Exams({ subject }: { subject: Subject }) {
     <section className="rounded-box-l border border-line bg-surface-raised p-4">
       <h2 className="font-bold">Зачёты</h2>
       {exam && when ? (
-        <div className="mt-3 rounded-box-m bg-surface-subject p-3">
+        <div className="mt-3 rounded-box-m bg-surface-subtle p-3">
           <p className="font-semibold">
             {when.weekday}, {when.day} {when.month}, {exam.time} · записаны
           </p>
@@ -364,11 +364,11 @@ function Exams({ subject }: { subject: Subject }) {
               <span className="font-semibold">
                 {x.date} · {x.topic}, {x.ticket.toLowerCase()}
               </span>
-              <span className={cn("rounded-full px-2 py-0.5 text-[11px] font-bold", x.passed ? "bg-surface-lime text-ink-olive" : "bg-accent-soft text-ink-accent")}>
+              <span className={cn("rounded-full px-2 py-0.5 text-[11px] font-bold", x.passed ? "bg-status-soft text-status-ink" : "bg-accent-soft text-ink-accent")}>
                 {x.passed ? "зачтено" : "не зачтено"}
               </span>
             </p>
-            <p className="enl-grid-paper mt-2 rounded-box-m border border-line p-2.5 text-[13px] leading-relaxed">{x.feedback}</p>
+            <p className="mt-2 rounded-box-m border border-line p-2.5 text-[13px] leading-relaxed bg-surface-raised">{x.feedback}</p>
           </li>
         ))}
       </ol>
