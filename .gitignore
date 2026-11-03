@@ -3,6 +3,7 @@ node_modules/
 .next/
 out/
 dist/
+build/
 
 # Окружение и секреты
 .env*
@@ -17,3 +18,8 @@ data/private/
 # Системное
 .DS_Store
 Thumbs.db
+
+# Инструменты и деплой
+.playwright-mcp/
+.vercel/
+.wrangler/
