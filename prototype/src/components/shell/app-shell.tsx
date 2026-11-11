@@ -47,8 +47,8 @@ function switchTarget(pathname: string, subject: Subject, section: string) {
 
 function Logo() {
   return (
-    <Link href="/" className="app-display app-wordmark shrink-0 text-[19px] leading-none text-ink no-underline sm:text-[22px]">
-      онлайн-школа
+    <Link href="/" className="app-display app-wordmark min-w-0 break-words text-[13px] leading-tight text-ink no-underline">
+      web-prototype-edtech
     </Link>
   );
 }
@@ -171,7 +171,7 @@ export function AppShell({ subject, children }: { subject: Subject; children: Re
       <header className="sticky top-0 z-20 flex items-center gap-1 border-b border-line bg-surface-page py-2 pl-4 pr-3 lg:hidden">
         <Logo />
         <Bell subject={subject} />
-        <div className="ml-auto w-[172px]">
+        <div className="ml-auto w-[172px] shrink-0">
           <SubjectSwitch subject={subject} section={target} compact />
         </div>
       </header>

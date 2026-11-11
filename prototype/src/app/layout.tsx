@@ -21,7 +21,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Онлайн-школа — прототип платформы",
+  title: "web-prototype-edtech",
   description: "Кликабельный прототип кабинета ученика",
   robots: { index: false, follow: false },
 };

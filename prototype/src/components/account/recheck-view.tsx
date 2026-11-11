@@ -75,7 +75,7 @@ export function RecheckView({ subject }: { subject: Subject }) {
 
       {store.stage === "form" && (
         <>
-          <fieldset className="flex flex-col gap-2">
+          <fieldset className="flex min-w-0 flex-col gap-2">
             <legend className="mb-2 font-bold">Что нужно?</legend>
             {(Object.keys(KINDS) as Kind[]).map((k) => (
               <button
@@ -95,7 +95,7 @@ export function RecheckView({ subject }: { subject: Subject }) {
             ))}
           </fieldset>
 
-          <fieldset className="flex flex-col gap-2">
+          <fieldset className="flex min-w-0 flex-col gap-2">
             <legend className="mb-2 font-bold">Файлы</legend>
             {SLOTS.map((slot) => {
               const files = store.files.filter((f) => f.startsWith(`${slot.id}:`)).map((f) => f.slice(slot.id.length + 1));

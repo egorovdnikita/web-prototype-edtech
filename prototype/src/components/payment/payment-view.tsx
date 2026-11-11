@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/box";
+import { Button, ButtonLink } from "@/components/ui/box";
 import { Icon } from "@/components/ui/icon";
 import { DUE_MONTH, usePayment, type PaymentStatus } from "@/lib/payment";
 import { cn, plural } from "@/lib/utils";
@@ -16,7 +16,7 @@ type Option = { id: string; label: string; note?: string; months: string[]; part
 
 const ALL: Subject[] = ["soc", "hist"];
 
-export function PaymentView() {
+export function PaymentView({ subject }: { subject: Subject }) {
   const { scenario, setScenario, statusOf, paid, pay, paidUntil, skipped, history } = usePayment();
   const day = SCENARIOS[scenario].dayOfMonth;
   const statuses = Object.fromEntries(ALL.map((s) => [s, statusOf(s)])) as Record<Subject, PaymentStatus>;
@@ -30,8 +30,8 @@ export function PaymentView() {
   const [done, setDone] = useState<string | null>(null);
   const [link, setLink] = useState(false);
 
-  // Варианты периода: после последнего оплаченного месяца.
-  const lastPaidIndex = Math.max(...subjects.map((s) => Math.max(...paid[s].map((m) => MONTHS.findIndex((x) => x.id === m)))));
+  // Общий период начинается с первого неоплаченного месяца выбранных предметов.
+  const lastPaidIndex = Math.min(...subjects.map((s) => Math.max(...paid[s].map((m) => MONTHS.findIndex((x) => x.id === m)))));
   const next = MONTHS[lastPaidIndex + 1];
   const rest = MONTHS.slice(lastPaidIndex + 1);
   const options: Option[] = anyOverdue
@@ -71,12 +71,13 @@ export function PaymentView() {
   // Сумма: за месяц по зафиксированной цене; остаток — по дням.
   const lines = subjects.map((s) => {
     const perMonth = MONTH_PRICE[s];
-    const sum = option?.partial ? restOfMonth(perMonth, day) : perMonth * (option?.months.length ?? 0);
+    const unpaid = option?.months.filter((month) => !paid[s].includes(month)) ?? [];
+    const sum = option?.partial ? (unpaid.length ? restOfMonth(perMonth, day) : 0) : perMonth * unpaid.length;
     return { subject: s, sum };
   });
   const base = lines.reduce((a, l) => a + l.sum, 0);
   // Скидки в прототипе применяем по очереди.
-  const both = subjects.length === 2 ? Math.round((base * DISCOUNTS.bothSubjects) / 100) : 0;
+  const both = lines.filter((line) => line.sum > 0).length === 2 ? Math.round((base * DISCOUNTS.bothSubjects) / 100) : 0;
   const whole = option?.whole ? Math.round(((base - both) * DISCOUNTS.wholeCourse) / 100) : 0;
   const total = base - both - whole;
 
@@ -106,12 +107,12 @@ export function PaymentView() {
           <p className="mt-1 text-sm text-ink-muted">
             После отчисления оплатить самому уже нельзя — возвращение обсуждается с менеджером: он подберёт месяц и тариф.
           </p>
-          <Button size="l" className="mt-3">
+          <ButtonLink href={`/${subject}/support`} size="l" className="mt-3">
             Написать менеджеру
-          </Button>
+          </ButtonLink>
         </section>
       ) : (
-        options.length > 0 && (
+        (
           <section className="flex flex-col gap-4 rounded-box-l border border-line bg-surface-raised p-4">
             <fieldset>
               <legend className="mb-2 font-bold">Что оплачиваем</legend>
@@ -129,6 +130,7 @@ export function PaymentView() {
                       <input
                         type="checkbox"
                         checked={on}
+                        disabled={on && subjects.length === 1}
                         onChange={() => setSubjects(on ? subjects.filter((x) => x !== s) : [...subjects, s])}
                         className="mt-1 size-4 accent-[var(--accent-fill-solid)]"
                       />
@@ -149,6 +151,7 @@ export function PaymentView() {
 
             <fieldset>
               <legend className="mb-2 font-bold">Период</legend>
+              {!options.length && <p className="text-sm text-ink-muted">Выбранные предметы оплачены до конца курса.</p>}
               <div className="flex flex-col gap-2">
                 {options.map((o) => (
                   <label
@@ -205,10 +208,10 @@ export function PaymentView() {
             </dl>
 
             <div className="flex flex-col gap-2 sm:flex-row">
-              <Button size="l" disabled={!subjects.length} onClick={() => setCheckout(true)} className="sm:flex-1">
+              <Button size="l" disabled={!subjects.length || !option || total === 0} onClick={() => setCheckout(true)} className="sm:flex-1">
                 Оплатить {rub(total)}
               </Button>
-              <Button size="l" appearance="outline" disabled={!subjects.length} onClick={() => setLink(true)}>
+              <Button size="l" appearance="outline" disabled={!subjects.length || !option || total === 0} onClick={() => setLink(true)}>
                 Ссылка для родителя
               </Button>
             </div>
